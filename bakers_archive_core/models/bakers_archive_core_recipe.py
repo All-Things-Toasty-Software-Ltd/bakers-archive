@@ -5,10 +5,6 @@ class BakersArchiveCoreRecipe(models.Model):
     _name = 'bakers_archive.core.recipe'
     _description = 'Bakers Archive Core Recipe'
 
-    # string: The default title of the entry box.
-    # tracking: enables automatic change logging that can be set up with the
-    #   chatter, or viewed in 'Settings->Technical->Discuss->Messages'.
-    # default: The default state of a Boolean.
 
     active = fields.Boolean(default=True)
 
@@ -24,7 +20,7 @@ class BakersArchiveCoreRecipe(models.Model):
     # Recipe
 
     description = fields.Char(string='Description')
-    ingredients = fields.Char(string='Ingredients')
+    ingredients = fields.One2many('bakers_archive.core.recipe.ingredient', 'recipe_id', string='Ingredients')
     instructions = fields.Char(string='Instructions')
     notes = fields.Char(string='Notes')
 
