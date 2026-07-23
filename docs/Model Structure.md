@@ -12,35 +12,35 @@ The base model that handles an actual recipe.
 - `license:` Char to represent what license the recipe is under.
 - `language`: Char to represent what language the recipe is in.
 - `origin`: Char to represent where the recipe is from.
-- `tags`: Current chars to indicate what tags are on the recipe.
+- `tags`: Currently chars to indicate what tags are on the recipe.
 
 ### Recipe Data
 
-- `description`: Char to represent a short description of the recipe.
+- `description`: Text to represent a short description of the recipe.
 - `ingredients`: A One2many relation with the `Recipe Ingredient` model linked
   with the `recipe_id` field.
 - `instructions`: A One2many relation with the `Recipe Instruction` model
   linked with the `recipe_id` field.
-- `notes`: A char to represent notes for the recipe.
+- `notes`: A Text to represent notes for the recipe.
 
 ## Recipe Ingredient
 
 - `recipe_id`: Many2one field to link to the `Recipe` model.
-- `quantity`: Char to represent the quantity of the ingredient.
+- `quantity`: Float to represent the quantity of the ingredient.
 - `unit`: Char to represent the unit of measure for the ingredient.
 - `ingredient`: A Many2one relation with the `Ingredient` model.
-- `notes`: A char to represent notes for the ingredient.
+- `notes`: A Text to represent notes for the ingredient.
 
 ## Ingredient
 
 - `name`: Char to represent the name of the ingredient.
-- `description`: Char to represent a description of the ingredient.
+- `description`: Text to represent a description of the ingredient.
 - `recipe_ingredient_ids`: A One2many relation with the `Recipe Ingredient` model
   through the `recipe` field.
 
 ## Instructions
 
 - `recipe_id`: Many2one field to link to the `Recipe` model.
-- `sequence`: Char to represent the order of the step.
-- `description`: Char to represent the description of the step.
-- `time`: Char to represent time taken or needed for the step.
+- `sequence`: Integer to represent the order of the step.
+- `description`: Text to represent the description of the step.
+- `time`: Float to represent time taken or needed for the step.

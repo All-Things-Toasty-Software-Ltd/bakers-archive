@@ -7,6 +7,7 @@ class BakersArchiveCoreRecipeInstruction(models.Model):
     _order = 'sequence'
 
     recipe_id = fields.Many2one('bakers_archive.core.recipe', string='Recipe')
-    sequence = fields.Char(string='Sequence')
-    description = fields.Char(string='Description')
-    time = fields.Char(string='Time')
+
+    sequence = fields.Integer(string='Sequence')
+    description = fields.Text(string='Description')
+    time = fields.Float(string='Time')

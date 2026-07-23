@@ -19,8 +19,8 @@ class BakersArchiveCoreRecipe(models.Model):
 
     # Recipe
 
-    description = fields.Char(string='Description')
+    description = fields.Text(string='Description')
     ingredients = fields.One2many('bakers_archive.core.recipe.ingredient', 'recipe_id', string='Ingredients')
     instructions = fields.Char(string='Instructions')
-    notes = fields.Char(string='Notes')
+    notes = fields.Text(string='Notes')
 
