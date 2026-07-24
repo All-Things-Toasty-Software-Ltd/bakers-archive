@@ -14,7 +14,22 @@ of recipes and archive data.
     """,
     'website': 'https://www.toastysoftware.co.uk',
     'depends': ['base',],
-    'data': [],
+    'data': [
+        'security/ir.model.access.csv',
+
+        'views/bakers_archive_core_author_views.xml',
+        'views/bakers_archive_core_ingredient_views.xml',
+        'views/bakers_archive_core_language_views.xml',
+        'views/bakers_archive_core_license_views.xml',
+        'views/bakers_archive_core_origin_views.xml',
+        'views/bakers_archive_core_recipe_ingredient_views.xml',
+        'views/bakers_archive_core_recipe_instruction_views.xml',
+        'views/bakers_archive_core_recipe_views.xml',
+        'views/bakers_archive_core_source_views.xml',
+        'views/bakers_archive_core_tag_views.xml',
+
+        'views/bakers_archive_core_menu_views.xml',
+    ],
     'demo': [],
     'installable': True,
     'application': True,
