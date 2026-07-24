@@ -1,7 +1,5 @@
 from odoo import fields, models
 
-from bakers_archive_core.models import bakers_archive_core_ingredient
-
 
 class BakersArchiveCoreRecipeIngredient(models.Model):
     _name = 'bakers_archive.core.recipe.ingredient'
