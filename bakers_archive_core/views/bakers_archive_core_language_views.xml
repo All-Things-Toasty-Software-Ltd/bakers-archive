@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bakers_archive_core_language_tree" model="ir.ui.view">
+        <field name="name">bakers_archive.core.language.list</field>
+        <field name="model">bakers_archive.core.language</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="language"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="bakers_archive_core_language_action" model="ir.actions.act_window">
+        <field name="name">Languages</field>
+        <field name="res_model">bakers_archive.core.language</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,52 @@
+<odoo>
+
+    <menuitem id="bakers_archive_core_root_menu"
+              name="The Baker's Archive"
+              sequence="10"/>
+
+    <menuitem id="bakers_archive_core_recipe_menu"
+              name="Recipes"
+              parent="bakers_archive_core_root_menu"
+              action="bakers_archive_core_recipe_action"
+              sequence="10"/>
+
+    <menuitem id="bakers_archive_core_data_menu"
+              name="Archive Data"
+              parent="bakers_archive_core_root_menu"
+              sequence="20"/>
+
+    <menuitem id="bakers_archive_core_author_menu"
+              name="Authors"
+              parent="bakers_archive_core_data_menu"
+              action="bakers_archive_core_author_action"/>
+
+    <menuitem id="bakers_archive_core_ingredient_menu"
+              name="Ingredients"
+              parent="bakers_archive_core_data_menu"
+              action="bakers_archive_core_ingredient_action"/>
+
+    <menuitem id="bakers_archive_core_language_menu"
+              name="Languages"
+              parent="bakers_archive_core_data_menu"
+              action="bakers_archive_core_language_action"/>
+
+    <menuitem id="bakers_archive_core_license_menu"
+              name="Licenses"
+              parent="bakers_archive_core_data_menu"
+              action="bakers_archive_core_license_action"/>
+
+    <menuitem id="bakers_archive_core_origin_menu"
+              name="Origins"
+              parent="bakers_archive_core_data_menu"
+              action="bakers_archive_core_origin_action"/>
+
+    <menuitem id="bakers_archive_core_source_menu"
+              name="Sources"
+              parent="bakers_archive_core_data_menu"
+              action="bakers_archive_core_source_action"/>
+
+    <menuitem id="bakers_archive_core_tag_menu"
+              name="Tags"
+              parent="bakers_archive_core_data_menu"
+              action="bakers_archive_core_tag_action"/>
+</odoo>

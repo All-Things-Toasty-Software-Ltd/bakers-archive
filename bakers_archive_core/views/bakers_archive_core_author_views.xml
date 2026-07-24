@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bakers_archive_core_author_tree" model="ir.ui.view">
+        <field name="name">bakers_archive.core.author.list</field>
+        <field name="model">bakers_archive.core.author</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="website"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="bakers_archive_core_author_action" model="ir.actions.act_window">
+        <field name="name">Authors</field>
+        <field name="res_model">bakers_archive.core.author</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

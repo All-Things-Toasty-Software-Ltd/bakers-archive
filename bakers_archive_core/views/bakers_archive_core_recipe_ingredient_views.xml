@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bakers_archive_core_recipe_ingredient_tree" model="ir.ui.view">
+        <field name="name">bakers_archive.core.recipe.ingredient.list</field>
+        <field name="model">bakers_archive.core.recipe.ingredient</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="quantity"/>
+                <field name="unit"/>
+                <field name="ingredient"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="bakers_archive_core_recipe_ingredient_action" model="ir.actions.act_window">
+        <field name="name">Recipe Ingredients</field>
+        <field name="res_model">bakers_archive.core.recipe.ingredient</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
