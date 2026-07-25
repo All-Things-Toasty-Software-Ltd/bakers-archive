@@ -49,6 +49,14 @@ class BakersArchiveArchive(models.Model):
                 archive_recipe.active = vals['active']
         return res
 
+    def message_post(self, *, parent_id=False, subtype_id=False, **kwargs):
+        self.ensure_one()
+        if parent_id:
+            parent_message = self.env['mail.message'].sudo().browse(parent_id)
+            if parent_message.subtype_id and parent_message.subtype_id == self.env.ref('website_archive.mt_archive_archive_published'):
+                subtype_id = self.env.ref('mail.mt_note').id
+        return super().message_post(parent_id=parent_id, subtype_id=subtype_id, **kwargs)
+
     def all_tags(self, join=False, min_limit=1):
         BakersArchiveTag = self.env['bakers_archive.tag']
         req = """
