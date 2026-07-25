@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="bakers_archive_core_license_tree" model="ir.ui.view">
-        <field name="name">bakers_archive.core.license.list</field>
-        <field name="model">bakers_archive.core.license</field>
+    <record id="bakers_archive_license_tree" model="ir.ui.view">
+        <field name="name">bakers_archive.license.list</field>
+        <field name="model">bakers_archive.license</field>
         <field name="arch" type="xml">
             <list>
                 <field name="license"/>
@@ -12,9 +12,9 @@
         </field>
     </record>
     
-    <record id="bakers_archive_core_license_form" model="ir.ui.view">
-        <field name="name">bakers_archive.core.license.form</field>
-        <field name="model">bakers_archive.core.license</field>
+    <record id="bakers_archive_license_form" model="ir.ui.view">
+        <field name="name">bakers_archive.license.form</field>
+        <field name="model">bakers_archive.license</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -39,9 +39,9 @@
         </field>
     </record>
 
-    <record id="bakers_archive_core_license_action" model="ir.actions.act_window">
+    <record id="bakers_archive_license_action" model="ir.actions.act_window">
         <field name="name">Licenses</field>
-        <field name="res_model">bakers_archive.core.license</field>
+        <field name="res_model">bakers_archive.license</field>
         <field name="view_mode">list,form</field>
     </record>
 </odoo>

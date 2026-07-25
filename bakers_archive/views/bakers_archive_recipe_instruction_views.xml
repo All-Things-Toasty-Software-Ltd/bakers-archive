@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="bakers_archive_core_recipe_instruction_tree" model="ir.ui.view">
-        <field name="name">bakers_archive.core.recipe.instruction.list</field>
-        <field name="model">bakers_archive.core.recipe.instruction</field>
+    <record id="bakers_archive_recipe_instruction_tree" model="ir.ui.view">
+        <field name="name">bakers_archive.recipe.instruction.list</field>
+        <field name="model">bakers_archive.recipe.instruction</field>
         <field name="arch" type="xml">
             <list>
                 <field name="sequence"/>
@@ -13,9 +13,9 @@
         </field>
     </record>
     
-    <record id="bakers_archive_core_recipe_instruction_form" model="ir.ui.view">
-        <field name="name">bakers_archive.core.recipe.instruction.form</field>
-        <field name="model">bakers_archive.core.recipe.instruction</field>
+    <record id="bakers_archive_recipe_instruction_form" model="ir.ui.view">
+        <field name="name">bakers_archive.recipe.instruction.form</field>
+        <field name="model">bakers_archive.recipe.instruction</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -29,9 +29,9 @@
         </field>
     </record>
 
-    <record id="bakers_archive_core_recipe_instruction_action" model="ir.actions.act_window">
+    <record id="bakers_archive_recipe_instruction_action" model="ir.actions.act_window">
         <field name="name">Recipe Instructions</field>
-        <field name="res_model">bakers_archive.core.recipe.instruction</field>
+        <field name="res_model">bakers_archive.recipe.instruction</field>
         <field name="view_mode">list,form</field>
     </record>
 </odoo>

@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_bakers_archive_author,bakers_archive.author,model_bakers_archive_author,base.group_user,1,1,1,1
+access_bakers_archive_ingredient,bakers_archive.ingredient,model_bakers_archive_ingredient,base.group_user,1,1,1,1
+access_bakers_archive_language,bakers_archive.language,model_bakers_archive_language,base.group_user,1,1,1,1
+access_bakers_archive_license,bakers_archive.license,model_bakers_archive_license,base.group_user,1,1,1,1
+access_bakers_archive_origin,bakers_archive.origin,model_bakers_archive_origin,base.group_user,1,1,1,1
+access_bakers_archive_recipe,bakers_archive.recipe,model_bakers_archive_recipe,base.group_user,1,1,1,1
+access_bakers_archive_recipe_ingredient,bakers_archive.recipe.ingredient,model_bakers_archive_recipe_ingredient,base.group_user,1,1,1,1
+access_bakers_archive_recipe_instruction,bakers_archive.recipe.instruction,model_bakers_archive_recipe_instruction,base.group_user,1,1,1,1
+access_bakers_archive_source,bakers_archive.source,model_bakers_archive_source,base.group_user,1,1,1,1
+access_bakers_archive_tag,bakers_archive.tag,model_bakers_archive_tag,base.group_user,1,1,1,1

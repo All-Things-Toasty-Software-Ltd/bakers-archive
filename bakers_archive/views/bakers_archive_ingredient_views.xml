@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="bakers_archive_core_ingredient_tree" model="ir.ui.view">
-        <field name="name">bakers_archive.core.ingredient.list</field>
-        <field name="model">bakers_archive.core.ingredient</field>
+    <record id="bakers_archive_ingredient_tree" model="ir.ui.view">
+        <field name="name">bakers_archive.ingredient.list</field>
+        <field name="model">bakers_archive.ingredient</field>
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
@@ -11,9 +11,9 @@
         </field>
     </record>
     
-    <record id="bakers_archive_core_ingredient_form" model="ir.ui.view">
-        <field name="name">bakers_archive.core.ingredient.form</field>
-        <field name="model">bakers_archive.core.ingredient</field>
+    <record id="bakers_archive_ingredient_form" model="ir.ui.view">
+        <field name="name">bakers_archive.ingredient.form</field>
+        <field name="model">bakers_archive.ingredient</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -32,9 +32,9 @@
         </field>
     </record>
 
-    <record id="bakers_archive_core_ingredient_action" model="ir.actions.act_window">
+    <record id="bakers_archive_ingredient_action" model="ir.actions.act_window">
         <field name="name">Ingredients</field>
-        <field name="res_model">bakers_archive.core.ingredient</field>
+        <field name="res_model">bakers_archive.ingredient</field>
         <field name="view_mode">list,form</field>
     </record>
 </odoo>
