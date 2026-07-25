@@ -21,6 +21,9 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+
+                    <field name="image" widget="image" class="oe_avatar"/>
+
                     <group>
                         <field name="name"/>
                         <field name="sources" widget="many2many_tags"/>

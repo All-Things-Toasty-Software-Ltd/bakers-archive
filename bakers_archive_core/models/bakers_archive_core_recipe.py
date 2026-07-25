@@ -23,3 +23,7 @@ class BakersArchiveCoreRecipe(models.Model):
     ingredients = fields.One2many('bakers_archive.core.recipe.ingredient', 'recipe_id', string='Ingredients')
     instructions = fields.One2many('bakers_archive.core.recipe.instruction', 'recipe_id', string='Instructions')
     notes = fields.Text(string='Notes')
+
+    # Media
+
+    image = fields.Image(string='Image')
