@@ -15,6 +15,7 @@ of recipes and archive data as well as displaying them on an Odoo website.
     'website': 'https://www.toastysoftware.co.uk',
     'depends': ['website_mail', 'website_partner', 'html_builder'],
     'data': [
+        'securty/bakers_archive_security.xml'
         'security/ir.model.access.csv',
 
         'views/bakers_archive_archive_views.xml',
