@@ -9,5 +9,5 @@ class BakersArchiveCoreSource(models.Model):
 
     name = fields.Char(string='Name')
     type = fields.Char(string='Type')
-    url = fields.Website(string='URL')
+    url = fields.Char(string='URL')
     notes = fields.Text(string='Notes')

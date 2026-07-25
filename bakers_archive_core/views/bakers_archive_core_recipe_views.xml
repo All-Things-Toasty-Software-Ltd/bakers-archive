@@ -9,7 +9,7 @@
                 <field name="active"/>
                 <field name="name"/>
                 <field name="origins"/>
-                <field name="language"/>
+                <field name="languages"/>
                 <field name="tags"/>
             </list>
         </field>

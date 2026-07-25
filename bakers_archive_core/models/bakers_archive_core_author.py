@@ -7,5 +7,5 @@ class BakersArchiveCoreAuthor(models.Model):
 
     name = fields.Char(string='Name', required=True)
     biography = fields.Text(string='Biography')
-    website = fields.Website(string='Website')
+    website = fields.Char(string='Website')
     recipe_ids = fields.Many2many('bakers_archive.core.recipe', string='Recipes')
