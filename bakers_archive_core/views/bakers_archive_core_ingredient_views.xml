@@ -10,6 +10,27 @@
             </list>
         </field>
     </record>
+    
+    <record id="bakers_archive_core_ingredient_form" model="ir.ui.view">
+        <field name="name">bakers_archive.core.ingredient.form</field>
+        <field name="model">bakers_archive.core.ingredient</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Recipes">
+                            <field name="recipe_ingredient_id"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
     <record id="bakers_archive_core_ingredient_action" model="ir.actions.act_window">
         <field name="name">Ingredients</field>

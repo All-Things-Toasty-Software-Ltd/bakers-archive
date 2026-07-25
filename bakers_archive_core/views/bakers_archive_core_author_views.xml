@@ -7,8 +7,35 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
-                <field name="website"/>
+                <field name="website"
+                       widget="url"/>
             </list>
+        </field>
+    </record>
+
+    <record id="bakers_archive_core_author_form" model="ir.ui.view">
+        <field name="name">bakers_archive.core.author.form</field>
+        <field name="model">bakers_archive.core.author</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="website"
+                               widget="url"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Biography">
+                            <field name="biography"/>
+                        </page>
+
+                        <page string="Recipes">
+                            <field name="recipe_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
         </field>
     </record>
 

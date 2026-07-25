@@ -10,6 +10,26 @@
             </list>
         </field>
     </record>
+    
+    <record id="bakers_archive_core_language_form" model="ir.ui.view">
+        <field name="name">bakers_archive.core.language.form</field>
+        <field name="model">bakers_archive.core.language</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="language"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Recipes">
+                            <field name="recipe_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
     <record id="bakers_archive_core_language_action" model="ir.actions.act_window">
         <field name="name">Languages</field>

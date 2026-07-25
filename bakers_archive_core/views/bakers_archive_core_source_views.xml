@@ -8,8 +8,36 @@
             <list>
                 <field name="name"/>
                 <field name="type"/>
-                <field name="url"/>
+                <field name="url"
+                       widget="url"/>
             </list>
+        </field>
+    </record>
+    
+    <record id="bakers_archive_core_source_form" model="ir.ui.view">
+        <field name="name">bakers_archive.core.source.form</field>
+        <field name="model">bakers_archive.core.source</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="url"
+                               widget="url"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+
+                        <page string="Recipes">
+                            <field name="recipe_id"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
         </field>
     </record>
 

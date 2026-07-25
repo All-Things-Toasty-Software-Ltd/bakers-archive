@@ -10,6 +10,26 @@
             </list>
         </field>
     </record>
+    
+    <record id="bakers_archive_core_tag_form" model="ir.ui.view">
+        <field name="name">bakers_archive.core.tag.form</field>
+        <field name="model">bakers_archive.core.tag</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="tag"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Recipes">
+                            <field name="recipe_id"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
     <record id="bakers_archive_core_tag_action" model="ir.actions.act_window">
         <field name="name">Tags</field>
