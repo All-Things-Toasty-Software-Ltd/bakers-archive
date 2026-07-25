@@ -93,7 +93,7 @@ class BakersArchiveController(http.Controller):
         scheduled_count = 0
         if request.env.user.has_group('website.group_website_designer'):
             count_domain = domain & Domain("website_published", '=', True)
-            scheduled_domain = domain & Domain("published_on", '!=', False)
+            scheduled_domain = domain & Domain("publish_on", '!=', False)
             published_count = BakersArchiveRecipe.search_count(count_domain)
             scheduled_count = BakersArchiveRecipe.search_count(scheduled_domain)
             unpublished_count = BakersArchiveRecipe.search_count(domain) - published_count - scheduled_count
@@ -101,9 +101,9 @@ class BakersArchiveController(http.Controller):
             if state == 'published':
                 domain &= Domain('website_published', '=', True)
             elif state == 'unpublished':
-                domain &= Domain('website_published', '=', False) & Domain('published_on', '=', False)
+                domain &= Domain('website_published', '=', False) & Domain('publish_on', '=', False)
             elif state == 'scheduled':
-                domain &= Domain('published_on', '!=', False)
+                domain &= Domain('publish_on', '!=', False)
         else:
             domain &= Domain('website_published', '=', True)
 
@@ -117,8 +117,8 @@ class BakersArchiveController(http.Controller):
             state=state,
             **recipe
         )
-        total, details, fuzzy_search_term = request.website._search_with_fuzzy('archive_recipe_only', search,
-            limit=page, * self._archive_recipe_per_page, order='is_published desc, published_date desc, id asc', options=options)
+        total, details, fuzzy_search_term = request.website._search_with_fuzzy('archive_recipes_only', search,
+            limit=page * self._archive_recipe_per_page, order='is_published desc, published_date desc, id asc', options=options)
         recipes = details[0].get('results', BakersArchiveRecipe)
         recipes = recipes[offset:offset + self._archive_recipe_per_page]
 
@@ -191,12 +191,13 @@ class BakersArchiveController(http.Controller):
         '/bakers-archive/page/<int:page>',
         '/bakers-archive/tag/<string:tag>',
         '/bakers-archive/tag/<string:tag>/page/<int:page>',
-        '''/bakers-archive/<model("bakers_archive.archive'):archive>/page/<int:page>''',
-        '''/bakers-archive/<model("bakers_archive.archive'):archive>/tag/<string:tag>''',
-        '''/bakers-archive/<model("bakers_archive.archive'):archive>/tag/<string:tag>/page/<int:page>''',
+        '''/bakers-archive/<model("bakers_archive.archive"):archive>''',
+        '''/bakers-archive/<model("bakers_archive.archive"):archive>/page/<int:page>''',
+        '''/bakers-archive/<model("bakers_archive.archive"):archive>/tag/<string:tag>''',
+        '''/bakers-archive/<model("bakers_archive.archive"):archive>/tag/<string:tag>/page/<int:page>''',
     ], type='http', auth='public', website=True, sitemap=sitemap_archive, list_as_website_content=_lt('Archives'))
     def archive(self, archive=None, tag=None, page=1, search=None, **opt):
-        BakersArchiveArchive = env['bakers_archive.archive']
+        BakersArchiveArchive = request.env['bakers_archive.archive']
         archives = tools.lazy(lambda: BakersArchiveArchive.search(request.website.website_domain(), order='sequence'))
 
         if not archive and len(archives) == 1:
@@ -222,7 +223,7 @@ class BakersArchiveController(http.Controller):
 
         return request.render('bakers_archive.archive_recipe_short', values)
 
-    @http.route(['''/bakers-archive/<model("bakers_archive.archive'):archive/feed'''], type='http', auth='public', website=True, sitemap=True)
+    @http.route(['''/bakers-archive/<model("bakers_archive.archive"):archive>/feed'''], type='http', auth='public', website=True, sitemap=True)
     def archive_feed(self, archive, limit='15', **kwargs):
         v = {}
         v['archive'] = archive
@@ -236,7 +237,7 @@ class BakersArchiveController(http.Controller):
         return r
 
     @http.route([
-        '''/bakers-archive/<model('bakers_archive.archive'):archive/recipe/<model('bakers_archive.recipe'):archive_recipes>'''
+        '''/bakers-archive/<model("bakers_archive.archive"):archive>/recipe/<model("bakers_archive.recipe"):archive_recipes>'''
     ], type='http', auth='public', website=True, sitemap=False)
     def old_archive_recipe(self, archive, archive_recipe, **recipe):
         return request.redirect('/bakers-archive/%s/%s' % (request.env['ir.http']._slug(archive), request.env['ir.http']._slug(archive_recipe)), code=301)
@@ -244,7 +245,7 @@ class BakersArchiveController(http.Controller):
     def sitemap_archive_recipe(env, rule, qs):
         BakersArchiveRecipe = env['bakers_archive.recipe']
         IrHttp = env['ir.http']
-        recipes = BakersArchiveRecipe.search(['website_published', '=', True])
+        recipes = BakersArchiveRecipe.search([('website_published', '=', True)])
 
         for recipe in recipes:
             archive = recipe.archive_id
@@ -257,7 +258,7 @@ class BakersArchiveController(http.Controller):
                 }
 
     @http.route([
-        '''/bakers-archive/<model('bakers_archive.archive'):archive/<model('bakers_archive.recipe', '[(archive_id', '=', archive.id)]'):archive_recipes>''',
+        '''/bakers-archive/<model("bakers_archive.archive"):archive>/<model("bakers_archive.recipe", "[('archive_id', '=', archive.id)]"):archive_recipe>''',
     ], type='http', auth='public', website=True, sitemap=sitemap_archive_recipe)
     def archive_recipe(self, archive, archive_recipe, tag_id=None, page=1, enable_editor=None, **recipe):
         BakersArchiveRecipe = request.env['bakers_archive.recipe']
@@ -277,7 +278,7 @@ class BakersArchiveController(http.Controller):
         tags = request.env['bakers_archive.tag'].search([])
 
         archive_recipe_domain = [('archive_id', '=', archive.id)]
-        if not request.env.user.has_group('bakers_archive.group_website_archive_mangaer'):
+        if not request.env.user.has_group('bakers_archive.group_bakers_archive_mangaer'):
             archive_recipe_domain += [('website_published', '=', True)]
 
         all_recipe = BakersArchiveRecipe.search(archive_recipe_domain)
@@ -309,7 +310,8 @@ class BakersArchiveController(http.Controller):
         if archive_recipe.id not in request.session.get('recipes_viewed', []):
             if sql.increment_fields_skiplock(archive_recipe, 'visits'):
                 if not request.session.get('recipes_viewed'):
-                    request.session['recipes_viewed'].append(archive_recipe.id)
-                    touch(request.session)
+                    request.session['recipes_viewed'] = []
+                request.session['recipes_viewed'].append(archive_recipe.id)
+                touch(request.session)
         return response
 

@@ -9,3 +9,4 @@ class BakersArchiveAuthor(models.Model):
     biography = fields.Text(string='Biography')
     website = fields.Char(string='Website')
     recipe_ids = fields.Many2many('bakers_archive.recipe', string='Recipes')
+    image_128 = fields.Image(string='Image')

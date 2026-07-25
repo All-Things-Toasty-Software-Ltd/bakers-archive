@@ -1,4 +1,11 @@
-from odoo import fields, models
+from datetime import datetime
+import random
+
+from odoo import api, models, fields, _
+from odoo.addons.website.tools import text_from_html
+from odoo.tools.json import scriptsafe as json_scriptsafe
+from odoo.tools.translate import html_translate
+from odoo.tools import html_escape
 
 
 class BakersArchiveRecipe(models.Model):
@@ -7,7 +14,7 @@ class BakersArchiveRecipe(models.Model):
     _inherit = [
         'mail.thread',
         'website.seo.metadata',
-        'website.published.multi.mixin'
+        'website.published.multi.mixin',
         'website.page_visibility_options.mixin',
         'website.cover_properties.mixin',
         'website.searchable.mixin',
@@ -60,7 +67,7 @@ class BakersArchiveRecipe(models.Model):
 
     create_date = fields.Datetime('Created on', readonly=True)
     create_uid = fields.Many2one('res.users', 'Created by', readonly=True)
-    write_date = fields.DateTime('Last Updated on', readonly=True)
+    write_date = fields.Datetime('Last Updated on', readonly=True)
     write_uid = fields.Many2one('res.users', 'Last Contributor', readonly=True)
     visits = fields.Integer('No of Views', copy=False, default=0, readonly=True)
     website_id = fields.Many2one(related='archive_id.website_id', readonly=True, store=True)
