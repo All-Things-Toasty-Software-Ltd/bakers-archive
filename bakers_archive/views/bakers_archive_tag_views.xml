@@ -5,8 +5,11 @@
         <field name="name">bakers_archive.tag.list</field>
         <field name="model">bakers_archive.tag</field>
         <field name="arch" type="xml">
-            <list>
-                <field name="tag"/>
+            <list string="Tag List">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="colour" widget="color_picker"/>
+                <field name="recipe_ids"/>
             </list>
         </field>
     </record>
@@ -15,25 +18,25 @@
         <field name="name">bakers_archive.tag.form</field>
         <field name="model">bakers_archive.tag</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Tag Form">
                 <sheet>
                     <group>
-                        <field name="tag"/>
+                        <field name="name"/>
+                        <field name="category_id"/>
+                        <field name="colour" widget="color_picker"/>
                     </group>
-
-                    <notebook>
-                        <page string="Recipes">
-                            <field name="recipe_id"/>
-                        </page>
-                    </notebook>
+                    <label for="recipe_ids" string="Used in: "/>
+                    <field name="recipe_ids"/>
                 </sheet>
             </form>
         </field>
     </record>
 
     <record id="bakers_archive_tag_action" model="ir.actions.act_window">
-        <field name="name">Tags</field>
+        <field name="name">Archive Tags</field>
         <field name="res_model">bakers_archive.tag</field>
+        <field name="path">archive-tags</field>
         <field name="view_mode">list,form</field>
+        <field name="view_id" ref="bakers_archive_tag_tree"/>
     </record>
 </odoo>

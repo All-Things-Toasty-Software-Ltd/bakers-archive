@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bakers_archive_archive_tree" model="ir.ui.view">
+        <field name="name">bakers_archive.archive.list</field>
+        <field name="model">bakers_archive.archive</field>
+        <field name="arch" type="xml">
+            <list string="Archives">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="archive_recipe_count"/>
+                <field name="website_id" groups="website.group_multi_website"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="bakers_archive_archive_form" model="ir.ui.view">
+        <field name="name">bakers_archive.archive.form</field>
+        <field name="model">bakers_archive.archive</field>
+        <field name="arch" type="xml">
+            <form string="Archive">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="subtitle"/>
+                        <field name="website_id" options="{'no_create': True}" groups="website.group_multi_website"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="bakers_archive_archive_search" model="ir.ui.view">
+        <field name="name">bakers_archive.archive.search</field>
+        <field name="model">bakers_archive.archive</field>
+        <field name="arch" type="xml">
+            <search string="Archive">
+                <field name="name"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="bakers_archive_archive_action" model="ir.actions.act_window">
+        <field name="name">Archives</field>
+        <field name="res_model">bakers_archive.archive</field>
+        <field name="path">archives</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

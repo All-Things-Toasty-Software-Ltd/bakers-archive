@@ -13,19 +13,22 @@ The Baker's Archive consists of the data models and class structure to handle th
 of recipes and archive data as well as displaying them on an Odoo website.
     """,
     'website': 'https://www.toastysoftware.co.uk',
-    'depends': ['base',],
+    'depends': ['website_mail', 'website_partner', 'html_builder'],
     'data': [
         'security/ir.model.access.csv',
 
+        'views/bakers_archive_archive_views.xml',
         'views/bakers_archive_author_views.xml',
         'views/bakers_archive_ingredient_views.xml',
         'views/bakers_archive_language_views.xml',
         'views/bakers_archive_license_views.xml',
         'views/bakers_archive_origin_views.xml',
+        'views/bakers_archive_recipe_add_views.xml',
         'views/bakers_archive_recipe_ingredient_views.xml',
         'views/bakers_archive_recipe_instruction_views.xml',
         'views/bakers_archive_recipe_views.xml',
         'views/bakers_archive_source_views.xml',
+        'views/bakers_archive_tag_category_views.xml',
         'views/bakers_archive_tag_views.xml',
 
         'views/bakers_archive_menu_views.xml',
