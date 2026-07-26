@@ -15,27 +15,33 @@ of recipes and archive data as well as displaying them on an Odoo website.
     'website': 'https://www.toastysoftware.co.uk',
     'depends': ['website_mail', 'website_partner', 'html_builder'],
     'data': [
-        'security/bakers_archive_security.xml',
-        'security/ir.model.access.csv',
+        'data/mail_message_subtype_data.xml',
+        'data/mail_templates.xml',
+        'data/bakers_archive_data.xml',
+        'data/archive_snippet_template_data.xml',
+        'data/bakers_archive_tour.xml',
 
-        'views/partner_views.xml',
-
-        'views/bakers_archive_archive_views.xml',
-        'views/bakers_archive_recipe_add.xml',
-        'views/bakers_archive_recipe_views.xml',
-        'views/bakers_archive_tag_category_views.xml',
-        'views/bakers_archive_tag_views.xml',
-        'views/bakers_archive_menu_views.xml',
+        'views/bakers_archive_components.xml',
+        'views/bakers_archive_recipes_loop.xml',
+        'views/bakers_archive_templates.xml',
 
         'views/snippets/snippets.xml',
         'views/snippets/s_archive_recipes.xml',
         'views/snippets/s_dynamic_snippet_archive_recipes_preview_data.xml',
 
-        'views/bakers_archive_components.xml',
-        'views/bakers_archive_recipes_loop.xml',
-        'views/bakers_archive_templates.xml',
+        'views/partner_views.xml',
+        'views/bakers_archive_archive_views.xml',
+        'views/bakers_archive_recipe_views.xml',
+        'views/bakers_archive_tag_category_views.xml',
+        'views/bakers_archive_tag_views.xml',
+        'views/bakers_archive_menu_views.xml',
+
+        'views/bakers_archive_recipe_add.xml',
+
+        'security/bakers_archive_security.xml',
+        'security/ir.model.access.csv',
     ],
-    'demo': [],
+    'demo': ['data/bakers_archive_demo.xml'],
     'assets': {
         'web.assets_backend': [
             'bakers_archive/static/src/tours/bakers_archive.js',

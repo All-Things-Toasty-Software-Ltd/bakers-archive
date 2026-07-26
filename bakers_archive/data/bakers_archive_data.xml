@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="archive_archive_1" model="bakers_archive.archive">
+            <field name="name">Our Archive</field>
+            <field name="subtitle">A collection of all the best breads.</field>
+            <field name="cover_properties">{"background-image": "url('/bakers_archive/static/src/img/cover_5.jpg')", "resize_class": "o_record_has_cover o_half_screen_height", "opacity": "0.4"}</field>
+        </record>
+
+        <record id="menu_archive" model="website.menu">
+            <field name="name">Baker's Archive</field>
+            <field name="url">/bakers-archive</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">40</field>
+        </record>
+
+        <record id="mt_archive_archive_published" model="mail.message.subtype">
+            <field name="name">Published Recipe</field>
+            <field name="res_model">bakers_archive.archive</field>
+            <field name="default" eval="True"/>
+            <field name="description">Published Recipe</field>
+        </record>
+
+    </data>
+
+    <data>
+
+        <record id="action_open_website" model="ir.actions.act_url">
+            <field name="name">Website Archives</field>
+            <field name="target">self</field>
+            <field name="url" eval="'/bakers-archive/'"/>
+        </record>
+        <record id="base.open_menu" model="ir.actions.todo">
+            <field name="action_id" ref="action_open_website"/>
+            <field name="state">open</field>
+        </record>
+
+    </data>
+</odoo>
