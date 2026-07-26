@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-
-<template id="recipes_loop" name="recipes List">
+<template id="recipes_loop" name="Recipes List">
     <div id="o_barchive_recipes_loop" t-att-class="'o_barchive_list_view' if opt_archive_list_view else ''">
 
         <t t-if="state_info" t-set="state" t-value="state_info['state']"/>
@@ -38,7 +37,7 @@
             <div t-if="tag or date_begin or search" class="col-12 mb-3">
                 <div t-if="recipes" class="h4 mb-3">
                     <t t-out="search_count"/>
-                    <t t-if="search_count &lt; 2">Recipes</t>
+                    <t t-if="search_count &lt; 2">Recipe</t>
                     <t t-else="">Recipes</t>
                 </div>
                 <span t-if="search" class="align-items-baseline border d-inline-flex ps-2 rounded mb-2">
@@ -64,9 +63,9 @@
             <div t-if="not recipes" class="col">
                 <t t-set="no_results_str">No results for "%s".</t>
                 <h2 t-if="search" t-out="no_results_str % search" class="fw-bold"/>
-                <h2 t-else="">No Archive Recipe yet.</h2>
+                <h2 t-else="">No archive recipe yet.</h2>
                 <div class="alert alert-info" groups="website.group_website_designer">
-                    Click on "<b>New</b>" in the top-right corner to write your first Archive Recipe.
+                    Click on "<b>New</b>" in the top-right corner to write your first archive recipe.
                 </div>
             </div>
 
@@ -100,7 +99,7 @@
                                 <t t-call="bakers_archive.recipe_info"/>
                             </div>
                             <div t-else="" class="mt-3">
-                                <a t-attf-href="/bakers-archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}" class="btn btn-primary">
+                                <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}" class="btn btn-primary">
                                     Read more <i class="oi oi-chevron-right ms-2"/>
                                 </a>
                             </div>
@@ -132,10 +131,10 @@
 
 
 <template id="recipe_heading">
-    <a t-attf-href="/bakers-archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}"
+    <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}"
        t-field="archive_recipe.name"
        t-attf-class="d-block text-reset text-decoration-none o_archive_recipe_title my-0 #{'h3' if opt_archive_list_view else ('h5' if opt_archive_readable else 'h6')}">
-       Untitled recipe
+       Untitled Recipe
    </a>
 
     <div t-if="not opt_recipes_loop_show_cover and is_view_active('bakers_archive.opt_recipes_loop_show_author')" class="text-muted small mt-2">
@@ -154,7 +153,7 @@
             </div>
             <b t-if="recipes_list_show_parent_archive" class="text-nowrap text-truncate px-2">
                 <i class="fa fa-folder-open text-muted"/>
-                <a t-attf-href="/bakers-archive/#{slug(archive_recipe.archive_id)}" t-field="archive_recipe.archive_id"/>
+                <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}" t-field="archive_recipe.archive_id"/>
             </b>
         </div>
     </div>
@@ -164,7 +163,7 @@
     <t t-if="opt_archive_cards_design and not opt_archive_list_view" t-set="classes" t-value="'card-img-top mb-2'"/>
     <t t-if="not opt_archive_cards_design and opt_archive_list_view" t-set="classes" t-value="'o_barchive_recipe_cover_nocard'"/>
 
-    <a t-attf-href="/bakers-archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}"
+    <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}"
        t-attf-class="text-decoration-none d-block #{classes or 'mb-2'}"
        t-att-style="not archive_recipe.website_published and 'opacity:0.6;'">
 
@@ -180,7 +179,7 @@
 </template>
 
 <template id="recipe_teaser">
-    <a t-attf-href="/bakers-archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}" class="text-reset text-decoration-none">
+    <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}" class="text-reset text-decoration-none">
         <div t-if="opt_archive_list_view" t-field="archive_recipe.teaser" class="mt-2 o_barchive_read_text"/>
         <div t-else="" t-field="archive_recipe.teaser" t-attf-class="mt-2 #{opt_archive_readable and 'o_barchive_normalize_font'}"/>
     </a>

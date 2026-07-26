@@ -3,7 +3,7 @@
 
 <t t-inherit="website.SearchbarOption" t-inherit-mode="extension">
     <xpath expr="//BuilderSelect[@id=&quot;'scope_opt'&quot;]" position="inside">
-        <BuilderSelectItem dataAttributeActionValue="'archives'" actionValue="'/bakers-archive'" id="'search_archives_opt'">
+        <BuilderSelectItem dataAttributeActionValue="'archives'" actionValue="'/archive'" id="'search_archives_opt'">
             Archives
         </BuilderSelectItem>
     </xpath>

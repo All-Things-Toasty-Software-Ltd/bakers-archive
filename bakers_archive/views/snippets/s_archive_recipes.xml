@@ -3,7 +3,7 @@
 <template id="s_archive_recipes" name="Archive Recipes">
     <t t-call="website.s_dynamic_snippet_template"
         snippet_name.f="s_archive_recipes"
-        main_page_url.f="/bakers-archive"
+        main_page_url.f="/archive"
         snippet_classes="'s_dynamic_snippet_archive_recipes %s' % snippet_extra_classes"
         custom_template_data.f='{"archive_recipes_recipe_author_active":true, "archive_recipes_recipe_teaser_active":true, "archive_recipes_recipe_date_active":true, "archive_recipes_recipe_category_active":true, "archive_recipes_recipe_new_active":true}'
         snippet_title.f="Latest Recipes"

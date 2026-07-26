@@ -5,7 +5,7 @@ class Website(models.Model):
 
     def get_suggested_controllers(self):
         suggested_controllers = super(Website, self).get_suggested_controllers()
-        suggested_controllers.append((_("Baker's Archive"), self.env['ir.http']._url_for('/bakers-archive'), 'bakers_archive'))
+        suggested_controllers.append((_("Baker's Archive"), self.env['ir.http']._url_for('/archive'), 'bakers_archive'))
         return suggested_controllers
 
     def configurator_set_menu_links(self, menu_company, module_data):
@@ -17,13 +17,13 @@ class Website(models.Model):
             })
             archive_menu_values = {
                 'name': archive['name'],
-                'url': '/bakers-archive/%s' % new_archive.id,
+                'url': '/archive/%s' % new_archive.id,
                 'sequence': archive['sequence'],
                 'parent_id': menu_company.id if menu_company else self.menu_id.id,
                 'website_id': self.id,
             }
             if idx == 0:
-                archive_menu = self.env['website.menu'].search([('url', '=', '/bakers-archive'), ('website_id', '=', self.id)])
+                archive_menu = self.env['website.menu'].search([('url', '=', '/archive'), ('website_id', '=', self.id)])
                 archive_menu.write(archive_menu_values)
             else:
                 self.env['website.menu'].create(archive_menu_values)

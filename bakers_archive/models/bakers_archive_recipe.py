@@ -26,7 +26,7 @@ class BakersArchiveRecipe(models.Model):
         super(BakersArchiveRecipe, self)._compute_website_url()
         for archive_recipe in self:
             if archive_recipe.id:
-                archive_recipe.website_url = "/bakers-archive/%s/%s" % (self.env['ir.http']._slug(archive_recipe.archive_id), self.env['ir.http']._slug(archive_recipe))
+                archive_recipe.website_url = "/archive/%s/%s" % (self.env['ir.http']._slug(archive_recipe.archive_id), self.env['ir.http']._slug(archive_recipe))
 
     # Metadata
 
@@ -173,7 +173,7 @@ class BakersArchiveRecipe(models.Model):
         if archive:
             domain.append([('archive_id', '=', self.env['ir.http']._unslug(archive)[1])])
         if tags:
-            active_tag_ids = [self.env['ir.http'].unslug(tag)[1] for tag in tags.split(',')] or []
+            active_tag_ids = [self.env['ir.http']._unslug(tag)[1] for tag in tags.split(',')] or []
             if active_tag_ids:
                 domain.append([('tag_ids', 'in', active_tag_ids)])
         if date_begin and date_end:
@@ -233,7 +233,7 @@ class BakersArchiveRecipe(models.Model):
                         full_ing_str += f" ({ing.notes})"
 
                     ing_id = ing.name.id if (hasattr(ing, 'name') and ing.name) else ing.id
-                    ing_url = f"/bakers-archive/ingredient/{ing_id}"
+                    ing_url = f"/archive/ingredient/{ing_id}"
 
                     ing_badges.append(
                         f'<a href="{ing_url}" class="badge border border-warning text-warning-emphasis fw-normal rounded-pill px-2.5 py-1 text-decoration-none me-1 mb-1" style="font-size: 0.8rem; background-color: rgba(255,193,7,0.08);">'

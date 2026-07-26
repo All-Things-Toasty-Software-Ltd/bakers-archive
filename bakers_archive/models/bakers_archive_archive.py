@@ -38,7 +38,7 @@ class BakersArchiveArchive(models.Model):
         super()._compute_website_url()
         for record in self:
             if record.id:
-                record.website_url = '/bakers-archive/%s' % self.env['ir.http']._slug(record)
+                record.website_url = '/archive/%s' % self.env['ir.http']._slug(record)
 
     @api.depends('archive_recipe_ids')
     def _compute_archive_recipe_count(self):
@@ -124,5 +124,5 @@ class BakersArchiveArchive(models.Model):
     def _search_render_result(self, fetch_fields, mapping, icon, limit):
         results_data = super()._search_render_result(fetch_fields, mapping, icon, limit)
         for data in results_data:
-            data['url'] = '/bakers-archive/%s' % data['id']
+            data['url'] = '/archive/%s' % data['id']
         return results_data
