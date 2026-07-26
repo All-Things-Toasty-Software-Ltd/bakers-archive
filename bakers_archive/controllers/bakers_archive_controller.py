@@ -30,7 +30,7 @@ class BakersArchiveController(http.Controller):
         return ','.join(request.env['ir.http']._slug(tag) for tag in tag_ids)
 
     def nav_list(self, archive=None):
-        dom = archive and [('archive_id'), '=', archive.id] or []
+        dom = archive and [('archive_id', '=', archive.id)] or []
         dom += [('website_published', '=', True)]
         groups = request.env['bakers_archive.recipe']._read_group(
             dom, groupby=['published_date:month'])

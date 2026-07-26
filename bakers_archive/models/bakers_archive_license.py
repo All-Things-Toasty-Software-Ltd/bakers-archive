@@ -5,7 +5,7 @@ class BakersArchiveLicense(models.Model):
     _name = "bakers_archive.license"
     _description = "Bakers Archive License"
 
-    license = fields.Char(string="License")
+    name = fields.Char(string="License")
     short_name = fields.Char(string="Short Name")
     url = fields.Char(string="URL")
     description = fields.Text(string="Description")

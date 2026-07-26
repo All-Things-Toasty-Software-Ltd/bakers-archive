@@ -8,5 +8,5 @@ class BakersArchiveIngredient(models.Model):
     name = fields.Char(string='Name')
     description = fields.Text(string='Description')
 
-    recipe_ingredient_id = fields.One2many('bakers_archive.recipe.ingredient', 'ingredient',
+    recipe_ingredient_id = fields.One2many('bakers_archive.recipe.ingredient', 'name',
                                            string='Recipe Ingredient')

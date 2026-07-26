@@ -18,12 +18,18 @@ of recipes and archive data as well as displaying them on an Odoo website.
         'security/bakers_archive_security.xml',
         'security/ir.model.access.csv',
 
+        'views/partner_views.xml',
+
         'views/bakers_archive_archive_views.xml',
         'views/bakers_archive_recipe_add.xml',
         'views/bakers_archive_recipe_views.xml',
         'views/bakers_archive_tag_category_views.xml',
         'views/bakers_archive_tag_views.xml',
         'views/bakers_archive_menu_views.xml',
+
+        'views/bakers_archive_components.xml',
+        'views/bakers_archive_recipes_loop.xml',
+        'views/bakers_archive_templates.xml',
     ],
     'demo': [],
     'assets': {},

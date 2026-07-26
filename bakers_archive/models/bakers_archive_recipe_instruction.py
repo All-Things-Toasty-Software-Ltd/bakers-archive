@@ -9,5 +9,5 @@ class BakersArchiveRecipeInstruction(models.Model):
     recipe_id = fields.Many2one('bakers_archive.recipe', string='Recipe')
 
     sequence = fields.Integer(string='Sequence')
-    description = fields.Text(string='Description')
+    name = fields.Text(string='Instruction')
     time = fields.Float(string='Time')

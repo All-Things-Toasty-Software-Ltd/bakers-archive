@@ -9,5 +9,5 @@ class BakersArchiveRecipeIngredient(models.Model):
 
     quantity = fields.Float(string='Quantity')
     unit = fields.Char(string='Unit')
-    ingredient = fields.Many2one('bakers_archive.ingredient', string='Ingredient')
+    name = fields.Many2one('bakers_archive.ingredient', string='Ingredient')
     notes = fields.Text(string='Notes')

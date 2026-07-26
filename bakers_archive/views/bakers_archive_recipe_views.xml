@@ -78,6 +78,13 @@
         <field name="model">bakers_archive.recipe</field>
         <field name="arch" type="xml">
             <form string="Archive Recipe">
+                <header>
+                    <button name="action_generate_content"
+                            string="Generate Content"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-magic"/>
+                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box" invisible="not active">
                         <field name="is_published" widget="website_redirect_button"/>
