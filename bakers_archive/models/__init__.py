@@ -7,6 +7,7 @@ from . import bakers_archive_origin
 from . import bakers_archive_recipe
 from . import bakers_archive_recipe_ingredient
 from . import bakers_archive_recipe_instruction
+from . import bakers_archive_recipe_instruction_category
 from . import bakers_archive_source
 from . import bakers_archive_tag
 from . import bakers_archive_tag_category

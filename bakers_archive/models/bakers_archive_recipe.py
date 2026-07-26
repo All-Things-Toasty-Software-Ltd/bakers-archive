@@ -40,7 +40,7 @@ class BakersArchiveRecipe(models.Model):
     subtitle = fields.Char('Archive Subtitle', translate=True)
     author_id = fields.Many2one('res.partner', 'Author', index='btree_not_null')
     author_avatar = fields.Binary(related='author_id.image_128', string='Avatar', readonly=False)
-    author_name = fields.Char(related='author_id.display_name', string='Author Name', readonly=False, store=True)
+    author_name = fields.Char(related='author_id.name', string='Author Name', readonly=False, store=True)
     active = fields.Boolean('Active', default=True)
     archive_id = fields.Many2one('bakers_archive.archive', 'Archive', required=True, index=True, ondelete='cascade', default=lambda self: self.env['bakers_archive.archive'].search([], limit=1))
     tag_ids = fields.Many2many('bakers_archive.tag', string='Tags')
@@ -49,7 +49,8 @@ class BakersArchiveRecipe(models.Model):
     teaser_manual = fields.Text('Teaser Content', translate=True)
 
     """ I'm not too sure how I'll handle the content generation from this, likely an external script to format it."""
-    sources = fields.Many2many('bakers_archive.source', string='Sources')
+    source_id = fields.Many2one('bakers_archive.source', 'Source', index='btree_not_null')
+    source_name = fields.Char(related='source_id.name', string='Source Name', readonly=False, store=True)
     license = fields.Many2one('bakers_archive.license', string='License')
     languages = fields.Many2many('bakers_archive.language', string='Languages')
     origins = fields.Many2many('bakers_archive.origin', string='Origins')
@@ -59,7 +60,7 @@ class BakersArchiveRecipe(models.Model):
 
     # Media
 
-    image = fields.Image(string='Image')
+    image_1920 = fields.Image(string='Image')
 
     website_message_ids = fields.One2many(domain=lambda self: [('model', '=', self._name), ('message_type', '=', 'comment')])
 
@@ -219,90 +220,93 @@ class BakersArchiveRecipe(models.Model):
         for recipe in self:
             content_parts = []
 
-            if recipe.subtitle:
-                content_parts.append(f'<p class="lead text-muted">{html_escape(recipe.subtitle)}</p>')
-
-            overview_items = []
-            if recipe.author_name:
-                overview_items.append(f'<strong>Author:</strong> {html_escape(recipe.author_name)}')
-            if recipe.origins:
-                origins_str = ', '.join(recipe.origins.mapped('name'))
-                overview_items.append(f'<strong>Origin:</strong> {html_escape(origins_str)}')
-            if recipe.languages:
-                langs_str = ', '.join(recipe.languages.mapped('name'))
-                overview_items.append(f'<strong>Language:</strong> {html_escape(langs_str)}')
-            if recipe.license:
-                license_title = recipe.license.short_name or recipe.license.name
-                if recipe.license.url:
-                    overview_items.append(f'<strong>License:</strong> <a href="{html_escape(recipe.license.url)}" target="_blank">{html_escape(license_title)}</a>')
-                else:
-                    overview_items.append(f'<strong>License:</strong> {html_escape(license_title)}')
-
-            if overview_items:
-                items_html = ''.join([f'<li class="list-inline-item mr-3 pr-3 border-right">{item}</li>' for item in overview_items])
-                content_parts.append(f'<ul class="list-inline bg-light p-3 rounded mb-4">{items_html}</ul>')
-
             if recipe.ingredients:
-                content_parts.append('<h3 class="mt-4 mb-3"><i class="fa fa-shopping-basket mr-2"></i>Ingredients</h3>')
-                ing_items = []
+                content_parts.append('<h5 class="fw-bold mt-3 mb-2" style="font-size: 1.05rem;">Ingredients</h5>')
+                ing_badges = []
                 for ing in recipe.ingredients:
-                    qty = f"{ing.quantity:g} " if ing.quantity else ""  # :g cleans up trailing zeros (1.0 -> 1)
+                    qty = f"{ing.quantity:g} " if ing.quantity else ""
                     unit = f"{ing.unit} " if ing.unit else ""
-                    ing_name = ing.name.name if ing.name else ""
+                    ing_name = ing.name.name if (hasattr(ing, 'name') and ing.name) else ""
 
-                    ing_line = f'<strong>{html_escape(qty)}{html_escape(unit)}</strong>{html_escape(ing_name)}'
+                    full_ing_str = f"{qty}{unit}{ing_name}".strip()
                     if ing.notes:
-                        ing_line += f' <span class="text-muted small">({html_escape(ing.notes)})</span>'
+                        full_ing_str += f" ({ing.notes})"
 
-                    ing_items.append(f'<li class="list-group-item">{ing_line}</li>')
-                content_parts.append(f'<ul class="list-group mb-4">{"".join(ing_items)}</ul>')
+                    ing_id = ing.name.id if (hasattr(ing, 'name') and ing.name) else ing.id
+                    ing_url = f"/bakers-archive/ingredient/{ing_id}"
+
+                    ing_badges.append(
+                        f'<a href="{ing_url}" class="badge border border-warning text-warning-emphasis fw-normal rounded-pill px-2.5 py-1 text-decoration-none me-1 mb-1" style="font-size: 0.8rem; background-color: rgba(255,193,7,0.08);">'
+                        f'{html_escape(full_ing_str)}'
+                        f'</a>'
+                    )
+                content_parts.append(f'<div class="d-flex flex-wrap gap-1 mb-3">{"".join(ing_badges)}</div>')
+
 
             if recipe.instructions:
-                content_parts.append('<h3 class="mt-4 mb-3"><i class="fa fa-list-ol mr-2"></i>Instructions</h3>')
-                inst_items = []
-                sorted_instructions = recipe.instructions.sorted(key=lambda i: i.sequence or 0)
+                content_parts.append('<h5 class="fw-bold mt-3 mb-2" style="font-size: 1.05rem;">Recipe</h5>')
 
-                for idx, inst in enumerate(sorted_instructions, start=1):
-                    time_badge = ""
-                    if inst.time:
-                        time_badge = f' <span class="badge badge-info ml-2"><i class="fa fa-clock-o"></i> {inst.time:g} min</span>'
+                sorted_instructions = recipe.instructions.sorted(
+                    key=lambda i: (i.category_id.sequence or 0, i.sequence or 0)
+                )
 
-                    inst_text = inst.name or ""
-                    inst_items.append(
-                        f'<li class="media mb-3 p-3 border rounded">'
-                        f'  <span class="badge badge-primary badge-pill mr-3 font-weight-bold" style="font-size: 1.1rem; width: 32px; height: 32px; line-height: 24px;">{idx}</span>'
-                        f'  <div class="media-body">'
-                        f'    <p class="mb-0">{html_escape(inst_text)}{time_badge}</p>'
-                        f'  </div>'
-                        f'</li>'
-                    )
-                content_parts.append(f'<ul class="list-unstyled mb-4">{"".join(inst_items)}</ul>')
+                recipe_inner_html = []
+                has_categories = any(i.category_id for i in sorted_instructions)
 
-            if recipe.notes:
+                if has_categories:
+                    from itertools import groupby
+
+                    def cat_sort_key(inst):
+                        return (inst.category_id.sequence or 0, inst.category_id.name or "General")
+
+                    instructions_by_cat = sorted(sorted_instructions, key=cat_sort_key)
+
+                    for cat_key, group in groupby(instructions_by_cat, key=lambda i: i.category_id):
+                        cat_name = cat_key.name if cat_key else "General"
+                        recipe_inner_html.append(
+                            f'<h6 class="fw-bold text-dark border-bottom pb-1 mb-2 mt-2" style="font-size: 0.9rem;">{html_escape(cat_name)}</h6>'
+                        )
+
+                        for idx, inst in enumerate(group, start=1):
+                            inst_text = html_escape(inst.name or "")
+                            time_info = (
+                                f' <span class="text-muted small ms-1"><i class="fa fa-clock-o"></i> {inst.time:g} min</span>'
+                                if inst.time else ""
+                            )
+
+                            recipe_inner_html.append(
+                                f'<div class="d-flex align-items-start mb-2" style="font-size: 0.85rem;">'
+                                f'  <span class="badge border border-secondary text-secondary rounded-circle me-2 flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 20px; height: 20px; font-size: 0.7rem; margin-top: 2px;">{idx}</span>'
+                                f'  <div class="text-secondary" style="line-height: 1.45;">{inst_text}{time_info}</div>'
+                                f'</div>'
+                            )
+                else:
+                    for idx, inst in enumerate(sorted_instructions, start=1):
+                        inst_text = html_escape(inst.name or "")
+                        time_info = (
+                            f' <span class="text-muted small ms-1"><i class="fa fa-clock-o"></i> {inst.time:g} min</span>'
+                            if inst.time else ""
+                        )
+
+                        recipe_inner_html.append(
+                            f'<div class="d-flex align-items-start mb-2" style="font-size: 0.85rem;">'
+                            f'  <span class="badge border border-secondary text-secondary rounded-circle me-2 flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 20px; height: 20px; font-size: 0.7rem; margin-top: 2px;">{idx}</span>'
+                            f'  <div class="text-secondary" style="line-height: 1.45;">{inst_text}{time_info}</div>'
+                            f'</div>'
+                        )
+
                 content_parts.append(
-                    f'<div class="alert alert-info mt-4" role="alert">'
-                    f'  <h4 class="alert-heading"><i class="fa fa-sticky-note mr-2"></i>Notes</h4>'
-                    f'  <p class="mb-0">{html_escape(recipe.notes)}</p>'
+                    f'<div class="bg-transparent border border-1 p-3 rounded-3 mb-3">'
+                    f'  {"".join(recipe_inner_html)}'
                     f'</div>'
                 )
 
-            if recipe.sources:
-                content_parts.append('<h5 class="mt-4 text-muted"><i class="fa fa-book mr-2"></i>Sources</h5>')
-                src_items = []
-                for src in recipe.sources:
-                    src_title = src.name or "Source"
-                    if src.type:
-                        src_title = f"{src_title} ({src.type})"
-
-                    if src.url:
-                        line = f'<a href="{html_escape(src.url)}" target="_blank">{html_escape(src_title)}</a>'
-                    else:
-                        line = html_escape(src_title)
-
-                    if src.notes:
-                        line += f' — <span class="text-muted">{html_escape(src.notes)}</span>'
-
-                    src_items.append(f'<li>{line}</li>')
-                content_parts.append(f'<ul class="small">{"".join(src_items)}</ul>')
+            if recipe.notes:
+                content_parts.append(
+                    f'<h5 class="fw-bold mt-3 mb-2" style="font-size: 1.05rem;">Notes</h5>'
+                    f'<div class="bg-transparent border border-1 p-3 rounded-3 mb-3" style="font-size: 0.85rem;">'
+                    f'  <p class="mb-0 text-secondary" style="line-height: 1.45;">{html_escape(recipe.notes)}</p>'
+                    f'</div>'
+                )
 
             recipe.content = "".join(content_parts)

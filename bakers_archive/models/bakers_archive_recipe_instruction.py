@@ -11,3 +11,6 @@ class BakersArchiveRecipeInstruction(models.Model):
     sequence = fields.Integer(string='Sequence')
     name = fields.Text(string='Instruction')
     time = fields.Float(string='Time')
+
+    category_id = fields.Many2one('bakers_archive.recipe.instruction.category', 'Category', index=True)
+

@@ -149,6 +149,19 @@
     </div>
 </template>
 
+<template id="recipe_source">
+    <div t-attf-class="align-items-center position-relative #{additionnal_classes or ''}">
+        <div t-att-class="not hide_date and 'small fw-bold'" style="line-height:1">
+            <span t-if="editable" t-field="archive_recipe.source_id"/>
+            <span t-else="" class="o_not_editable" t-out="archive_recipe.source_name"/>
+            <t t-if="not hide_date">
+                <small t-if="archive_recipe.published_date" t-field="archive_recipe.published_date" t-options="{'format': 'long', 'date_only': 'true'}"/>
+                <small t-elif="archive_recipe.publish_on" t-field="archive_recipe.publish_on" t-options="{'format': 'long', 'date_only': 'true'}"/>
+            </t>
+        </div>
+    </div>
+</template>
+
 
 <template id="recipe_breadcrumbs">
     <nav aria-label="breadcrumb" t-attf-class="breadcrumb flex-nowrap py-0 px-0 css_editable_mode_hidden #{additionnal_classes or ''}">
@@ -162,27 +175,19 @@
     </nav>
 </template>
 
-<template id="archive_recipe_info" name="archive recipe Info">
-    <div id="o_barchive_recipe_info" class="text-muted mb-2">
-        <i class="fa fa-clock-o fa-fw"/>
-        <span t-if="archive_recipe.published_date" t-field="archive_recipe.published_date" class="text-muted" t-options="{'format': 'long', 'date_only': 'true'}"/>
-        <span t-elif="archive_recipe.publish_on" t-field="archive_recipe.publish_on" class="text-muted" t-options="{'format': 'long', 'date_only': 'true'}"/>
-        <span style="display: inline-flex">by
-            <t t-call="bakers_archive.recipe_author"
-                additionnal_classes.f="d-inline-flex me-2 ms-2"
-                hide_date="True"/>
-        </span>
-        <t t-if="is_view_active('bakers_archive.opt_archive_recipe_comment')">
-            <span t-if="archive_recipe.message_ids" class="text-nowrap o_not_editable">|
-            <i class="fa fa-comment ms-1 text-muted"/>
-            <a href="#discussion">
-                <t t-out="len(archive_recipe.message_ids)"/>
-                <t t-if="len(archive_recipe.message_ids) > 1">Comments</t>
-                <t t-else="">Comment</t>
-            </a>
+<template id="archive_recipe_info" name="Archive Recipe Info">
+    <div id="o_barchive_recipe_info" class="mb-2">
+        <div class="text-secondary small mb-3">
+            <span t-if="archive_recipe.author_id or archive_recipe.author_name">
+                <strong>Author:</strong>
+                <t t-call="bakers_archive.recipe_author" additionnal_classes.f="d-inline-flex ms-1" hide_date="True"/>
             </span>
-            <span t-else="">| No comments yet</span>
-        </t>
+            <span t-if="(archive_recipe.author_id or archive_recipe.author_name) and (archive_recipe.source_id or archive_recipe.source_name)" class="mx-2">|</span>
+            <span t-if="archive_recipe.source_id or archive_recipe.source_name">
+                <strong>Source:</strong>
+                <t t-call="bakers_archive.recipe_source" additionnal_classes.f="d-inline-flex ms-1" hide_date="True"/>
+            </span>
+        </div>
     </div>
 </template>
 

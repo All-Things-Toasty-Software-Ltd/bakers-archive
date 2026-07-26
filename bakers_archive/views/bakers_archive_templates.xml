@@ -12,10 +12,11 @@
             </div>
         </t>
     </template>
-    
+
     <template id="archive_recipe_short" name="Archive Recipes">
         <t t-set="head">
-            <link t-if="archive" t-att-href="'/bakers-archive/%s/feed' % slug(archive)" type="application/atom+xml" rel="alternate"
+            <link t-if="archive" t-att-href="'/bakers-archive/%s/feed' % slug(archive)" type="application/atom+xml"
+                  rel="alternate"
                   title="Atom Feed"/>
             <meta t-if="active_tag_ids" name="robots" t-attf-content="none"/>
         </t>
@@ -50,7 +51,8 @@
                search="original_search or search"
                additional_classes.f="mt-3"/>
 
-            <section id="o_barchive_index_content" t-att-class="opt_archive_cards_design and 'o_barchive_page_cards_bg'">
+            <section id="o_barchive_index_content"
+                     t-att-class="opt_archive_cards_design and 'o_barchive_page_cards_bg'">
                 <div class="container py-4">
                     <div t-if="original_search and recipes" class="alert alert-warning mt8">
                         No results found for '<span t-out="original_search"/>'. Showing results for '<span
@@ -73,7 +75,8 @@
         </t>
     </template>
 
-    <template id="opt_archive_cover_recipe" name="Top banner - Name / Latest recipe" inherit_id="bakers_archive.archive_recipe_short"
+    <template id="opt_archive_cover_recipe" name="Top banner - Name / Latest recipe"
+              inherit_id="bakers_archive.archive_recipe_short"
               active="True" priority="17">
         <xpath expr="//div[@id='o_barchive_archive_top_droppable']" position="replace">
             <div class="container">
@@ -116,7 +119,8 @@
                     <div t-attf-class="o_barchive_recipe_title">
                         <span t-att-title="archive.name" class="text-white text-decoration-none">
                             <h1 t-field="archive.name" class="o_barchive_recipe_name" placeholder="Archive Title"/>
-                            <div t-field="archive.subtitle" class="o_barchive_recipe_subtitle" placeholder="Archive Subtitle"/>
+                            <div t-field="archive.subtitle" class="o_barchive_recipe_subtitle"
+                                 placeholder="Archive Subtitle"/>
                         </span>
                     </div>
                 </div>
@@ -128,7 +132,8 @@
     </template>
 
 
-    <template id="opt_archive_sidebar_show" name="Show Sidebar" inherit_id="bakers_archive.archive_recipe_short" active="False">
+    <template id="opt_archive_sidebar_show" name="Show Sidebar" inherit_id="bakers_archive.archive_recipe_short"
+              active="False">
         <xpath expr="//div[@id='o_barchive_recipes_loop_container']" position="after">
             <div t-attf-class="col-12 col-md-3 d-flex #{opt_archive_list_view and 'col-lg-4' or 'ms-lg-5'}">
                 <t t-call="bakers_archive.sidebar_archive_index"/>
@@ -141,7 +146,8 @@
               active="False"/>
 
 
-    <template id="opt_archive_list_view" name="List View" inherit_id="bakers_archive.archive_recipe_short" active="False"/>
+    <template id="opt_archive_list_view" name="List View" inherit_id="bakers_archive.archive_recipe_short"
+              active="False"/>
 
 
     <template id="opt_archive_readable" name="Increase Readability" inherit_id="bakers_archive.archive_recipe_short"
@@ -153,78 +159,84 @@
 
             <t t-set="opt_archive_recipe_regular_cover"
                t-value="is_view_active('bakers_archive.opt_archive_recipe_regular_cover')"/>
-            <t t-set="opt_archive_recipe_breadcrumb" t-value="is_view_active('bakers_archive.opt_archive_recipe_breadcrumb')"/>
+            <t t-set="opt_archive_recipe_breadcrumb"
+               t-value="is_view_active('bakers_archive.opt_archive_recipe_breadcrumb')"/>
 
-            <t t-set="opt_archive_recipe_readable" t-value="is_view_active('bakers_archive.opt_archive_recipe_readable')"/>
-            <t t-set="opt_archive_recipe_sidebar" t-value="is_view_active('bakers_archive.opt_archive_recipe_sidebar')"/>
+            <t t-set="opt_archive_recipe_readable"
+               t-value="is_view_active('bakers_archive.opt_archive_recipe_readable')"/>
+            <t t-set="opt_archive_recipe_sidebar"
+               t-value="is_view_active('bakers_archive.opt_archive_recipe_sidebar')"/>
 
-            <section id="o_barchive_recipe_top">
-                <div id="title" class="archive_header" t-ignore="True">
-                    <t t-set="_record" t-value="archive_recipe"/>
-                    <t t-call="website.record_cover"
-                       _record="_record"
-                       snippet_autofocus="True"
-                       use_filters="True"
-                       use_size="True"
-                       display_opt_name.translate="Archive Recipe Cover"
-                       additionnal_classes.f="o_barchive_recipe_page_cover">
+            <div class="container my-4">
+                <t t-if="opt_archive_recipe_breadcrumb" t-call="bakers_archive.recipe_breadcrumbs"
+                   additionnal_classes.f="mb-3 bg-transparent"/>
 
-                        <div class="container text-center position-relative h-100 d-flex flex-column flex-grow-1 justify-content-around">
-                            <div t-attf-class="o_barchive_recipe_title">
-                                <h1 t-field="archive_recipe.name" class="o_barchive_recipe_name o_editable_no_shadow"
-                                    data-oe-expression="archive_recipe.name" t-att-data-archive-id="archive_recipe.id"
-                                    placeholder="Archive Recipe Title"/>
-                                <div t-field="archive_recipe.subtitle" class="o_barchive_recipe_subtitle o_editable_no_shadow"
-                                     placeholder="Subtitle"/>
+                <div class="card bg-transparent border p-3 p-md-4 rounded-3 shadow-sm">
+
+                    <section id="o_barchive_recipe_top" class="mb-3">
+                        <div id="title" class="archive_header" t-ignore="True">
+                            <div class="d-flex flex-column flex-md-row align-items-start gap-4">
+                                <!-- Bread Image -->
+                                <div class="flex-shrink-0">
+                                    <span t-field="archive_recipe.image_1920"
+                                          t-options="{'widget': 'image', 'class': 'img img-fluid rounded shadow-sm', 'style': 'max-width: 140px; height: auto;'}"/>
+                                </div>
+
+                                <div class="flex-grow-1 w-100">
+                                    <div t-attf-class="o_barchive_recipe_title mb-2">
+                                        <h1 t-field="archive_recipe.name" class="o_barchive_recipe_name fw-bold mb-1"
+                                            placeholder="Archive Recipe Title"/>
+                                        <div t-if="archive_recipe.subtitle" t-field="archive_recipe.subtitle"
+                                             class="o_barchive_recipe_subtitle text-muted" placeholder="Subtitle"/>
+                                    </div>
+
+                                    <t t-call="bakers_archive.archive_recipe_info"/>
+                                </div>
                             </div>
-                            <t t-set="resize_classes"
-                               t-value="set(json.loads(_record.cover_properties).get('resize_class', '').split(' '))"/>
-                            <a t-if="{'o_full_screen_height', 'o_half_screen_height', 'cover_full', 'cover_mid'}.intersection(resize_classes)"
-                               id="o_barchive_recipe_content_jump" href="#o_barchive_recipe_main"
-                               class="css_editable_mode_hidden justify-content-center align-items-center rounded-circle mx-auto mb-5 text-decoration-none">
-                                <i class="fa fa-angle-down fa-3x text-white" aria-label="To archive content"
-                                   title="To archive content"/>
-                            </a>
                         </div>
-                    </t>
-                </div>
-            </section>
+                    </section>
 
-            <section id="o_barchive_recipe_main"
-                     t-attf-class="container pt-4 pb-5 #{'anim' in request.params and 'o_barchive_recipe_main_transition'}">
-                <div t-if="opt_archive_recipe_sidebar"
-                     t-attf-class="mx-auto #{opt_archive_recipe_readable and 'o_barchive_read_with_sidebar'}">
-                    <div t-attf-class="d-flex flex-column flex-lg-row #{opt_archive_recipe_readable and 'justify-content-between'}">
-                        <div id="o_barchive_recipe_content"
-                             t-attf-class="#{opt_archive_recipe_readable and 'o_container_small mx-0 w-100 flex-shrink-0' or 'w-lg-75'}">
-                            <t t-call="bakers_archive.archive_recipe_content"
-                               opt_archive_recipe_regular_cover="opt_archive_recipe_regular_cover"
-                               opt_archive_recipe_breadcrumb="opt_archive_recipe_breadcrumb"/>
+                    <section id="o_barchive_recipe_main"
+                             t-attf-class="pt-2 #{'anim' in request.params and 'o_barchive_recipe_main_transition'}">
+                        <div t-if="opt_archive_recipe_sidebar"
+                             t-attf-class="mx-auto #{opt_archive_recipe_readable and 'o_barchive_read_with_sidebar'}">
+                            <div t-attf-class="d-flex flex-column flex-lg-row #{opt_archive_recipe_readable and 'justify-content-between'}">
+                                <div id="o_barchive_recipe_content"
+                                     t-attf-class="#{opt_archive_recipe_readable and 'o_container_small mx-0 w-100 flex-shrink-0' or 'w-lg-75'}">
+                                    <t t-call="bakers_archive.archive_recipe_content"
+                                       opt_archive_recipe_regular_cover="opt_archive_recipe_regular_cover"
+                                       opt_archive_recipe_breadcrumb="opt_archive_recipe_breadcrumb"/>
+                                </div>
+                                <div id="o_barchive_recipe_sidebar_col"
+                                     t-attf-class="ps-lg-5 #{not opt_archive_recipe_readable and 'flex-grow-1 w-lg-25'}">
+                                    <t t-call="bakers_archive.archive_recipe_sidebar"/>
+                                </div>
+                            </div>
                         </div>
-                        <div id="o_barchive_recipe_sidebar_col"
-                             t-attf-class="ps-lg-5 #{not opt_archive_recipe_readable and 'flex-grow-1 w-lg-25'}">
-                            <t t-call="bakers_archive.archive_recipe_sidebar"/>
-                        </div>
-                    </div>
-                </div>
 
-                <div t-if="not opt_archive_recipe_sidebar" t-attf-class="#{opt_archive_recipe_readable and 'o_container_small'}">
-                    <div class="d-flex flex-column flex-lg-row">
-                        <div id="o_barchive_recipe_content"
-                             t-attf-class=" #{opt_archive_recipe_readable and 'o_container_small w-100 flex-shrink-0'}">
-                            <t t-call="bakers_archive.archive_recipe_content"
-                               opt_archive_recipe_regular_cover="opt_archive_recipe_regular_cover"
-                               opt_archive_recipe_breadcrumb="opt_archive_recipe_breadcrumb"/>
+                        <div t-if="not opt_archive_recipe_sidebar"
+                             t-attf-class="#{opt_archive_recipe_readable and 'o_container_small'}">
+                            <div class="d-flex flex-column flex-lg-row">
+                                <div id="o_barchive_recipe_content"
+                                     t-attf-class=" #{opt_archive_recipe_readable and 'o_container_small w-100 flex-shrink-0'}">
+                                    <t t-call="bakers_archive.archive_recipe_content"
+                                       opt_archive_recipe_regular_cover="opt_archive_recipe_regular_cover"
+                                       opt_archive_recipe_breadcrumb="opt_archive_recipe_breadcrumb"/>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </section>
+
                 </div>
-            </section>
+            </div>
+
             <section id="o_barchive_recipe_footer"/>
         </t>
     </template>
 
     <template id="archive_recipe_content" name="archive recipe content">
-        <t t-if="opt_archive_recipe_breadcrumb and not opt_archive_recipe_regular_cover" t-call="bakers_archive.recipe_breadcrumbs"
+        <t t-if="opt_archive_recipe_breadcrumb and not opt_archive_recipe_regular_cover"
+           t-call="bakers_archive.recipe_breadcrumbs"
            additionnal_classes.f="mb-3 bg-transparent"/>
         <t t-if="not opt_archive_recipe_regular_cover">
             <t t-call="bakers_archive.archive_recipe_info"/>
@@ -251,7 +263,8 @@
     </template>
 
 
-    <template id="opt_archive_recipe_readable" name="Increase Readability" inherit_id="bakers_archive.archive_recipe_complete"
+    <template id="opt_archive_recipe_readable" name="Increase Readability"
+              inherit_id="bakers_archive.archive_recipe_complete"
               active="True"/>
 
 
@@ -259,38 +272,12 @@
               active="False"/>
 
 
-    <template id="opt_archive_recipe_regular_cover" name="'Regular' Cover" inherit_id="bakers_archive.archive_recipe_complete"
-              active="False">
-        <xpath expr="//div[@id='title']" position="replace">
-            <div class="container">
-                <t t-set="readableClass" t-if="opt_archive_recipe_readable and opt_archive_recipe_sidebar"
-                   t-value="'o_barchive_read_with_sidebar mx-auto'"/>
-                <t t-set="readableClass" t-elif="opt_archive_recipe_readable" t-value="'container'"/>
+    <template id="opt_archive_recipe_regular_cover" name="'Regular' Cover"
+              inherit_id="bakers_archive.archive_recipe_complete"
+              active="False"/>
 
-                <div id="title" t-attf-class="archive_header o_barchive_regular_cover_container #{readableClass}">
-
-                    <t t-if="opt_archive_recipe_breadcrumb" t-call="bakers_archive.recipe_breadcrumbs"
-                       additionnal_classes.f="mt-4 mb-3 bg-transparent"/>
-
-                    <div t-att-class="not opt_archive_recipe_breadcrumb and 'pt-4'">
-                        <div t-attf-class="o_barchive_recipe_title mb-3" t-ignore="False">
-                            <h1 t-field="archive_recipe.name" class="o_barchive_recipe_name" data-oe-expression="archive_recipe.name"
-                                t-att-data-archive-id="archive_recipe.id" placeholder="Title"/>
-                            <div t-field="archive_recipe.subtitle" class="o_barchive_recipe_subtitle" placeholder="Subtitle"/>
-                        </div>
-                        <t t-call="bakers_archive.archive_recipe_info"/>
-                    </div>
-
-                    <t t-call="website.record_cover"
-                       _record="archive_recipe"
-                       additionnal_classes.f="o_barchive_recipe_page_cover o_barchive_recipe_page_cover_regular rounded shadow overflow-hidden"
-                       use_size="True"/>
-                </div>
-            </div>
-        </xpath>
-    </template>
-
-    <template id="opt_archive_recipe_breadcrumb" name="Show Breadcrumb" inherit_id="bakers_archive.archive_recipe_complete"
+    <template id="opt_archive_recipe_breadcrumb" name="Show Breadcrumb"
+              inherit_id="bakers_archive.archive_recipe_complete"
               active="True"/>
 
 
@@ -318,12 +305,14 @@
         </xpath>
     </template>
 
-    <template id="opt_archive_recipe_read_next" name="Read Next Recipe" inherit_id="bakers_archive.archive_recipe_complete"
+    <template id="opt_archive_recipe_read_next" name="Read Next Recipe"
+              inherit_id="bakers_archive.archive_recipe_complete"
               active="True">
         <xpath expr="//section[@id='o_barchive_recipe_footer']" position="inside">
             <div t-if="next_recipe" class="mt-5">
                 <t t-if="opt_archive_recipe_regular_cover">
-                    <t t-if="opt_archive_recipe_sidebar" t-set="readableClass" t-value="'o_barchive_read_with_sidebar'"/>
+                    <t t-if="opt_archive_recipe_sidebar" t-set="readableClass"
+                       t-value="'o_barchive_read_with_sidebar'"/>
                     <t t-else="" t-set="readableClass" t-value="'o_container_small'"/>
 
                     <div class="container">
@@ -352,7 +341,8 @@
                 </t>
                 <t t-else="">
                     <div id="o_barchive_next_container" class="d-flex flex-column">
-                        <button aria-labelledby="o_barchive_next_title" class="o_barchive_next_button o_button_area btn z-1"/>
+                        <button aria-labelledby="o_barchive_next_title"
+                                class="o_barchive_next_button o_button_area btn z-1"/>
                         <t t-call="website.record_cover"
                            _record="next_recipe"
                            use_filters="True"

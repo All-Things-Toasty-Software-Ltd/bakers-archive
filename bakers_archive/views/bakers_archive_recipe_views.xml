@@ -132,7 +132,7 @@
                             </group>
                         </page>
                         <page name="other_stuff" string="Other Stuff">
-                            <field name="sources" widget="many2many_tags"/>
+                            <field name="source_id"/>
                             <field name="license"/>
                             <field name="languages" widget="many2many_tags"/>
                             <field name="origins" widget="many2many_tags"/>
