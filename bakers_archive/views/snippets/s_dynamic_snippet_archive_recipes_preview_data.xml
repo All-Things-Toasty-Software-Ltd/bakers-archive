@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="s_dynamic_snippet_archive_recipes_preview_data" name="Archives Preview Data">
+        <div class="s_dialog_preview row">
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="s_archive_recipes_recipe position-relative w-100">
+                    <a class="s_archive_recipes_recipe_cover position-relative d-block h-100 rounded shadow-sm overflow-hidden text-decoration-none text-reset ratio ratio-1x1" href="#">
+                        <div class="o_record_cover_container d-flex flex-column h-100 o_colored_level o_cc w-100 bg-600 position-absolute">
+                            <div class="o_record_cover_component o_record_cover_image " style="background-image: url('/bakers_archive/static/src/img/archive_previews/archive_1.jpg');"/>
+                            <div class="s_archive_recipe_big_picture_infos position-absolute top-0 start-0 w-100 h-100">
+                                <div class="s_archive_recipes_recipe_cover_header d-flex flex-column justify-content-end w-100">
+                                    <h3 class="s_archive_recipe_big_picture_title m-0 px-4 text-white">Brioche Buns</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="s_archive_recipes_recipe position-relative w-100">
+                    <a class="s_archive_recipes_recipe_cover position-relative d-block h-100 rounded shadow-sm overflow-hidden text-decoration-none text-reset ratio ratio-1x1" href="#">
+                        <div class="o_record_cover_container d-flex flex-column h-100 o_colored_level o_cc w-100 bg-600 position-absolute">
+                            <div class="o_record_cover_component o_record_cover_image " style="background-image: url('/bakers_archive/static/src/img/archive_previews/archive_2.jpg');"/>
+                            <div class="o_record_cover_component o_record_cover_filter oe_black" style="opacity: 0.4;"/>
+                            <div class="s_archive_recipe_big_picture_infos position-absolute top-0 start-0 w-100 h-100">
+                                <div class="s_archive_recipes_recipe_cover_header d-flex flex-column justify-content-end w-100">
+                                    <h3 class="s_archive_recipe_big_picture_title m-0 px-4 text-white">Chocolate Chip Cookies</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="s_archive_recipes_recipe position-relative w-100">
+                    <a class="s_archive_recipes_recipe_cover position-relative d-block h-100 rounded shadow-sm overflow-hidden text-decoration-none text-reset ratio ratio-1x1" href="#">
+                        <div class="o_record_cover_container d-flex flex-column h-100 o_colored_level o_cc w-100 bg-600 position-absolute">
+                            <div class="o_record_cover_component o_record_cover_image " style="background-image: url('/bakers_archive/static/src/img/archive_previews/archive_3.jpg');"/>
+                            <div class="o_record_cover_component o_record_cover_filter oe_black" style="opacity: 0.4;"/>
+                            <div class="s_archive_recipe_big_picture_infos position-absolute top-0 start-0 w-100 h-100">
+                                <div class="s_archive_recipes_recipe_cover_header d-flex flex-column justify-content-end w-100">
+                                    <h3 class="s_archive_recipe_big_picture_title m-0 px-4 text-white">Simple Flatbread Recipe</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="s_dynamic_snippet_archive_recipes_card_preview_data" name="Archives Preview Data">
+        <div class="s_dialog_preview row">
+            <div class="col-3">
+                <div class="card h-100">
+                    <div class="card-img-top ratio ratio-16x9">
+                        <img class="img img-fluid object-fit-cover" src="/bakers_archive/static/src/img/archive_previews/archive_1.jpg"/>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="mb-2 mt-0">Brioche Buns</h5>
+                        <small class="text-muted">May 15, 2026</small>
+                        <p>This recipe will make you delicious, buttery fluffy brioche buns. They can be eaten on its own or used as...</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between mt-auto border-0 p-3 pt-0 bg-transparent small">
+                        <span><i class="fa fa-user-circle-o me-2" role="presentation"/> Hendrik Kleinwaechter</span>
+                        <span class="text-muted">In <a href="#">The Sourdough Framework Recipes</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card h-100">
+                    <div class="card-img-top ratio ratio-16x9">
+                        <img class="img img-fluid object-fit-cover" src="/bakers_archive/static/src/img/archive_previews/archive_2.jpg"/>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="mb-2 mt-0">Chocolate Chip Cookies</h5>
+                        <small class="text-muted">May 15, 2026</small>
+                        <p>Dive into a world of decadence with these chocolate chip cookies, where every bite boasts the perfect balance of crisp edges...</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between mt-auto border-0 p-3 pt-0 bg-transparent small">
+                        <span><i class="fa fa-user-circle-o me-2" role="presentation"/> Luciano van der Toorn</span>
+                        <span class="text-muted">In <a href="#">The Sourdough Framework Recipes</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card h-100">
+                    <div class="card-img-top ratio ratio-16x9">
+                        <img class="img img-fluid object-fit-cover" src="/bakers_archive/static/src/img/archive_previews/archive_3.jpg"/>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="mb-2 mt-0">Simple Flatbread Recipe</h5>
+                        <small class="text-muted">May 15, 2026</small>
+                        <p>By following the steps outlined in this section, you’ll be introduced to a versatile bread that’s perfect for a myriad...</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between mt-auto border-0 p-3 pt-0 bg-transparent small">
+                        <span><i class="fa fa-user-circle-o me-2" role="presentation"/> Hendrik Kleinwaechter</span>
+                        <span class="text-muted">In <a href="#">The Sourdough Framework</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card h-100">
+                    <div class="card-img-top ratio ratio-16x9">
+                        <img class="img img-fluid object-fit-cover" src="/bakers_archive/static/src/img/cover_6.jpg"/>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="mb-2 mt-0">Sourdough Skillet</h5>
+                        <small class="text-muted">May 15, 2026</small>
+                        <p>A simple minimalistic recipe with whole grain flour, water, and salt, alongside a sourdough starter that benefits from a nice slow...</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between mt-auto border-0 p-3 pt-0 bg-transparent small">
+                        <span><i class="fa fa-user-circle-o me-2" role="presentation"/> Austin Welsh-Graham</span>
+                        <span class="text-muted">In <a href="#">Personal Experiments</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="s_dynamic_snippet_archive_recipes_horizontal_preview_data" name="Archives Preview Data">
+        <div class="s_dialog_preview">
+            <div t-attf-class="pb-4 border-bottom">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="rounded overflow-hidden ratio ratio-16x9">
+                            <img class="img img-fluid object-fit-cover" src="/bakers_archive/static/src/img/archive_previews/archive_1.jpg"/>
+                        </div>
+                    </div>
+                    <div class="col-9 d-flex flex-column justify-content-between">
+                        <div>
+                            <h4 class="mb-2 mt-0">Brioche Buns</h4>
+                            <span class="text-muted">May 15, 2026</span>
+                            <p class="mt-1 mb-0 lead">These fluffy buttery brioche buns make the perfect burger companion.</p>
+                        </div>
+                        <div class="d-flex justify-content-between small">
+                            <span><i class="fa fa-user-circle-o me-2" role="presentation"/> Hendrik Kleinwaechter</span>
+                            <span class="text-muted">In <a href="#">The Sourdough Framework Recipes</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div t-attf-class="py-4 border-bottom">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="rounded overflow-hidden ratio ratio-16x9">
+                            <img class="img img-fluid object-fit-cover" src="/bakers_archive/static/src/img/archive_previews/archive_2.jpg"/>
+                        </div>
+                    </div>
+                    <div class="col-9 d-flex flex-column justify-content-between">
+                        <div>
+                            <h4 class="mb-2 mt-0">Chocolate Chip Cookies</h4>
+                            <span class="text-muted">May 15, 2026</span>
+                            <p class="mt-1 mb-0 lead">Studded generously with melt-in-your-mouth chocolate chunks.</p>
+                        </div>
+                        <div class="d-flex justify-content-between small">
+                            <span><i class="fa fa-user-circle-o me-2" role="presentation"/> Luciano van der Toorn</span>
+                            <span class="text-muted">In <a href="#">The Sourdough Framework Recipes</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div t-attf-class="pt-4">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="rounded overflow-hidden ratio ratio-16x9">
+                            <img class="img img-fluid object-fit-cover" src="/bakers_archive/static/src/img/archive_previews/archive_3.jpg"/>
+                        </div>
+                    </div>
+                    <div class="col-9 d-flex flex-column justify-content-between">
+                        <div>
+                            <h4 class="mb-2 mt-0">Simple Flatbread Recipe</h4>
+                            <span class="text-muted">May 15, 2026</span>
+                            <p class="mt-1 mb-0 lead">Enjoy your sourdough flatbreads warm, paired with your favorite dips, spreads, or as a side to any meal.</p>
+                        </div>
+                        <div class="d-flex justify-content-between small">
+                            <span><i class="fa fa-user-circle-o me-2" role="presentation"/> Hendrik Kleinwaechter</span>
+                            <span class="text-muted">In <a href="#">The Sourdough Framework</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="s_dynamic_snippet_archive_recipes_list_preview_data" name="Archives Preview Data">
+        <div class="s_dialog_preview row row-cols-3 g-4">
+            <div class="col">
+                <div class="d-flex align-items-center small">
+                    <span><i class="fa fa-user-circle-o me-2" role="presentation"/>Hendrik Kleinwaechter</span>
+                    <span class="text-muted"> • May 15, 2026</span>
+                </div>
+                <h4 class="mt-2">Brioche Buns</h4>
+                <p>This recipe will make you delicious, buttery fluffy brioche buns. They can be eaten on its own or used as a basis for burgers. This is my goto recipe that I have perfected over the years...</p>
+            </div>
+            <div class="col">
+                <div class="d-flex align-items-center small">
+                    <span><i class="fa fa-user-circle-o me-2" role="presentation"/>Luciano van der Toorn</span>
+                    <span class="text-muted"> • May 15, 2026</span>
+                </div>
+                <h4 class="mt-2">Chocolate Chip Cookies</h4>
+                <p>Dive into a world of decadence with these chocolate chip cookies, where every bite boasts the perfect balance of crisp edges and a soft, chewy center. Studded generously with melt-in-your-mouth chocolate chunks...</p>
+            </div>
+            <div class="col">
+                <div class="d-flex align-items-center small">
+                    <span><i class="fa fa-user-circle-o me-2" role="presentation"/>Hendrik Kleinwaechter</span>
+                    <span class="text-muted"> • May 15, 2026</span>
+                </div>
+                <h4 class="mt-2">Simple Flatbread Recipe</h4>
+                <p>By following the steps outlined in this section, you’ll be introduced to a versatile bread that’s perfect for a myriad of culinary applications.</p>
+            </div>
+            <div class="col">
+                <div class="d-flex align-items-center small">
+                    <span><i class="fa fa-user-circle-o me-2" role="presentation"/>Austin Welsh-Graham</span>
+                    <span class="text-muted"> • May 15, 2026</span>
+                </div>
+                <h4 class="mt-2">Sourdough Skillet</h4>
+                <p>A simple minimalistic recipe with whole grain flour, water, and salt, alongside a sourdough starter that benefits from a nice slow ferment for deep flavour...</p>
+            </div>
+            <div class="col">
+                <div class="d-flex align-items-center small">
+                    <span><i class="fa fa-user-circle-o me-2" role="presentation"/>Hendrik Kleinwaechter</span>
+                    <span class="text-muted"> • May 15, 2026</span>
+                </div>
+                <h4 class="mt-2">Naan</h4>
+                <p>This recipe will provide you with delicious and fluffy naan bread. While traditional naan bread is not leavened and made with the help of a hot Tandoor oven, this recipe is tailored to be made with your home oven setup...</p>
+            </div>
+            <div class="col">
+                <div class="d-flex align-items-center small">
+                    <span><i class="fa fa-user-circle-o me-2" role="presentation"/>Hendrik Kleinwaechter</span>
+                    <span class="text-muted"> • May 15, 2026</span>
+                </div>
+                <h4 class="mt-2">Whole-Grain Sandwich Loaf</h4>
+                <p>This recipe will make you a delicious whole-grain sandwich loaf. The bread features a moist soft crumb and has a nice tang. It’s the perfect hearty whole-grain sandwich bread and can be paired with savory toppings or sweet toppings...</p>
+            </div>
+        </div>
+    </template>
+
+    <template id="s_dynamic_snippet_archive_recipes_single_full_preview_data" name="Single Archive Preview Data">
+        <div class="s_dialog_preview">
+            <h2 class="display-3-fs">Chocolate Chip Cookies</h2>
+            <span class="d-block my-3 text-muted"><i class="fa fa-user-circle-o me-2" role="presentation"/><span>Luciano van der Toorn</span> • <span>May 15, 2026</span> • <a href="#">The Sourdough Framework Recipes</a></span>
+            <p class="lead h4-fs">Dive into a world of decadence with these chocolate chip cookies, where every bite boasts the perfect balance of crisp edges and a soft, chewy center....</p>
+        </div>
+    </template>
+    <template id="s_dynamic_snippet_archive_recipes_single_aside_preview_data" name="Single Archive Preview Data">
+        <div class="s_dialog_preview row my-4">
+            <div class="col-lg-7 pe-5 align-content-center">
+                <h2>Brioche Buns</h2>
+                <span class="d-block my-2 text-muted"><i class="fa fa-user-circle-o me-2" role="presentation"/><span>Hendrik Kleinwaechter</span> • <span>May 15, 2026</span> • <a href="#">The Sourdough Framework Recipes</a></span>
+                <p class="lead">Brioche Buns, can be made both with sourdough and yeast. The yeasted buns are typically ready within 1 to 2 hours whereas the sourdough buns will take around 10 hours to complete....</p>
+                <a class="btn btn-primary" href="#">Read Now <i class="fa fa-long-arrow-right ms-2" role="presentation"/></a>
+            </div>
+            <div class="col-lg-5">
+                <div class="ratio ratio-16x9">
+                    <div class="rounded" style="background-image: url('/bakers_archive/static/src/img/archive_previews/archive_1.jpg'); background-size: cover;"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="s_dynamic_snippet_archive_recipes_single_circle_preview_data" name="Single Archive Preview Data">
+        <div class="s_dialog_preview row my-4">
+            <div class="col-4">
+                <div class="rounded-circle overflow-hidden ratio ratio-1x1" style="background-image: url('/bakers_archive/static/src/img/archive_previews/archive_2.jpg'); background-size: cover;"/>
+            </div>
+            <div class="col-8">
+                <h2>Chocolate Chip Cookies</h2>
+                <div class="mb-2">
+                    <span class="text-muted"><i class="fa fa-user-circle-o me-2" role="presentation"/><span>Luciano van der Toorn</span> • <span>May 15, 2026</span> • <a href="#">The Sourdough Framework Recipes</a></span>
+                </div>
+                <p class="lead">Studded generously with melt-in-your-mouth chocolate chunks.</p>
+                <a class="btn btn-primary" href="#">Read Now <i class="fa fa-long-arrow-right" role="presentation"/></a>
+            </div>
+        </div>
+    </template>
+    <template id="s_dynamic_snippet_archive_recipes_single_badge_preview_data" name="Single Archive Preview Data">
+        <div class="s_dialog_preview my-4">
+            <div class="text-center">
+                <span class="o_cc o_cc1 d-inline-flex align-items-center justify-content-center gap-3 border rounded py-2 px-3 rounded-pill">
+                    <span class="badge text-bg-primary">NEW</span>
+                    <strong>Brioche Buns</strong>
+                    <span class="text-muted">Hendrik Kleinwaechter in The Sourdough Framework Recipes</span>
+                    <span class="text-primary">Read Now <i class="fa fa-long-arrow-right" role="presentation"/></span>
+                </span>
+            </div>
+        </div>
+    </template>
+</odoo>

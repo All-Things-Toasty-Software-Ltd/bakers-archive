@@ -68,15 +68,15 @@ class BakersArchiveArchive(models.Model):
         BakersArchiveTag = self.env['bakers_archive.tag']
         req = """
             SELECT
-                p.archive_id, count(*), r.archive_tag_id
+                p.archive_id, count(*), r.bakers_archive_tag_id
             FROM
-                archive_recipe_archive_tag_rel r
-                    join archive_recipe p on r.archive_recipe_id=p.id
+                bakers_archive_recipe_bakers_archive_tag_rel r
+                    join bakers_archive_recipe p on r.bakers_archive_recipe_id=p.id
             WHERE
                 p.archive_id in %s
             GROUP BY
                 p.archive_id,
-                r.archive_tag_id
+                r.bakers_archive_tag_id
             ORDER BY
                 count(*) DESC
         """

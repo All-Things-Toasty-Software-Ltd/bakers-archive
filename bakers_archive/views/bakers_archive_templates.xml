@@ -335,7 +335,7 @@
                                     <a t-att-href="'/bakers-archive/' + slug(next_recipe.archive_id) + '/' + slug(next_recipe)"
                                        t-att-title="'Read next' + next_recipe.name">
                                         <div t-field="next_recipe.name" t-att-data-archive-id="next_recipe.id"
-                                             placeholder="Crchive Recipe Title" class="h2 o_barchive_recipe_name"/>
+                                             placeholder="Archive Recipe Title" class="h2 o_barchive_recipe_name"/>
                                         <div t-field="next_recipe.subtitle" placeholder="Subtitle"
                                              class="lead o_barchive_recipe_subtitle"/>
                                     </a>

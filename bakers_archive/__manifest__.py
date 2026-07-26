@@ -1,6 +1,6 @@
 {
     'name': "Baker's Archive",
-    'version': '0.3.0',
+    'version': '0.3.5',
     'category': 'Toasty Software',
     'summary': "Archive of all things baking (mostly just recipes though).",
     'currency': 'EUR',
@@ -27,12 +27,19 @@ of recipes and archive data as well as displaying them on an Odoo website.
         'views/bakers_archive_tag_views.xml',
         'views/bakers_archive_menu_views.xml',
 
+        'views/snippets/snippets.xml',
+        'views/snippets/s_archive_recipes.xml',
+        'views/snippets/s_dynamic_snippet_archive_recipes_preview_data.xml',
+
         'views/bakers_archive_components.xml',
         'views/bakers_archive_recipes_loop.xml',
         'views/bakers_archive_templates.xml',
     ],
     'demo': [],
     'assets': {
+        'web.assets_backend': [
+            'bakers_archive/static/src/tours/bakers_archive.js',
+        ],
         'web.assets_frontend': [
             'bakers_archive/static/src/interactions/**/*',
             'bakers_archive/static/src/scss/bakers_archive.scss',
