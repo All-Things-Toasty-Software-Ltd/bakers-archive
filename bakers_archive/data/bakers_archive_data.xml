@@ -4,7 +4,9 @@
         <record id="archive_archive_1" model="bakers_archive.archive">
             <field name="name">Our Archive</field>
             <field name="subtitle">A collection of all the best breads.</field>
-            <field name="cover_properties">{"background-image": "url('/bakers_archive/static/src/img/cover_5.jpg')", "resize_class": "o_record_has_cover o_half_screen_height", "opacity": "0.4"}</field>
+            <field name="cover_properties">{"background-image": "url('/bakers_archive/static/src/img/cover_5.jpg')",
+                "resize_class": "o_record_has_cover o_half_screen_height", "opacity": "0.4"}
+            </field>
         </record>
 
         <record id="menu_archive" model="website.menu">

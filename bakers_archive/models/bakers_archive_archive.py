@@ -1,11 +1,13 @@
-from datetime import datetime
-import random
+# -*- coding: utf-8 -*-
+# Part of The Baker's Archive. See LICENSE file for full copyright and licensing details.
 
+import random
+from datetime import datetime
 from odoo import api, models, fields, _
 from odoo.addons.website.tools import text_from_html
+from odoo.tools import html_escape
 from odoo.tools.json import scriptsafe as json_scriptsafe
 from odoo.tools.translate import html_translate
-from odoo.tools import html_escape
 
 
 class BakersArchiveArchive(models.Model):
@@ -21,7 +23,7 @@ class BakersArchiveArchive(models.Model):
     ]
     _order = 'name'
 
-    _CUSTOMER_HEADERS_LIMIT_COUNT = 0 # Should never use X-Msg-To headers
+    _CUSTOMER_HEADERS_LIMIT_COUNT = 0  # Should never use X-Msg-To headers
 
     def _default_sequence(self):
         return (self.search([], order='sequence desc', limit=1).sequence or 0) + 1
@@ -60,26 +62,24 @@ class BakersArchiveArchive(models.Model):
         self.ensure_one()
         if parent_id:
             parent_message = self.env['mail.message'].sudo().browse(parent_id)
-            if parent_message.subtype_id and parent_message.subtype_id == self.env.ref('website_archive.mt_archive_archive_published'):
+            if parent_message.subtype_id and parent_message.subtype_id == self.env.ref(
+                    'website_archive.mt_archive_archive_published'):
                 subtype_id = self.env.ref('mail.mt_note').id
         return super().message_post(parent_id=parent_id, subtype_id=subtype_id, **kwargs)
 
     def all_tags(self, join=False, min_limit=1):
         BakersArchiveTag = self.env['bakers_archive.tag']
         req = """
-            SELECT
-                p.archive_id, count(*), r.bakers_archive_tag_id
-            FROM
-                bakers_archive_recipe_bakers_archive_tag_rel r
-                    join bakers_archive_recipe p on r.bakers_archive_recipe_id=p.id
-            WHERE
-                p.archive_id in %s
-            GROUP BY
-                p.archive_id,
-                r.bakers_archive_tag_id
-            ORDER BY
-                count(*) DESC
-        """
+              SELECT p.archive_id,
+                     count(*),
+                     r.bakers_archive_tag_id
+              FROM bakers_archive_recipe_bakers_archive_tag_rel r
+                       join bakers_archive_recipe p on r.bakers_archive_recipe_id = p.id
+              WHERE p.archive_id in %s
+              GROUP BY p.archive_id,
+                       r.bakers_archive_tag_id
+              ORDER BY count(*) DESC \
+              """
         self.env.cr.execute(req, [tuple(self.ids)])
         tag_by_archive = {i.id: [] for i in self}
         all_tags = set()

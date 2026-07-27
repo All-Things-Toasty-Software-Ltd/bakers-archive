@@ -1,220 +1,220 @@
 .s_dynamic {
-    &.s_dynamic_snippet_archive_recipes {
-        --Avatar-size: 1.5em;
+  &.s_dynamic_snippet_archive_recipes {
+    --Avatar-size: 1.5em;
+  }
+
+  .s_archive_recipes_recipe_teaser {
+
+    @include media-breakpoint-up(md) {
+      --lines-clamp: 4;
+    }
+  }
+
+  &.s_archive_recipe_list:not(:has(.s_dynamic_snippet_title_aside)) {
+    .s_dynamic_snippet_content {
+      margin-top: map-get($spacers, 4);
+    }
+  }
+
+  &.s_archive_recipe_big_picture {
+    .s_archive_recipes_recipe_cover {
+      @include media-breakpoint-up(lg) {
+        --aspect-ratio: 75%;
+      }
     }
 
-    .s_archive_recipes_recipe_teaser {
-
+    &.s_archive_recipes_recipe_picture_size_small {
+      .s_archive_recipes_recipe_cover {
         @include media-breakpoint-up(md) {
-            --lines-clamp: 4;
+          --aspect-ratio: 66%;
         }
+
+        @include media-breakpoint-up(xl) {
+          --aspect-ratio: 50%;
+        }
+      }
     }
 
-    &.s_archive_recipe_list:not(:has(.s_dynamic_snippet_title_aside)){
-        .s_dynamic_snippet_content {
-            margin-top: map-get($spacers, 4);
-        }
+    &:not([class*="s_archive_recipes_effect"]) .s_archive_recipe_big_picture_infos {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
     }
 
-    &.s_archive_recipe_big_picture {
-        .s_archive_recipes_recipe_cover {
-            @include media-breakpoint-up(lg) {
-                --aspect-ratio: 75%;
-            }
-        }
-
-        &.s_archive_recipes_recipe_picture_size_small {
-            .s_archive_recipes_recipe_cover {
-                @include media-breakpoint-up(md) {
-                    --aspect-ratio: 66%;
-                }
-
-                @include media-breakpoint-up(xl) {
-                    --aspect-ratio: 50%;
-                }
-            }
-        }
-
-        &:not([class*="s_archive_recipes_effect"]) .s_archive_recipe_big_picture_infos {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-        }
-
-        &.s_archive_recipes_effect_marley, &.s_archive_recipes_effect_chico {
-            .s_dynamic_snippet_content {
-                text-align: center;
-            }
-        }
-
-        &.s_archive_recipes_effect_marley, &.s_archive_recipes_effect_dexter, &.s_archive_recipes_effect_chico {
-
-            @mixin -big-picture-animate-compact() {
-                .s_archive_recipes_recipe_author {
-                    font-size: $font-size-lg;
-                }
-
-                .s_archive_recipes_recipe:hover {
-                    .s_archive_recipe_big_picture_title {
-                        transform: translateY(50%);
-                        opacity: 0;
-                    }
-
-                    .s_archive_recipes_recipe_cover_hidden {
-                        transform: translateY(-50%);
-                    }
-                }
-            }
-
-            @mixin -big-picture-animate-extended() {
-                .s_archive_recipes_recipe_author {
-                    font-size: $font-size-base;
-                }
-
-                .s_archive_recipes_recipe:hover {
-                    .s_archive_recipe_big_picture_title {
-                        transform: translateY(-25%);
-                        opacity: 1;
-                    }
-
-                    .s_archive_recipes_recipe_cover_hidden {
-                        transform: translateY(0);
-                    }
-                }
-            }
-
-            .s_archive_recipes_recipe_cover_header, .s_archive_recipes_recipe_cover_hidden {
-                height: 50%;
-            }
-
-            .s_archive_recipe_big_picture_title, .s_archive_recipes_recipe_cover_hidden {
-                transform: translateY(50%);
-                transition: $transition-base;
-            }
-
-            .s_archive_recipe_big_picture_infos::before {
-                @include o-position-absolute(0, 0, 0, 0);
-                background-color: rgba($black, .3);
-                transition: $transition-fade;
-                opacity: 0;
-                content: "";
-            }
-
-            .s_archive_recipes_recipe_cover_hidden, .s_archive_recipe_big_picture_infos::before {
-                opacity: 0;
-            }
-
-            .s_archive_recipes_recipe:hover {
-                .s_archive_recipes_recipe_cover_hidden, .s_archive_recipe_big_picture_infos:before {
-                    opacity: 1;
-                }
-            }
-
-            &.s_archive_recipes_recipe_picture_size_default {
-                @include -big-picture-animate-extended();
-                @include media-breakpoint-only(lg) {
-                    @include -big-picture-animate-compact();
-                }
-            }
-
-            &.s_archive_recipes_recipe_picture_size_small {
-                @include -big-picture-animate-compact();
-            }
-        }
-
-        &.s_archive_recipes_effect_dexter {
-            .s_archive_recipes_recipe::before {
-                content: "";
-                @include o-position-absolute(1rem, 1rem);
-                border-top: $border-width * 2 solid $white;
-                border-right: $border-width * 2 solid $white;
-                padding: 1rem;
-                transition: $transition-base;
-                transform: scale3d(0, 0, 0);
-                transform-origin: top right;
-                opacity: 0;
-                z-index: 1;
-            }
-
-            .s_archive_recipes_recipe:hover::before {
-                opacity: 1;
-                transform: scale3d(1, 1, 1);
-            }
-        }
-
-        &.s_archive_recipes_effect_chico {
-            .s_archive_recipes_recipe::before, .o_record_cover_image {
-                transition: $transition-base;
-                transform: scale3d(1.12, 1.12, 1.12);
-            }
-
-            .s_archive_recipes_recipe::before {
-                @include o-position-absolute(1rem, 1rem, 1rem, 1rem);
-                border: $border-width solid $white;
-                border-radius: $border-radius;
-                opacity: 0;
-                z-index: 1;
-                content: "";
-                pointer-events: none;
-            }
-
-            .s_archive_recipes_recipe:hover {
-                .o_record_cover_image, &::before {
-                    opacity: 1;
-                    transform: scale3d(1, 1, 1);
-                }
-            }
-        }
+    &.s_archive_recipes_effect_marley, &.s_archive_recipes_effect_chico {
+      .s_dynamic_snippet_content {
+        text-align: center;
+      }
     }
 
-    &.s_archive_recipe_horizontal {
-        &.s_archive_recipes_recipe_picture_size_default .s_archive_recipes_recipe_cover_col {
-            @include media-breakpoint-down(md) {
-                min-height: 12rem;
-            }
+    &.s_archive_recipes_effect_marley, &.s_archive_recipes_effect_dexter, &.s_archive_recipes_effect_chico {
 
-            @include media-breakpoint-up(md) {
-                flex: 0 0 MIN(26rem, 33%);
-            }
+      @mixin -big-picture-animate-compact() {
+        .s_archive_recipes_recipe_author {
+          font-size: $font-size-lg;
         }
 
-        &.s_archive_recipes_recipe_picture_size_small .s_archive_recipes_recipe_cover_col {
-            @include media-breakpoint-down(md) {
-                min-height: 8rem;
-            }
+        .s_archive_recipes_recipe:hover {
+          .s_archive_recipe_big_picture_title {
+            transform: translateY(50%);
+            opacity: 0;
+          }
 
-            @include media-breakpoint-up(md) {
-                flex: 0 0 MIN(26rem, 25%);
-            }
+          .s_archive_recipes_recipe_cover_hidden {
+            transform: translateY(-50%);
+          }
+        }
+      }
+
+      @mixin -big-picture-animate-extended() {
+        .s_archive_recipes_recipe_author {
+          font-size: $font-size-base;
         }
 
-        .o_container_small .s_archive_recipes_recipe_cover_col {
-            display: none;
+        .s_archive_recipes_recipe:hover {
+          .s_archive_recipe_big_picture_title {
+            transform: translateY(-25%);
+            opacity: 1;
+          }
+
+          .s_archive_recipes_recipe_cover_hidden {
+            transform: translateY(0);
+          }
         }
+      }
+
+      .s_archive_recipes_recipe_cover_header, .s_archive_recipes_recipe_cover_hidden {
+        height: 50%;
+      }
+
+      .s_archive_recipe_big_picture_title, .s_archive_recipes_recipe_cover_hidden {
+        transform: translateY(50%);
+        transition: $transition-base;
+      }
+
+      .s_archive_recipe_big_picture_infos::before {
+        @include o-position-absolute(0, 0, 0, 0);
+        background-color: rgba($black, .3);
+        transition: $transition-fade;
+        opacity: 0;
+        content: "";
+      }
+
+      .s_archive_recipes_recipe_cover_hidden, .s_archive_recipe_big_picture_infos::before {
+        opacity: 0;
+      }
+
+      .s_archive_recipes_recipe:hover {
+        .s_archive_recipes_recipe_cover_hidden, .s_archive_recipe_big_picture_infos:before {
+          opacity: 1;
+        }
+      }
+
+      &.s_archive_recipes_recipe_picture_size_default {
+        @include -big-picture-animate-extended();
+        @include media-breakpoint-only(lg) {
+          @include -big-picture-animate-compact();
+        }
+      }
+
+      &.s_archive_recipes_recipe_picture_size_small {
+        @include -big-picture-animate-compact();
+      }
     }
 
-    &.s_archive_recipe_card {
-        &.s_archive_recipes_recipe_picture_size_small .s_archive_recipes_recipe_cover {
-            --aspect-ratio: 40%;
-        }
+    &.s_archive_recipes_effect_dexter {
+      .s_archive_recipes_recipe::before {
+        content: "";
+        @include o-position-absolute(1rem, 1rem);
+        border-top: $border-width * 2 solid $white;
+        border-right: $border-width * 2 solid $white;
+        padding: 1rem;
+        transition: $transition-base;
+        transform: scale3d(0, 0, 0);
+        transform-origin: top right;
+        opacity: 0;
+        z-index: 1;
+      }
+
+      .s_archive_recipes_recipe:hover::before {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+      }
     }
 
-    &.s_dynamic_snippet_carousel.s_archive_recipe_big_picture .s_archive_recipes_recipe_cover {
-        @include media-breakpoint-up(sm) {
-            --aspect-ratio: 50%;
+    &.s_archive_recipes_effect_chico {
+      .s_archive_recipes_recipe::before, .o_record_cover_image {
+        transition: $transition-base;
+        transform: scale3d(1.12, 1.12, 1.12);
+      }
+
+      .s_archive_recipes_recipe::before {
+        @include o-position-absolute(1rem, 1rem, 1rem, 1rem);
+        border: $border-width solid $white;
+        border-radius: $border-radius;
+        opacity: 0;
+        z-index: 1;
+        content: "";
+        pointer-events: none;
+      }
+
+      .s_archive_recipes_recipe:hover {
+        .o_record_cover_image, &::before {
+          opacity: 1;
+          transform: scale3d(1, 1, 1);
         }
-        @include media-breakpoint-up(lg) {
-            --aspect-ratio: 100%;
-        }
+      }
+    }
+  }
+
+  &.s_archive_recipe_horizontal {
+    &.s_archive_recipes_recipe_picture_size_default .s_archive_recipes_recipe_cover_col {
+      @include media-breakpoint-down(md) {
+        min-height: 12rem;
+      }
+
+      @include media-breakpoint-up(md) {
+        flex: 0 0 MIN(26rem, 33%);
+      }
     }
 
-    &.s_archive_recipe_single_circle {
-        .o_record_cover_container {
-            max-width: 12.5rem;
-        }
+    &.s_archive_recipes_recipe_picture_size_small .s_archive_recipes_recipe_cover_col {
+      @include media-breakpoint-down(md) {
+        min-height: 8rem;
+      }
+
+      @include media-breakpoint-up(md) {
+        flex: 0 0 MIN(26rem, 25%);
+      }
     }
 
-    &.s_archive_recipe_single_badge .s_cta_badge:hover {
-        box-shadow: $box-shadow-sm;
+    .o_container_small .s_archive_recipes_recipe_cover_col {
+      display: none;
     }
+  }
+
+  &.s_archive_recipe_card {
+    &.s_archive_recipes_recipe_picture_size_small .s_archive_recipes_recipe_cover {
+      --aspect-ratio: 40%;
+    }
+  }
+
+  &.s_dynamic_snippet_carousel.s_archive_recipe_big_picture .s_archive_recipes_recipe_cover {
+    @include media-breakpoint-up(sm) {
+      --aspect-ratio: 50%;
+    }
+    @include media-breakpoint-up(lg) {
+      --aspect-ratio: 100%;
+    }
+  }
+
+  &.s_archive_recipe_single_circle {
+    .o_record_cover_container {
+      max-width: 12.5rem;
+    }
+  }
+
+  &.s_archive_recipe_single_badge .s_cta_badge:hover {
+    box-shadow: $box-shadow-sm;
+  }
 }

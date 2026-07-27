@@ -1,7 +1,7 @@
-import { Plugin } from "@html_editor/plugin";
-import { registry } from "@web/core/registry";
-import { _t } from "@web/core/l10n/translation";
-import { BaseOptionComponent } from "@html_builder/core/utils";
+import {Plugin} from "@html_editor/plugin";
+import {registry} from "@web/core/registry";
+import {_t} from "@web/core/l10n/translation";
+import {BaseOptionComponent} from "@html_builder/core/utils";
 
 export class ArchiveRecipePageOption extends BaseOptionComponent {
     static template = "bakers_archive.archiveRecipePageOption";

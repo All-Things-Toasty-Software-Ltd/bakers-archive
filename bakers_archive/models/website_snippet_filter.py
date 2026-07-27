@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*-
+# Part of The Baker's Archive. See LICENSE file for full copyright and licensing details.
+
 from datetime import timedelta
 
 from odoo import models, fields, api, _
+
 
 class WebsiteSnippetFilter(models.Model):
     _inherit = 'website.snippet.filter'

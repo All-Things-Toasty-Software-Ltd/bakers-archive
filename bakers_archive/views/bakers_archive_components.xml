@@ -2,372 +2,413 @@
 <odoo>
 
 
-<template id="archives_nav" name="Archives Bar Template">
-    <t t-set="barchive_nav_offcanvas" t-value="len(archives) > 4"/>
-    <t t-set="barchive_all_title_string">All Archives</t>
+    <template id="archives_nav" name="Archives Bar Template">
+        <t t-set="barchive_nav_offcanvas" t-value="len(archives) > 4"/>
+        <t t-set="barchive_all_title_string">All Archives</t>
 
-    <nav t-attf-class="navbar navbar-expand-lg navbar-light pt-4 pb-0 px-0 #{additionnal_classes}">
-        <div t-attf-class="container gap-2 w-100 #{barchive_nav_offcanvas and 'flex-nowrap' or 'flex-wrap flex-sm-nowrap'}">
-            <ul t-if="len(archives) > 1" class="navbar-nav d-none d-lg-flex flex-wrap">
-                <li class="nav-item">
-                    <span class="nav-link disabled ps-0">Archives:</span>
-                </li>
-                <li class="nav-item">
-                    <a href="/archive" t-attf-class="nav-link fw-bold #{(not archive) and 'active'}">All</a>
-                </li>
-                <li class="nav-item" t-foreach="archives" t-as="nav_archive">
-                    <a t-attf-href="/archive/#{slug(nav_archive)}"
-                       t-attf-class="nav-link #{(archive and nav_archive.id == archive.id) and 'active' or ''}">
-                        <b t-field="nav_archive.name"/>
-                    </a>
-                </li>
-            </ul>
-            <div t-if="len(archives) > 1" t-attf-class="order-2 d-lg-none #{not barchive_nav_offcanvas and 'dropdown flex-grow-1 flex-sm-grow-0 min-w-0'}">
-                <t t-if="barchive_nav_offcanvas">
-                    <a class="btn btn-light"
-                       role="button"
-                       t-att-title="archive.name if archive else barchive_all_title_string"
-                       data-bs-toggle="offcanvas"
-                       data-bs-target="#o_barchive_offcanvas"
-                       aria-controls="o_barchive_offcanvas">
-                        <i class="fa fa-navicon" role="img"/>
-                    </a>
-                    <div id="o_barchive_offcanvas" class="offcanvas offcanvas-end d-lg-none">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title my-0">Archives</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"/>
+        <nav t-attf-class="navbar navbar-expand-lg navbar-light pt-4 pb-0 px-0 #{additionnal_classes}">
+            <div t-attf-class="container gap-2 w-100 #{barchive_nav_offcanvas and 'flex-nowrap' or 'flex-wrap flex-sm-nowrap'}">
+                <ul t-if="len(archives) > 1" class="navbar-nav d-none d-lg-flex flex-wrap">
+                    <li class="nav-item">
+                        <span class="nav-link disabled ps-0">Archives:</span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/archive" t-attf-class="nav-link fw-bold #{(not archive) and 'active'}">All</a>
+                    </li>
+                    <li class="nav-item" t-foreach="archives" t-as="nav_archive">
+                        <a t-attf-href="/archive/#{slug(nav_archive)}"
+                           t-attf-class="nav-link #{(archive and nav_archive.id == archive.id) and 'active' or ''}">
+                            <b t-field="nav_archive.name"/>
+                        </a>
+                    </li>
+                </ul>
+                <div t-if="len(archives) > 1"
+                     t-attf-class="order-2 d-lg-none #{not barchive_nav_offcanvas and 'dropdown flex-grow-1 flex-sm-grow-0 min-w-0'}">
+                    <t t-if="barchive_nav_offcanvas">
+                        <a class="btn btn-light"
+                           role="button"
+                           t-att-title="archive.name if archive else barchive_all_title_string"
+                           data-bs-toggle="offcanvas"
+                           data-bs-target="#o_barchive_offcanvas"
+                           aria-controls="o_barchive_offcanvas">
+                            <i class="fa fa-navicon" role="img"/>
+                        </a>
+                        <div id="o_barchive_offcanvas" class="offcanvas offcanvas-end d-lg-none">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title my-0">Archives</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"/>
+                            </div>
+                            <div class="offcanvas-body">
+                                <ul class="nav navbar-nav">
+                                    <li class="nav-item">
+                                        <a href="/archive" t-attf-class="nav-link #{(not archive) and 'active'}"
+                                           t-att-title="barchive_all_title_string">All
+                                        </a>
+                                    </li>
+                                    <li t-foreach="archives" t-as="nav_archive" class="nav-item">
+                                        <a t-attf-href="/archive/#{slug(nav_archive)}"
+                                           t-attf-class="nav-link #{(archive and nav_archive.id == archive.id) and 'active' or ''}"
+                                           t-att-title="nav_archive.name">
+                                            <span t-field="nav_archive.name"/>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="offcanvas-body">
-                            <ul class="nav navbar-nav">
-                                <li class="nav-item">
-                                    <a href="/archive" t-attf-class="nav-link #{(not archive) and 'active'}" t-att-title="barchive_all_title_string">All</a>
-                                </li>
-                                <li t-foreach="archives" t-as="nav_archive" class="nav-item">
-                                    <a t-attf-href="/archive/#{slug(nav_archive)}"
-                                       t-attf-class="nav-link #{(archive and nav_archive.id == archive.id) and 'active' or ''}"
-                                       t-att-title="nav_archive.name">
-                                        <span t-field="nav_archive.name"/>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                    </t>
+                    <t t-else="">
+                        <a class="btn btn-light dropdown-toggle d-flex align-items-center justify-content-between"
+                           role="button"
+                           t-att-title="archive.name if archive else barchive_all_title_string"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <span t-if="archive" class="text-truncate" t-out="archive.name"/>
+                            <span t-else="" class="text-truncate">All</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a href="/archive" t-attf-class="dropdown-item #{(not archive) and 'active'}"
+                                   title="All Archives">All
+                                </a>
+                            </li>
+                            <li t-foreach="archives" t-as="nav_archive">
+                                <a t-attf-href="/archive/#{slug(nav_archive)}"
+                                   t-attf-class="dropdown-item #{(archive and nav_archive.id == archive.id) and 'active' or ''}"
+                                   t-att-title="nav_archive.name">
+                                    <span t-field="nav_archive.name"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </t>
+                </div>
+                <t t-call="website.website_search_box_input"
+                   _form_classes.f="#{not len(archives) &gt; 1 and 'ms-auto'} flex-grow-1 flex-lg-grow-0"
+                   search_type.f="archives"
+                   action="archive_url(tag=tag,search=search)"
+                   display_description.f="true"
+                   display_detail.f="false">
+                    <input type="hidden" name="tag" t-att-value="tag"/>
+                    <input type="hidden" name="date_begin" t-att-value="date_begin"/>
+                    <input type="hidden" name="date_end" t-att-value="date_end"/>
+                </t>
+            </div>
+        </nav>
+    </template>
+
+    <template id="tags_list" name="Tags List">
+        <t t-if="tags">
+            <div t-if="not hide_title and categ_title" class="text-muted mb-1 h6" t-out="categ_title"/>
+            <t t-foreach="tags" t-as="tag">
+                <t t-if="tag.recipe_ids">
+                    <span t-if="dismissibleBtn and tag.id in active_tag_ids"
+                          t-attf-class="align-items-baseline d-inline-flex ps-2 rounded mb-2 o_filter_tag #{'o_color_%s' % tag.colour}">
+                        <i class="fa fa-tag me-2"/>
+                        <t t-out="tag.name"/>
+                        <a t-attf-href="#{archive_url(tag=tags_list(active_tag_ids, tag.id))}"
+                           class="btn border-0 py-1 recipe_link text-reset"
+                           t-att-rel="len(active_tag_ids) and 'nofollow'">×
+                        </a>
+                    </span>
+                    <a t-elif="showInactive" t-attf-href="#{archive_url(tag=tags_list(active_tag_ids, tag.id))}"
+                       t-attf-class="badge mb-2 mw-100 text-truncate text-decoration-none o_tag o_color_#{tag.colour} recipe_link"
+                       t-att-rel="len(active_tag_ids) and 'nofollow'" t-out="tag.name"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="date_selector">
+        <select name="archive" class="form-select recipe_link">
+            <option t-att-value="archive_url(date_begin=False, date_end=False, tag=tag)"
+                    t-att="[('selected' if (not date_begin) else 'unselected' ) , 'true' ]">
+                All dates
+            </option>
+            <option t-att-value="archive_url(state='unpublished')" groups="website.group_website_designer">
+                -- Unpublished
+            </option>
+            <option t-att-value="archive_url(state='scheduled')" groups="website.group_website_designer">
+                -- Scheduled
+            </option>
+
+            <optgroup t-foreach="nav_list" t-as="year" t-attf-label="#{year}">
+                <option t-foreach="nav_list[year]" t-as="months"
+                        t-att="[('selected' if date_begin and (months['date_begin'] == date_begin) else 'unselected' ) , 'true' ]"
+                        t-attf-value="#{archive_url(date_begin=months['date_begin'], date_end=months['date_end'], tag=tag)}">
+                    <t t-out="months['month']"/>
+                    <t t-out="year"/>
+                </option>
+            </optgroup>
+        </select>
+    </template>
+
+
+    <template id="recipe_author">
+        <div t-attf-class="align-items-center position-relative #{additionnal_classes or ''}">
+            <div t-if="archive_recipe.author_avatar"
+                 t-field="archive_recipe.author_avatar"
+                 style="line-height:1"
+                 class="o_not_editable"
+                 t-options='{"widget": "image", "alt": "", "class": "rounded-circle " + "o_barchive_author_avatar me-1" if hide_date else  "o_barchive_author_avatar_date me-2"}'/>
+            <div t-att-class="not hide_date and 'small fw-bold'" style="line-height:1">
+                <span t-if="editable" t-field="archive_recipe.author_id"
+                      t-options='{ "widget": "contact", "fields": ["name"]}'/>
+                <span t-else="" class="o_not_editable" t-out="archive_recipe.author_name"/>
+                <t t-if="not hide_date">
+                    <small t-if="archive_recipe.published_date" t-field="archive_recipe.published_date"
+                           t-options="{'format': 'long', 'date_only': 'true'}"/>
+                    <small t-elif="archive_recipe.publish_on" t-field="archive_recipe.publish_on"
+                           t-options="{'format': 'long', 'date_only': 'true'}"/>
+                </t>
+            </div>
+        </div>
+    </template>
+
+    <template id="recipe_source">
+        <div t-attf-class="align-items-center position-relative #{additionnal_classes or ''}">
+            <div t-att-class="not hide_date and 'small fw-bold'" style="line-height:1">
+                <span t-if="editable" t-field="archive_recipe.source_id"/>
+                <span t-else="" class="o_not_editable" t-out="archive_recipe.source_name"/>
+                <t t-if="not hide_date">
+                    <small t-if="archive_recipe.published_date" t-field="archive_recipe.published_date"
+                           t-options="{'format': 'long', 'date_only': 'true'}"/>
+                    <small t-elif="archive_recipe.publish_on" t-field="archive_recipe.publish_on"
+                           t-options="{'format': 'long', 'date_only': 'true'}"/>
+                </t>
+            </div>
+        </div>
+    </template>
+
+
+    <template id="recipe_breadcrumbs">
+        <nav aria-label="breadcrumb"
+             t-attf-class="breadcrumb flex-nowrap py-0 px-0 css_editable_mode_hidden #{additionnal_classes or ''}">
+            <li t-if="len(archives) &gt; 1" class="breadcrumb-item d-none d-lg-inline">
+                <a href="/archive">All Archives</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a t-attf-href="#{archive_url(tag=None, date_begin=None, date_end=None)}">
+                    <i class="oi oi-chevron-left d-lg-none me-1" role="presentation"/>
+                    <t t-out="archive.name"/>
+                </a>
+            </li>
+            <li class="breadcrumb-item text-truncate active d-none d-lg-inline">
+                <span t-out="archive_recipe.name"/>
+            </li>
+        </nav>
+    </template>
+
+    <template id="archive_recipe_info" name="Archive Recipe Info">
+        <div id="o_barchive_recipe_info" class="mb-2">
+            <div class="text-secondary small mb-3">
+                <span t-if="archive_recipe.author_id or archive_recipe.author_name">
+                    <strong>Author:</strong>
+                    <t t-call="bakers_archive.recipe_author" additionnal_classes.f="d-inline-flex ms-1"
+                       hide_date="True"/>
+                </span>
+                <span t-if="(archive_recipe.author_id or archive_recipe.author_name) and (archive_recipe.source_id or archive_recipe.source_name)"
+                      class="mx-2">|
+                </span>
+                <span t-if="archive_recipe.source_id or archive_recipe.source_name">
+                    <strong>Source:</strong>
+                    <t t-call="bakers_archive.recipe_source" additionnal_classes.f="d-inline-flex ms-1"
+                       hide_date="True"/>
+                </span>
+            </div>
+            <t t-set="categories" t-value="archive_recipe.tag_ids.mapped('category_id')"/>
+            <div t-if="categories or archive_recipe.archive_id" class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                <strong class="me-1">Categories:</strong>
+                <a t-if="archive_recipe.archive_id"
+                   t-attf-href="#{archive_url(archive=archive_recipe.archive_id)}"
+                   class="badge border border-dark text-dark fw-normal rounded-pill px-3 py-1 text-decoration-none">
+                    <span t-field="archive_recipe.archive_id.name"/>
+                </a>
+                <t t-foreach="categories" t-as="category">
+                    <span class="badge border border-dark text-dark fw-normal rounded-pill px-3 py-1"
+                          t-out="category.name"/>
+                </t>
+            </div>
+
+            <div t-if="archive_recipe.tag_ids" class="d-flex align-items-center flex-wrap gap-2">
+                <strong class="me-1">Tags:</strong>
+                <t t-foreach="archive_recipe.tag_ids" t-as="one_tag">
+                    <a t-attf-href="#{archive_url(tag=slug(one_tag))}"
+                       class="badge border border-secondary text-secondary fw-normal rounded-pill px-2 py-1 text-decoration-none"
+                       t-out="one_tag.name"/>
+                </t>
+            </div>
+        </div>
+    </template>
+
+    <template id="sidebar_archive_index" name="Sidebar - Archive page">
+        <div id="o_barchive_sidebar" class="w-100">
+            <div class="oe_structure" id="oe_structure_archive_sidebar_index_1"/>
+            <a t-if="archive" title="RSS" t-attf-href="/archive/#{slug(archive)}/feed"
+               class="fa fa-rss-square float-end"/>
+            <div class="o_barchive_sidebar_block pb-5">
+                <h6 class="text-uppercase pb-2 mb-4 border-bottom fw-bold">The Baker's Archive</h6>
+                <div>
+                    <p>A collection of all the best breads.</p>
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_archive_sidebar_index_2"/>
+        </div>
+    </template>
+
+    <template id="opt_sidebar_archive_index_follow_us" name="Follow Us" priority="1"
+              inherit_id="bakers_archive.sidebar_archive_index" active="True">
+        <xpath expr="//div[@id='o_barchive_sidebar']" position="inside">
+            <div class="o_barchive_sidebar_block pb-5" t-ignore="true">
+                <div>
+                    <h6 class="text-uppercase pb-2 mb-4 border-bottom fw-bold">Follow Us</h6>
+                </div>
+                <t t-snippet-call="website.s_social_media"/>
+
+                <t t-call="website_mail.follow" t-if="archive"
+                   email="user_id.email"
+                   object="archive"
+                   div_class.f="pt-2"/>
+            </div>
+            <div class="oe_structure" id="oe_structure_archive_sidebar_index_3"/>
+        </xpath>
+    </template>
+
+    <template id="opt_sidebar_archive_index_archives" name="Archives" priority="2"
+              inherit_id="bakers_archive.sidebar_archive_index" active="True">
+        <xpath expr="//div[@id='o_barchive_sidebar']" position="inside">
+            <div class="o_barchive_sidebar_block pb-5">
+                <div>
+                    <h6 class="text-uppercase pb-2 mb-4 border-bottom fw-bold">Archives</h6>
+                </div>
+                <t t-call="bakers_archive.date_selector"/>
+            </div>
+            <div class="oe_structure" id="oe_structure_archive_sidebar_index_4"/>
+        </xpath>
+    </template>
+
+    <template id="opt_sidebar_archive_index_tags" name="Tags List" priority="3"
+              inherit_id="bakers_archive.sidebar_archive_index" active="True">
+        <xpath expr="//div[@id='o_barchive_sidebar']" position="inside">
+
+            <div t-if="other_tags or tag_category" class="o_barchive_sidebar_block pb-5">
+                <div>
+                    <h6 class="text-uppercase pb-2 mb-4 border-bottom fw-bold">Tags</h6>
+                </div>
+                <div class="h5">
+                    <t t-foreach="tag_category" t-as="nav_tag_category">
+                        <t t-call="bakers_archive.tags_list"
+                           categ_title="nav_tag_category.name"
+                           tags="nav_tag_category.tag_ids"
+                           showInactive="True"/>
+                    </t>
+                    <t t-call="bakers_archive.tags_list"
+                       hide_title="not len(tag_category)"
+                       categ_title.translate="Others"
+                       tags="other_tags"
+                       showInactive="True"/>
+                </div>
+            </div>
+
+            <div t-else="" groups="bakers_archive.group_bakers_archive_manager" class="o_barchive_sidebar_block pb-5">
+                <h6 class="text-uppercase pb-2 mb-4 border-bottom fw-bold">Tags</h6>
+                <em t-ignore="True" class="text-muted">No tags defined yet.</em>
+            </div>
+            <div class="oe_structure" id="oe_structure_archive_sidebar_index_5"/>
+        </xpath>
+    </template>
+
+
+    <template id="archive_recipe_sidebar" name="Sidebar - Archive Recipe">
+        <div id="o_barchive_recipe_sidebar">
+            <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_1"/>
+        </div>
+    </template>
+
+
+    <template id="opt_archive_recipe_author_avatar_display" name="Author"
+              inherit_id="bakers_archive.archive_recipe_sidebar" active="True" priority="1">
+        <xpath expr="//div[@id='o_barchive_recipe_sidebar']" position="inside">
+            <div class="o_barchive_sidebar_block pb-5">
+                <t t-call="bakers_archive.recipe_author" additionnal_classes.f="h5 d-flex align-items-center"/>
+            </div>
+            <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_2"/>
+        </xpath>
+    </template>
+
+    <template id="opt_archive_recipe_share_links_display" name="Share Links"
+              inherit_id="bakers_archive.archive_recipe_sidebar" active="True" priority="2">
+        <xpath expr="//div[@id='o_barchive_recipe_sidebar']" position="inside">
+            <div class="o_barchive_sidebar_block pb-5">
+                <div>
+                    <h6 class="text-uppercase pb-3 mb-4 border-bottom fw-bold">Share this recipe</h6>
+                </div>
+
+                <t t-snippet-call="website.s_share"/>
+            </div>
+
+            <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_3"/>
+        </xpath>
+    </template>
+
+    <template id="opt_archive_recipe_tags_display" name="Tags" inherit_id="bakers_archive.archive_recipe_sidebar"
+              active="True" priority="3">
+        <xpath expr="//div[@id='o_barchive_recipe_sidebar']" position="inside">
+            <div class="o_barchive_sidebar_block pb-5">
+                <div>
+                    <h6 class="text-uppercase pb-3 mb-4 border-bottom fw-bold">Tags</h6>
+                </div>
+                <t t-if="archive_recipe.tag_ids">
+                    <div class="h5">
+                        <t t-foreach="archive_recipe.tag_ids" t-as="one_tag">
+                            <a t-attf-class="badge recipe_link text-decoration-none o_tag o_color_#{one_tag.colour}"
+                               t-attf-href="#{archive_url(tag=slug(one_tag))}" t-out="one_tag.name"/>
+                        </t>
                     </div>
                 </t>
                 <t t-else="">
-                    <a class="btn btn-light dropdown-toggle d-flex align-items-center justify-content-between"
-                       role="button"
-                       t-att-title="archive.name if archive else barchive_all_title_string"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        <span t-if="archive" class="text-truncate" t-out="archive.name"/>
-                        <span t-else="" class="text-truncate">All</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a href="/archive" t-attf-class="dropdown-item #{(not archive) and 'active'}" title="All Archives">All</a>
-                        </li>
-                        <li t-foreach="archives" t-as="nav_archive">
-                            <a t-attf-href="/archive/#{slug(nav_archive)}"
-                               t-attf-class="dropdown-item #{(archive and nav_archive.id == archive.id) and 'active' or ''}"
-                               t-att-title="nav_archive.name">
-                                <span t-field="nav_archive.name"/>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="mb-4 bg-100 py-2 px-3 border" groups="bakers_archive.group_bakers_archive_manager">
+                        <h6 class="text-muted o_not_editable">
+                            <em>No tags defined</em>
+                        </h6>
+                        <a role="menuitem" t-attf-href="/odoo/website/{{main_object._name}}/{{main_object.id}}"
+                           title='Edit in backend' id="edit-in-backend" class="css_editable_mode_hidden">Add some
+                        </a>
+                    </div>
                 </t>
             </div>
-            <t t-call="website.website_search_box_input"
-                _form_classes.f="#{not len(archives) &gt; 1 and 'ms-auto'} flex-grow-1 flex-lg-grow-0"
-                search_type.f="archives"
-                action="archive_url(tag=tag,search=search)"
-                display_description.f="true"
-                display_detail.f="false">
-                <input type="hidden" name="tag" t-att-value="tag"/>
-                <input type="hidden" name="date_begin" t-att-value="date_begin"/>
-                <input type="hidden" name="date_end" t-att-value="date_end"/>
-            </t>
-        </div>
-    </nav>
-</template>
+            <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_4"/>
+        </xpath>
+    </template>
 
-<template id="tags_list" name="Tags List">
-    <t t-if="tags">
-        <div t-if="not hide_title and categ_title" class="text-muted mb-1 h6" t-out="categ_title"/>
-        <t t-foreach="tags" t-as="tag">
-            <t t-if="tag.recipe_ids">
-                <span t-if="dismissibleBtn and tag.id in active_tag_ids" t-attf-class="align-items-baseline d-inline-flex ps-2 rounded mb-2 o_filter_tag #{'o_color_%s' % tag.colour}">
-                    <i class="fa fa-tag me-2"/>
-                    <t t-out="tag.name"/>
-                    <a t-attf-href="#{archive_url(tag=tags_list(active_tag_ids, tag.id))}" class="btn border-0 py-1 recipe_link text-reset" t-att-rel="len(active_tag_ids) and 'nofollow'">×</a>
-                </span>
-                <a t-elif="showInactive" t-attf-href="#{archive_url(tag=tags_list(active_tag_ids, tag.id))}" t-attf-class="badge mb-2 mw-100 text-truncate text-decoration-none o_tag o_color_#{tag.colour} recipe_link" t-att-rel="len(active_tag_ids) and 'nofollow'" t-out="tag.name"/>
-            </t>
-        </t>
-    </t>
-</template>
-
-<template id="date_selector">
-    <select name="archive" class="form-select recipe_link">
-        <option t-att-value="archive_url(date_begin=False, date_end=False, tag=tag)"
-                t-att="[('selected' if (not date_begin) else 'unselected' ) , 'true' ]">
-                All dates
-        </option>
-        <option t-att-value="archive_url(state='unpublished')" groups="website.group_website_designer">
-            -- Unpublished
-        </option>
-        <option t-att-value="archive_url(state='scheduled')" groups="website.group_website_designer">
-            -- Scheduled
-        </option>
-
-        <optgroup t-foreach="nav_list" t-as="year" t-attf-label="#{year}">
-            <option t-foreach="nav_list[year]" t-as="months"
-                    t-att="[('selected' if date_begin and (months['date_begin'] == date_begin) else 'unselected' ) , 'true' ]"
-                    t-attf-value="#{archive_url(date_begin=months['date_begin'], date_end=months['date_end'], tag=tag)}">
-                <t t-out="months['month']"/>
-                <t t-out="year"/>
-            </option>
-        </optgroup>
-    </select>
-</template>
-
-
-<template id="recipe_author">
-    <div t-attf-class="align-items-center position-relative #{additionnal_classes or ''}">
-        <div t-if="archive_recipe.author_avatar"
-             t-field="archive_recipe.author_avatar"
-             style="line-height:1"
-             class="o_not_editable"
-             t-options='{"widget": "image", "alt": "", "class": "rounded-circle " + "o_barchive_author_avatar me-1" if hide_date else  "o_barchive_author_avatar_date me-2"}' />
-        <div t-att-class="not hide_date and 'small fw-bold'" style="line-height:1">
-            <span t-if="editable" t-field="archive_recipe.author_id" t-options='{ "widget": "contact", "fields": ["name"]}'/>
-            <span t-else="" class="o_not_editable" t-out="archive_recipe.author_name"/>
-            <t t-if="not hide_date">
-                <small t-if="archive_recipe.published_date" t-field="archive_recipe.published_date" t-options="{'format': 'long', 'date_only': 'true'}"/>
-                <small t-elif="archive_recipe.publish_on" t-field="archive_recipe.publish_on" t-options="{'format': 'long', 'date_only': 'true'}"/>
-            </t>
-        </div>
-    </div>
-</template>
-
-<template id="recipe_source">
-    <div t-attf-class="align-items-center position-relative #{additionnal_classes or ''}">
-        <div t-att-class="not hide_date and 'small fw-bold'" style="line-height:1">
-            <span t-if="editable" t-field="archive_recipe.source_id"/>
-            <span t-else="" class="o_not_editable" t-out="archive_recipe.source_name"/>
-            <t t-if="not hide_date">
-                <small t-if="archive_recipe.published_date" t-field="archive_recipe.published_date" t-options="{'format': 'long', 'date_only': 'true'}"/>
-                <small t-elif="archive_recipe.publish_on" t-field="archive_recipe.publish_on" t-options="{'format': 'long', 'date_only': 'true'}"/>
-            </t>
-        </div>
-    </div>
-</template>
-
-
-<template id="recipe_breadcrumbs">
-    <nav aria-label="breadcrumb" t-attf-class="breadcrumb flex-nowrap py-0 px-0 css_editable_mode_hidden #{additionnal_classes or ''}">
-        <li t-if="len(archives) &gt; 1" class="breadcrumb-item d-none d-lg-inline"><a href="/archive">All Archives</a></li>
-        <li class="breadcrumb-item">
-            <a t-attf-href="#{archive_url(tag=None, date_begin=None, date_end=None)}">
-                <i class="oi oi-chevron-left d-lg-none me-1" role="presentation"/><t t-out="archive.name"/>
-            </a>
-        </li>
-        <li class="breadcrumb-item text-truncate active d-none d-lg-inline"><span t-out="archive_recipe.name"/></li>
-    </nav>
-</template>
-
-<template id="archive_recipe_info" name="Archive Recipe Info">
-    <div id="o_barchive_recipe_info" class="mb-2">
-        <div class="text-secondary small mb-3">
-            <span t-if="archive_recipe.author_id or archive_recipe.author_name">
-                <strong>Author:</strong>
-                <t t-call="bakers_archive.recipe_author" additionnal_classes.f="d-inline-flex ms-1" hide_date="True"/>
-            </span>
-            <span t-if="(archive_recipe.author_id or archive_recipe.author_name) and (archive_recipe.source_id or archive_recipe.source_name)" class="mx-2">|</span>
-            <span t-if="archive_recipe.source_id or archive_recipe.source_name">
-                <strong>Source:</strong>
-                <t t-call="bakers_archive.recipe_source" additionnal_classes.f="d-inline-flex ms-1" hide_date="True"/>
-            </span>
-        </div>
-        <t t-set="categories" t-value="archive_recipe.tag_ids.mapped('category_id')"/>
-        <div t-if="categories or archive_recipe.archive_id" class="d-flex align-items-center flex-wrap gap-2 mb-2">
-            <strong class="me-1">Categories:</strong>
-            <a t-if="archive_recipe.archive_id"
-               t-attf-href="#{archive_url(archive=archive_recipe.archive_id)}"
-               class="badge border border-dark text-dark fw-normal rounded-pill px-3 py-1 text-decoration-none">
-                <span t-field="archive_recipe.archive_id.name"/>
-            </a>
-            <t t-foreach="categories" t-as="category">
-                <span class="badge border border-dark text-dark fw-normal rounded-pill px-3 py-1"
-                      t-out="category.name"/>
-            </t>
-        </div>
-
-        <div t-if="archive_recipe.tag_ids" class="d-flex align-items-center flex-wrap gap-2">
-            <strong class="me-1">Tags:</strong>
-            <t t-foreach="archive_recipe.tag_ids" t-as="one_tag">
-                <a t-attf-href="#{archive_url(tag=slug(one_tag))}"
-                   class="badge border border-secondary text-secondary fw-normal rounded-pill px-2 py-1 text-decoration-none"
-                   t-out="one_tag.name"/>
-            </t>
-        </div>
-    </div>
-</template>
-
-<template id="sidebar_archive_index" name="Sidebar - Archive page">
-    <div id="o_barchive_sidebar" class="w-100">
-        <div class="oe_structure" id="oe_structure_archive_sidebar_index_1"/>
-        <a t-if="archive" title="RSS" t-attf-href="/archive/#{slug(archive)}/feed" class="fa fa-rss-square float-end"/>
-        <div class="o_barchive_sidebar_block pb-5">
-            <h6 class="text-uppercase pb-2 mb-4 border-bottom fw-bold">The Baker's Archive</h6>
-            <div>
-                <p>A collection of all the best breads.</p>
-            </div>
-        </div>
-        <div class="oe_structure" id="oe_structure_archive_sidebar_index_2"/>
-    </div>
-</template>
-
-<template id="opt_sidebar_archive_index_follow_us" name="Follow Us" priority="1" inherit_id="bakers_archive.sidebar_archive_index" active="True">
-    <xpath expr="//div[@id='o_barchive_sidebar']" position="inside">
-        <div class="o_barchive_sidebar_block pb-5" t-ignore="true">
-            <div>
-                <h6 class="text-uppercase pb-2 mb-4 border-bottom fw-bold">Follow Us</h6>
-            </div>
-            <t t-snippet-call="website.s_social_media"/>
-
-            <t t-call="website_mail.follow" t-if="archive"
-                email="user_id.email"
-                object="archive"
-                div_class.f="pt-2"/>
-        </div>
-        <div class="oe_structure" id="oe_structure_archive_sidebar_index_3"/>
-    </xpath>
-</template>
-
-<template id="opt_sidebar_archive_index_archives" name="Archives" priority="2" inherit_id="bakers_archive.sidebar_archive_index" active="True">
-    <xpath expr="//div[@id='o_barchive_sidebar']" position="inside">
-        <div class="o_barchive_sidebar_block pb-5">
-            <div>
-                <h6 class="text-uppercase pb-2 mb-4 border-bottom fw-bold">Archives</h6>
-            </div>
-            <t t-call="bakers_archive.date_selector"/>
-        </div>
-        <div class="oe_structure" id="oe_structure_archive_sidebar_index_4"/>
-    </xpath>
-</template>
-
-<template id="opt_sidebar_archive_index_tags" name="Tags List" priority="3" inherit_id="bakers_archive.sidebar_archive_index" active="True">
-    <xpath expr="//div[@id='o_barchive_sidebar']" position="inside">
-
-        <div t-if="other_tags or tag_category" class="o_barchive_sidebar_block pb-5">
-            <div>
-                <h6 class="text-uppercase pb-2 mb-4 border-bottom fw-bold">Tags</h6>
-            </div>
-            <div class="h5">
-                <t t-foreach="tag_category" t-as="nav_tag_category">
-                    <t t-call="bakers_archive.tags_list"
-                        categ_title="nav_tag_category.name"
-                        tags="nav_tag_category.tag_ids"
-                        showInactive="True"/>
-                </t>
-                <t t-call="bakers_archive.tags_list"
-                    hide_title="not len(tag_category)"
-                    categ_title.translate="Others"
-                    tags="other_tags"
-                    showInactive="True"/>
-            </div>
-        </div>
-
-        <div t-else="" groups="bakers_archive.group_bakers_archive_manager" class="o_barchive_sidebar_block pb-5">
-            <h6 class="text-uppercase pb-2 mb-4 border-bottom fw-bold">Tags</h6>
-            <em t-ignore="True" class="text-muted">No tags defined yet.</em>
-        </div>
-        <div class="oe_structure" id="oe_structure_archive_sidebar_index_5"/>
-    </xpath>
-</template>
-
-
-<template id="archive_recipe_sidebar" name="Sidebar - Archive Recipe">
-    <div id="o_barchive_recipe_sidebar">
-        <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_1"/>
-    </div>
-</template>
-
-
-<template id="opt_archive_recipe_author_avatar_display" name="Author" inherit_id="bakers_archive.archive_recipe_sidebar" active="True" priority="1">
-    <xpath expr="//div[@id='o_barchive_recipe_sidebar']" position="inside">
-        <div class="o_barchive_sidebar_block pb-5">
-            <t t-call="bakers_archive.recipe_author" additionnal_classes.f="h5 d-flex align-items-center"/>
-        </div>
-        <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_2"/>
-    </xpath>
-</template>
-
-<template id="opt_archive_recipe_share_links_display" name="Share Links" inherit_id="bakers_archive.archive_recipe_sidebar" active="True" priority="2">
-    <xpath expr="//div[@id='o_barchive_recipe_sidebar']" position="inside">
-        <div class="o_barchive_sidebar_block pb-5">
-            <div>
-                <h6 class="text-uppercase pb-3 mb-4 border-bottom fw-bold">Share this recipe</h6>
-            </div>
-
-            <t t-snippet-call="website.s_share"/>
-        </div>
-
-        <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_3"/>
-    </xpath>
-</template>
-
-<template id="opt_archive_recipe_tags_display" name="Tags" inherit_id="bakers_archive.archive_recipe_sidebar" active="True" priority="3">
-    <xpath expr="//div[@id='o_barchive_recipe_sidebar']" position="inside">
-        <div class="o_barchive_sidebar_block pb-5">
-            <div>
-                <h6 class="text-uppercase pb-3 mb-4 border-bottom fw-bold">Tags</h6>
-            </div>
-            <t t-if="archive_recipe.tag_ids">
-                <div class="h5">
-                    <t t-foreach="archive_recipe.tag_ids" t-as="one_tag">
-                        <a t-attf-class="badge recipe_link text-decoration-none o_tag o_color_#{one_tag.colour}" t-attf-href="#{archive_url(tag=slug(one_tag))}" t-out="one_tag.name"/>
-                    </t>
+    <template id="opt_archive_recipe_archives_display" name="Archives List"
+              inherit_id="bakers_archive.archive_recipe_sidebar" active="True" priority="4">
+        <xpath expr="//div[@id='o_barchive_recipe_sidebar']" position="inside">
+            <div t-if="len(archives) > 1" class="o_barchive_sidebar_block pb-5">
+                <div>
+                    <h6 class="text-uppercase pb-3 mb-4 border-bottom fw-bold">Our archives</h6>
                 </div>
-            </t>
-            <t t-else="">
-                <div class="mb-4 bg-100 py-2 px-3 border" groups="bakers_archive.group_bakers_archive_manager">
-                    <h6 class="text-muted o_not_editable"><em>No tags defined</em></h6>
-                    <a role="menuitem" t-attf-href="/odoo/website/{{main_object._name}}/{{main_object.id}}"
-                        title='Edit in backend' id="edit-in-backend" class="css_editable_mode_hidden">Add some</a>
+                <ul class="list-unstyled">
+                    <li t-foreach="archives" t-as="nav_archive" class="mb-2">
+                        <a t-attf-href="#{archive_url(archive=nav_archive, tag=False, date_begin=False, date_end=False)}">
+                            <b t-field="nav_archive.name"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_5"/>
+        </xpath>
+    </template>
+
+    <template id="opt_archive_recipe_archive_display" name="Archive" inherit_id="bakers_archive.archive_recipe_sidebar"
+              active="True" priority="5">
+        <xpath expr="//div[@id='o_barchive_recipe_sidebar']" position="inside">
+            <div class="o_barchive_sidebar_block pb-5">
+                <div>
+                    <h6 class="text-uppercase pb-3 mb-4 border-bottom fw-bold">Archive</h6>
                 </div>
-            </t>
-        </div>
-        <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_4"/>
-    </xpath>
-</template>
-
-<template id="opt_archive_recipe_archives_display" name="Archives List" inherit_id="bakers_archive.archive_recipe_sidebar" active="True" priority="4">
-    <xpath expr="//div[@id='o_barchive_recipe_sidebar']" position="inside">
-        <div t-if="len(archives) > 1" class="o_barchive_sidebar_block pb-5">
-            <div>
-                <h6 class="text-uppercase pb-3 mb-4 border-bottom fw-bold">Our archives</h6>
+                <t t-call="bakers_archive.date_selector"/>
             </div>
-            <ul class="list-unstyled">
-                <li t-foreach="archives" t-as="nav_archive" class="mb-2">
-                    <a t-attf-href="#{archive_url(archive=nav_archive, tag=False, date_begin=False, date_end=False)}"><b t-field="nav_archive.name"/></a>
-                </li>
-            </ul>
-        </div>
-        <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_5"/>
-    </xpath>
-</template>
-
-<template id="opt_archive_recipe_archive_display" name="Archive" inherit_id="bakers_archive.archive_recipe_sidebar" active="True" priority="5">
-    <xpath expr="//div[@id='o_barchive_recipe_sidebar']" position="inside">
-        <div class="o_barchive_sidebar_block pb-5">
-            <div>
-                <h6 class="text-uppercase pb-3 mb-4 border-bottom fw-bold">Archive</h6>
-            </div>
-            <t t-call="bakers_archive.date_selector"/>
-        </div>
-        <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_6"/>
-    </xpath>
-</template>
+            <div class="oe_structure" id="oe_structure_archive_recipe_sidebar_6"/>
+        </xpath>
+    </template>
 
 </odoo>

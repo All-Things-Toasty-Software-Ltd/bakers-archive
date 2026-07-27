@@ -1,206 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<template id="recipes_loop" name="Recipes List">
-    <div id="o_barchive_recipes_loop" t-att-class="'o_barchive_list_view' if opt_archive_list_view else ''">
+    <template id="recipes_loop" name="Recipes List">
+        <div id="o_barchive_recipes_loop" t-att-class="'o_barchive_list_view' if opt_archive_list_view else ''">
 
-        <t t-if="state_info" t-set="state" t-value="state_info['state']"/>
+            <t t-if="state_info" t-set="state" t-value="state_info['state']"/>
 
-        <t t-set="opt_recipes_loop_show_cover" t-value="is_view_active('bakers_archive.opt_recipes_loop_show_cover')"/>
+            <t t-set="opt_recipes_loop_show_cover"
+               t-value="is_view_active('bakers_archive.opt_recipes_loop_show_cover')"/>
 
-        <div groups="website.group_website_designer" t-if="state_info and ((state_info['published'] > 0 and state_info['unpublished'] > 0) or state_info['scheduled'] > 0)">
-            <div class="bg-200 py-2 mb-4 alert alert-dismissable">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                <span class="me-1">Show:</span>
-                <div class="btn-group btn-group-sm">
-                    <a t-attf-class="btn #{state == 'published' and 'btn-success' or 'bg-white border'}"
-                       t-attf-href="#{state == 'published' and archive_url(state='') or archive_url(state='published')}">
-                        <i t-attf-class="fa me-1 #{state == 'published' and 'fa-check-square-o' or 'fa-square-o'}"/>
-                        Published (<t t-out="state_info['published']" />)
-                    </a>
-                    <a t-attf-class="btn #{state == 'unpublished' and 'btn-success' or 'bg-white border'}"
-                       t-attf-href="#{state == 'unpublished' and archive_url(state='') or archive_url(state='unpublished')}">
-                        <i t-attf-class="fa me-1 #{state == 'unpublished' and 'fa-check-square-o' or 'fa-square-o'}"/>
-                        Unpublished (<t t-out="state_info['unpublished']" />)
-                    </a>
-                    <a t-attf-class="btn #{state == 'scheduled' and 'btn-success' or 'btn-default bg-white border'}"
-                       t-attf-href="#{state == 'scheduled' and archive_url(state='') or archive_url(state='scheduled')}">
-                        <i t-attf-class="fa me-1 #{state == 'scheduled' and 'fa-check-square-o' or 'fa-square-o'}"/>
-                        Scheduled (<t t-out="state_info['scheduled']" />)
-                    </a>
-                </div>
-                <div class="pt-1 fst-italic small">This box will not be visible to your visitors</div>
-            </div>
-        </div>
-
-        <div t-attf-class="row #{recipes and not opt_archive_readable and 'mx-n2'}">
-            <div t-if="tag or date_begin or search" class="col-12 mb-3">
-                <div t-if="recipes" class="h4 mb-3">
-                    <t t-out="search_count"/>
-                    <t t-if="search_count &lt; 2">Recipe</t>
-                    <t t-else="">Recipes</t>
-                </div>
-                <span t-if="search" class="align-items-baseline border d-inline-flex ps-2 rounded mb-2">
-                    <i class="fa fa-search me-2 text-muted"/>
-                    <t t-out="search"/>
-                    <a t-att-href="archive_url(search=False, tag=tag)" class="btn border-0 py-1 recipe_link">×</a>
-                </span>
-                <t t-if="tag">
-                    <t t-foreach="tag_category" t-as="nav_tag_category">
-                        <t t-call="bakers_archive.tags_list" tags="nav_tag_category.tag_ids" dismissibleBtn="True"/>
-                    </t>
-
-                    <t t-call="bakers_archive.tags_list" tags="other_tags" dismissibleBtn="True"/>
-                </t>
-                <span t-if="date_begin" class="align-items-baseline border d-inline-flex ps-2 rounded mb-2">
-                    <i class="fa fa-calendar-o me-2 text-muted"/>
-                    <t t-out="date_begin" t-options="{'widget': 'date', 'format': 'MMM yyyy'}"/>
-                    <a t-attf-href="#{archive_url(date_begin=False, date_end=False, tag=tag)}" class="btn border-0 py-1 recipe_link">×</a>
-                </span>
-                <hr class="mt-2"/>
-            </div>
-
-            <div t-if="not recipes" class="col">
-                <t t-set="no_results_str">No results for "%s".</t>
-                <h2 t-if="search" t-out="no_results_str % search" class="fw-bold"/>
-                <h2 t-else="">No archive recipe yet.</h2>
-                <div class="alert alert-info" groups="website.group_website_designer">
-                    Click on "<b>New</b>" in the top-right corner to write your first archive recipe.
+            <div groups="website.group_website_designer"
+                 t-if="state_info and ((state_info['published'] > 0 and state_info['unpublished'] > 0) or state_info['scheduled'] > 0)">
+                <div class="bg-200 py-2 mb-4 alert alert-dismissable">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <span class="me-1">Show:</span>
+                    <div class="btn-group btn-group-sm">
+                        <a t-attf-class="btn #{state == 'published' and 'btn-success' or 'bg-white border'}"
+                           t-attf-href="#{state == 'published' and archive_url(state='') or archive_url(state='published')}">
+                            <i t-attf-class="fa me-1 #{state == 'published' and 'fa-check-square-o' or 'fa-square-o'}"/>
+                            Published (<t t-out="state_info['published']"/>)
+                        </a>
+                        <a t-attf-class="btn #{state == 'unpublished' and 'btn-success' or 'bg-white border'}"
+                           t-attf-href="#{state == 'unpublished' and archive_url(state='') or archive_url(state='unpublished')}">
+                            <i t-attf-class="fa me-1 #{state == 'unpublished' and 'fa-check-square-o' or 'fa-square-o'}"/>
+                            Unpublished (<t t-out="state_info['unpublished']"/>)
+                        </a>
+                        <a t-attf-class="btn #{state == 'scheduled' and 'btn-success' or 'btn-default bg-white border'}"
+                           t-attf-href="#{state == 'scheduled' and archive_url(state='') or archive_url(state='scheduled')}">
+                            <i t-attf-class="fa me-1 #{state == 'scheduled' and 'fa-check-square-o' or 'fa-square-o'}"/>
+                            Scheduled (<t t-out="state_info['scheduled']"/>)
+                        </a>
+                    </div>
+                    <div class="pt-1 fst-italic small">This box will not be visible to your visitors</div>
                 </div>
             </div>
 
-            <t t-if="not opt_archive_list_view">
-                <t t-if="opt_archive_readable">
-                    <t t-if="opt_archive_sidebar_show" t-set="colWidth" t-value="'col-md-6'"/>
-                    <t t-else="" t-set="colWidth" t-value="'col-md-6 col-xl-4'"/>
-                </t>
-                <t t-else="">
-                    <t t-if="opt_archive_sidebar_show" t-set="colWidth" t-value="'px-2 col-md-6 col-xl-4'"/>
-                    <t t-else="" t-set="colWidth" t-value="'px-2 col-sm-6 col-lg-4 col-xl-3'"/>
-                </t>
-            </t>
-            <t t-foreach="recipes" t-as="archive_recipe">
-                <div t-attf-class="pb-4 col-12 #{colWidth}">
-                    <article t-attf-class="o_barchive_recipe position-relative #{'card h-100' if opt_archive_cards_design else ''}" name="archive_recipe">
-                        <t t-if="opt_archive_list_view">
-                            <div t-att-class="opt_archive_cards_design and 'card-body py-3'">
-                                <t t-call="bakers_archive.recipe_heading"/>
-                            </div>
-                            <div t-if="not opt_archive_cards_design" class="py-2">
-                                <t t-call="bakers_archive.recipe_info"/>
-                            </div>
-                            <div t-if="opt_recipes_loop_show_cover">
-                                <t t-call="bakers_archive.recipe_cover_image"/>
-                            </div>
-                            <div t-if="is_view_active('bakers_archive.opt_recipes_loop_show_teaser')" t-att-class="opt_archive_cards_design and 'card-body pt-0'">
-                                <t t-call="bakers_archive.recipe_teaser"/>
-                            </div>
-                            <div t-if="opt_archive_cards_design" t-att-class="opt_archive_cards_design and 'card-body pt-0 pb-2'">
-                                <t t-call="bakers_archive.recipe_info"/>
-                            </div>
-                            <div t-else="" class="mt-3">
-                                <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}" class="btn btn-primary">
-                                    Read more <i class="oi oi-chevron-right ms-2"/>
-                                </a>
-                            </div>
+            <div t-attf-class="row #{recipes and not opt_archive_readable and 'mx-n2'}">
+                <div t-if="tag or date_begin or search" class="col-12 mb-3">
+                    <div t-if="recipes" class="h4 mb-3">
+                        <t t-out="search_count"/>
+                        <t t-if="search_count &lt; 2">Recipe</t>
+                        <t t-else="">Recipes</t>
+                    </div>
+                    <span t-if="search" class="align-items-baseline border d-inline-flex ps-2 rounded mb-2">
+                        <i class="fa fa-search me-2 text-muted"/>
+                        <t t-out="search"/>
+                        <a t-att-href="archive_url(search=False, tag=tag)" class="btn border-0 py-1 recipe_link">×</a>
+                    </span>
+                    <t t-if="tag">
+                        <t t-foreach="tag_category" t-as="nav_tag_category">
+                            <t t-call="bakers_archive.tags_list" tags="nav_tag_category.tag_ids" dismissibleBtn="True"/>
                         </t>
-                        <t t-if="not opt_archive_list_view">
-                            <t t-if="opt_recipes_loop_show_cover" t-call="bakers_archive.recipe_cover_image"/>
-                            <div t-att-class="opt_archive_cards_design and 'card-body px-2 py-0 mb-2'">
-                                <t t-call="bakers_archive.recipe_heading"/>
-                                <div t-if="is_view_active('bakers_archive.opt_recipes_loop_show_teaser')">
+
+                        <t t-call="bakers_archive.tags_list" tags="other_tags" dismissibleBtn="True"/>
+                    </t>
+                    <span t-if="date_begin" class="align-items-baseline border d-inline-flex ps-2 rounded mb-2">
+                        <i class="fa fa-calendar-o me-2 text-muted"/>
+                        <t t-out="date_begin" t-options="{'widget': 'date', 'format': 'MMM yyyy'}"/>
+                        <a t-attf-href="#{archive_url(date_begin=False, date_end=False, tag=tag)}"
+                           class="btn border-0 py-1 recipe_link">×
+                        </a>
+                    </span>
+                    <hr class="mt-2"/>
+                </div>
+
+                <div t-if="not recipes" class="col">
+                    <t t-set="no_results_str">No results for "%s".</t>
+                    <h2 t-if="search" t-out="no_results_str % search" class="fw-bold"/>
+                    <h2 t-else="">No archive recipe yet.</h2>
+                    <div class="alert alert-info" groups="website.group_website_designer">
+                        Click on "<b>New</b>" in the top-right corner to write your first archive recipe.
+                    </div>
+                </div>
+
+                <t t-if="not opt_archive_list_view">
+                    <t t-if="opt_archive_readable">
+                        <t t-if="opt_archive_sidebar_show" t-set="colWidth" t-value="'col-md-6'"/>
+                        <t t-else="" t-set="colWidth" t-value="'col-md-6 col-xl-4'"/>
+                    </t>
+                    <t t-else="">
+                        <t t-if="opt_archive_sidebar_show" t-set="colWidth" t-value="'px-2 col-md-6 col-xl-4'"/>
+                        <t t-else="" t-set="colWidth" t-value="'px-2 col-sm-6 col-lg-4 col-xl-3'"/>
+                    </t>
+                </t>
+                <t t-foreach="recipes" t-as="archive_recipe">
+                    <div t-attf-class="pb-4 col-12 #{colWidth}">
+                        <article
+                                t-attf-class="o_barchive_recipe position-relative #{'card h-100' if opt_archive_cards_design else ''}"
+                                name="archive_recipe">
+                            <t t-if="opt_archive_list_view">
+                                <div t-att-class="opt_archive_cards_design and 'card-body py-3'">
+                                    <t t-call="bakers_archive.recipe_heading"/>
+                                </div>
+                                <div t-if="not opt_archive_cards_design" class="py-2">
+                                    <t t-call="bakers_archive.recipe_info"/>
+                                </div>
+                                <div t-if="opt_recipes_loop_show_cover">
+                                    <t t-call="bakers_archive.recipe_cover_image"/>
+                                </div>
+                                <div t-if="is_view_active('bakers_archive.opt_recipes_loop_show_teaser')"
+                                     t-att-class="opt_archive_cards_design and 'card-body pt-0'">
                                     <t t-call="bakers_archive.recipe_teaser"/>
                                 </div>
-                            </div>
-                            <div t-attf-class="o_barchive_normalize_font #{'card-footer px-2 pb-2' if opt_archive_cards_design else 'pe-2 pb-2'}">
-                                <t t-call="bakers_archive.recipe_info"/>
-                            </div>
-                        </t>
-                        <t t-if="archive_recipe.publish_on" t-set="badge" t-value="'Scheduled'"/>
-                        <t t-elif="not archive_recipe.website_published" t-set="badge" t-value="'Unpublished'"/>
-                        <t t-else="" t-set="badge" t-value="False"/>
-                        <span t-if="badge" style="top:0; right:0;" t-out="badge"
-                            t-attf-class="small py-1 px-2 position-absolute o_not_editable {{ 'bg-warning' if badge == 'Scheduled' else 'bg-danger' }}"/>
-                    </article>
+                                <div t-if="opt_archive_cards_design"
+                                     t-att-class="opt_archive_cards_design and 'card-body pt-0 pb-2'">
+                                    <t t-call="bakers_archive.recipe_info"/>
+                                </div>
+                                <div t-else="" class="mt-3">
+                                    <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}"
+                                       class="btn btn-primary">
+                                        Read more
+                                        <i class="oi oi-chevron-right ms-2"/>
+                                    </a>
+                                </div>
+                            </t>
+                            <t t-if="not opt_archive_list_view">
+                                <t t-if="opt_recipes_loop_show_cover" t-call="bakers_archive.recipe_cover_image"/>
+                                <div t-att-class="opt_archive_cards_design and 'card-body px-2 py-0 mb-2'">
+                                    <t t-call="bakers_archive.recipe_heading"/>
+                                    <div t-if="is_view_active('bakers_archive.opt_recipes_loop_show_teaser')">
+                                        <t t-call="bakers_archive.recipe_teaser"/>
+                                    </div>
+                                </div>
+                                <div t-attf-class="o_barchive_normalize_font #{'card-footer px-2 pb-2' if opt_archive_cards_design else 'pe-2 pb-2'}">
+                                    <t t-call="bakers_archive.recipe_info"/>
+                                </div>
+                            </t>
+                            <t t-if="archive_recipe.publish_on" t-set="badge" t-value="'Scheduled'"/>
+                            <t t-elif="not archive_recipe.website_published" t-set="badge" t-value="'Unpublished'"/>
+                            <t t-else="" t-set="badge" t-value="False"/>
+                            <span t-if="badge" style="top:0; right:0;" t-out="badge"
+                                  t-attf-class="small py-1 px-2 position-absolute o_not_editable {{ 'bg-warning' if badge == 'Scheduled' else 'bg-danger' }}"/>
+                        </article>
+                    </div>
+                    <div t-if="opt_archive_list_view and not archive_recipe_last" class="col-12 mt-2 mb-5 px-2">
+                        <hr/>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </template>
+
+
+    <template id="recipe_heading">
+        <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}"
+           t-field="archive_recipe.name"
+           t-attf-class="d-block text-reset text-decoration-none o_archive_recipe_title my-0 #{'h3' if opt_archive_list_view else ('h5' if opt_archive_readable else 'h6')}">
+            Untitled Recipe
+        </a>
+
+        <div t-if="not opt_recipes_loop_show_cover and is_view_active('bakers_archive.opt_recipes_loop_show_author')"
+             class="text-muted small mt-2">
+            by
+            <span t-field="archive_recipe.author_id"/>
+        </div>
+    </template>
+
+    <template id="recipe_info">
+        <div class="d-flex small flex-wrap mb-1 w-100">
+            <div t-attf-class="d-flex flex-wrap align-items-center justify-content-between mx-n2 #{opt_archive_list_view and 'flex-grow-0 w-auto mw-100' or 'flex-grow-1' }">
+                <time t-if="archive_recipe.published_date" t-field="archive_recipe.published_date"
+                      class="text-nowrap fw-bold px-2"
+                      t-options="{'widget': 'datetime', 'date_only': 'true', 'format': 'medium'}"/>
+                <time t-elif="archive_recipe.publish_on" t-field="archive_recipe.publish_on"
+                      class="text-nowrap fw-bold px-2"
+                      t-options="{'widget': 'datetime', 'date_only': 'true', 'format': 'medium'}"/>
+                <div t-if="is_view_active('bakers_archive.opt_recipes_loop_show_stats')" class="px-2">
+                    <b class="text-nowrap" title="Comments">
+                        <i class="fa fa-comment text-muted me-1"/>
+                        <t t-out="len(archive_recipe.message_ids)"/>
+                    </b>
+                    <b class="text-nowrap ps-2" title="Views">
+                        <i class="fa fa-eye text-muted me-1"/>
+                        <t t-out="archive_recipe.visits"/>
+                    </b>
                 </div>
-                <div t-if="opt_archive_list_view and not archive_recipe_last" class="col-12 mt-2 mb-5 px-2"><hr/></div>
+                <b t-if="recipes_list_show_parent_archive" class="text-nowrap text-truncate px-2">
+                    <i class="fa fa-folder-open text-muted"/>
+                    <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}" t-field="archive_recipe.archive_id"/>
+                </b>
+            </div>
+        </div>
+    </template>
+
+    <template id="recipe_cover_image">
+        <t t-if="opt_archive_cards_design and not opt_archive_list_view" t-set="classes" t-value="'card-img-top mb-2'"/>
+        <t t-if="not opt_archive_cards_design and opt_archive_list_view" t-set="classes"
+           t-value="'o_barchive_recipe_cover_nocard'"/>
+
+        <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}"
+           t-attf-class="text-decoration-none d-block #{classes or 'mb-2'}"
+           t-att-style="not archive_recipe.website_published and 'opacity:0.6;'">
+
+            <t t-call="website.record_cover"
+               _record="archive_recipe"
+               additionnal_classes="'o_list_cover ' + (not opt_archive_cards_design and ' rounded overflow-hidden shadow mb-3' or '')">
+
+                <t t-if="is_view_active('bakers_archive.opt_recipes_loop_show_author')"
+                   t-call="bakers_archive.recipe_author"
+                   additionnal_classes="'o_barchive_recipe_list_author o_list_cover d-flex text-white w-100 ' + ('p-3 h5 m-0' if opt_archive_list_view else 'px-2 pb-2 pt-3') "
+                   hide_date="True"/>
+            </t>
+        </a>
+    </template>
+
+    <template id="recipe_teaser">
+        <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}"
+           class="text-reset text-decoration-none">
+            <div t-if="opt_archive_list_view" t-field="archive_recipe.teaser" class="mt-2 o_barchive_read_text"/>
+            <div t-else="" t-field="archive_recipe.teaser"
+                 t-attf-class="mt-2 #{opt_archive_readable and 'o_barchive_normalize_font'}"/>
+        </a>
+
+        <div t-if="len(archive_recipe.tag_ids)"
+             class="o_barchive_recipe_short_tag_section d-flex align-items-center flex-wrap pt-2">
+            <t t-foreach="archive_recipe.tag_ids" t-as="one_tag">
+                <a t-attf-href="#{archive_url(tag=tags_list(active_tag_ids, one_tag.id))}"
+                   t-attf-class="badge mb-2 me-1 text-truncate o_tag o_color_#{one_tag.colour} recipe_link"
+                   t-att-rel="len(active_tag_ids) and 'nofollow'"
+                   t-out="one_tag.name"/>
             </t>
         </div>
-    </div>
-</template>
+    </template>
 
 
-<template id="recipe_heading">
-    <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}"
-       t-field="archive_recipe.name"
-       t-attf-class="d-block text-reset text-decoration-none o_archive_recipe_title my-0 #{'h3' if opt_archive_list_view else ('h5' if opt_archive_readable else 'h6')}">
-       Untitled Recipe
-   </a>
+    <template id="opt_recipes_loop_show_cover" name="Cover" inherit_id="bakers_archive.recipes_loop" active="True"/>
 
-    <div t-if="not opt_recipes_loop_show_cover and is_view_active('bakers_archive.opt_recipes_loop_show_author')" class="text-muted small mt-2">
-        by <span t-field="archive_recipe.author_id"/>
-    </div>
-</template>
+    <template id="opt_recipes_loop_show_author" name="Author" inherit_id="bakers_archive.recipes_loop" active="True"/>
 
-<template id="recipe_info">
-    <div class="d-flex small flex-wrap mb-1 w-100">
-        <div t-attf-class="d-flex flex-wrap align-items-center justify-content-between mx-n2 #{opt_archive_list_view and 'flex-grow-0 w-auto mw-100' or 'flex-grow-1' }">
-            <time t-if="archive_recipe.published_date" t-field="archive_recipe.published_date" class="text-nowrap fw-bold px-2" t-options="{'widget': 'datetime', 'date_only': 'true', 'format': 'medium'}"/>
-            <time t-elif="archive_recipe.publish_on" t-field="archive_recipe.publish_on" class="text-nowrap fw-bold px-2" t-options="{'widget': 'datetime', 'date_only': 'true', 'format': 'medium'}"/>
-            <div t-if="is_view_active('bakers_archive.opt_recipes_loop_show_stats')" class="px-2">
-                <b class="text-nowrap" title="Comments"><i class="fa fa-comment text-muted me-1"/><t t-out="len(archive_recipe.message_ids)"/></b>
-                <b class="text-nowrap ps-2" title="Views"><i class="fa fa-eye text-muted me-1"/><t t-out="archive_recipe.visits"/></b>
-            </div>
-            <b t-if="recipes_list_show_parent_archive" class="text-nowrap text-truncate px-2">
-                <i class="fa fa-folder-open text-muted"/>
-                <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}" t-field="archive_recipe.archive_id"/>
-            </b>
-        </div>
-    </div>
-</template>
+    <template id="opt_recipes_loop_show_stats" name="Comments/Views Stats" inherit_id="bakers_archive.recipes_loop"
+              active="False"/>
 
-<template id="recipe_cover_image">
-    <t t-if="opt_archive_cards_design and not opt_archive_list_view" t-set="classes" t-value="'card-img-top mb-2'"/>
-    <t t-if="not opt_archive_cards_design and opt_archive_list_view" t-set="classes" t-value="'o_barchive_recipe_cover_nocard'"/>
-
-    <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}"
-       t-attf-class="text-decoration-none d-block #{classes or 'mb-2'}"
-       t-att-style="not archive_recipe.website_published and 'opacity:0.6;'">
-
-        <t t-call="website.record_cover"
-            _record="archive_recipe"
-            additionnal_classes="'o_list_cover ' + (not opt_archive_cards_design and ' rounded overflow-hidden shadow mb-3' or '')">
-
-            <t t-if="is_view_active('bakers_archive.opt_recipes_loop_show_author')" t-call="bakers_archive.recipe_author"
-                additionnal_classes="'o_barchive_recipe_list_author o_list_cover d-flex text-white w-100 ' + ('p-3 h5 m-0' if opt_archive_list_view else 'px-2 pb-2 pt-3') "
-                hide_date="True"/>
-        </t>
-    </a>
-</template>
-
-<template id="recipe_teaser">
-    <a t-attf-href="/archive/#{slug(archive_recipe.archive_id)}/#{slug(archive_recipe)}" class="text-reset text-decoration-none">
-        <div t-if="opt_archive_list_view" t-field="archive_recipe.teaser" class="mt-2 o_barchive_read_text"/>
-        <div t-else="" t-field="archive_recipe.teaser" t-attf-class="mt-2 #{opt_archive_readable and 'o_barchive_normalize_font'}"/>
-    </a>
-
-    <div t-if="len(archive_recipe.tag_ids)" class="o_barchive_recipe_short_tag_section d-flex align-items-center flex-wrap pt-2">
-        <t t-foreach="archive_recipe.tag_ids" t-as="one_tag">
-            <a t-attf-href="#{archive_url(tag=tags_list(active_tag_ids, one_tag.id))}"
-               t-attf-class="badge mb-2 me-1 text-truncate o_tag o_color_#{one_tag.colour} recipe_link"
-               t-att-rel="len(active_tag_ids) and 'nofollow'"
-               t-out="one_tag.name"/>
-        </t>
-    </div>
-</template>
-
-
-<template id="opt_recipes_loop_show_cover" name="Cover" inherit_id="bakers_archive.recipes_loop" active="True"/>
-
-<template id="opt_recipes_loop_show_author" name="Author" inherit_id="bakers_archive.recipes_loop" active="True"/>
-
-<template id="opt_recipes_loop_show_stats" name="Comments/Views Stats" inherit_id="bakers_archive.recipes_loop" active="False"/>
-
-<template id="opt_recipes_loop_show_teaser" name="Teaser &amp; Tags" inherit_id="bakers_archive.recipes_loop" active="True"/>
+    <template id="opt_recipes_loop_show_teaser" name="Teaser &amp; Tags" inherit_id="bakers_archive.recipes_loop"
+              active="True"/>
 
 </odoo>

@@ -6,11 +6,14 @@
               parent="website.menu_website_global_configuration"
               groups="website.group_website_designer"/>
 
-    <menuitem id="menu_bakers_archive_archive_global" parent="menu_bakers_archive_root_global" name="Archives" action="bakers_archive_archive_action" sequence="20"/>
+    <menuitem id="menu_bakers_archive_archive_global" parent="menu_bakers_archive_root_global" name="Archives"
+              action="bakers_archive_archive_action" sequence="20"/>
 
-    <menuitem id="menu_bakers_archive_tag_global" parent="menu_bakers_archive_root_global" name="Tags" action="bakers_archive_tag_action" sequence="30"/>
+    <menuitem id="menu_bakers_archive_tag_global" parent="menu_bakers_archive_root_global" name="Tags"
+              action="bakers_archive_tag_action" sequence="30"/>
 
-    <menuitem id="menu_bakers_archive_tag_category_global" parent="menu_bakers_archive_root_global" name="Tag Categories" action="bakers_archive_tag_category_action" sequence="40"/>
+    <menuitem id="menu_bakers_archive_tag_category_global" parent="menu_bakers_archive_root_global"
+              name="Tag Categories" action="bakers_archive_tag_category_action" sequence="40"/>
 
     <menuitem id="menu_bakers_archive_recipe_pages"
               parent="website.menu_content"

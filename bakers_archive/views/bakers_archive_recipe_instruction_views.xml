@@ -12,7 +12,7 @@
             </list>
         </field>
     </record>
-    
+
     <record id="bakers_archive_recipe_instruction_form" model="ir.ui.view">
         <field name="name">bakers_archive.recipe.instruction.form</field>
         <field name="model">bakers_archive.recipe.instruction</field>

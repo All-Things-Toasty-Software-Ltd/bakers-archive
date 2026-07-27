@@ -1,8 +1,5 @@
-import {
-    NewContentSystrayItem,
-    MODULE_STATUS,
-} from "@website/client_actions/website_preview/new_content_systray_item";
-import { patch } from "@web/core/utils/patch";
+import {MODULE_STATUS, NewContentSystrayItem,} from "@website/client_actions/website_preview/new_content_systray_item";
+import {patch} from "@web/core/utils/patch";
 
 patch(NewContentSystrayItem.prototype, {
     setup() {
@@ -41,7 +38,7 @@ patch(NewContentSystrayItem.prototype, {
             const archiveId = parseInt(archiveEl?.dataset?.oeId, 10);
 
             if (archiveId) {
-                return { default_archive_id: archiveId };
+                return {default_archive_id: archiveId};
             }
         }
         return null;

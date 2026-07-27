@@ -7,7 +7,7 @@
     </xpath>
 </t>
 
-<t t-name="bakers_archive.DynamicSnippetArchiveRecipesOption" t-inherit="website.DynamicSnippetOption">
+    <t t-name="bakers_archive.DynamicSnippetArchiveRecipesOption" t-inherit="website.DynamicSnippetOption">
     <xpath expr="//BuilderRow[*[@id=&quot;'filter_opt'&quot;]]" position="after">
         <BuilderRow label.translate="Archive" t-if="!isSingleMode">
             <BuilderSelect dataAttributeAction="'filterByArchiveId'" preview="false">
@@ -18,29 +18,36 @@
             </BuilderSelect>
         </BuilderRow>
     </xpath>
-    <xpath expr="//BuilderRow[*[@id=&quot;'template_opt'&quot;]]" position="after">
+        <xpath expr="//BuilderRow[*[@id=&quot;'template_opt'&quot;]]" position="after">
         <BuilderRow label.translate="Picture Size" preview="false" t-if="showPictureSizeOption()">
             <BuilderButtonGroup id="'picture_size_opt'">
-                <BuilderButton label.translate="Smaller" title.translate="Smaller picture" classAction="'s_archive_recipes_recipe_picture_size_small'"/>
-                <BuilderButton label.translate="Normal" title.translate="Normal picture" classAction="'s_archive_recipes_recipe_picture_size_default'"/>
+                <BuilderButton label.translate="Smaller" title.translate="Smaller picture"
+                               classAction="'s_archive_recipes_recipe_picture_size_small'"/>
+                <BuilderButton label.translate="Normal" title.translate="Normal picture"
+                               classAction="'s_archive_recipes_recipe_picture_size_default'"/>
             </BuilderButtonGroup>
         </BuilderRow>
-        <BuilderRow label.translate="Author" preview="false">
-            <BuilderCheckbox id="'author_opt'" action="'customizeTemplate'" actionParam="'archive_recipes_recipe_author_active'"/>
+            <BuilderRow label.translate="Author" preview="false">
+            <BuilderCheckbox id="'author_opt'" action="'customizeTemplate'"
+                             actionParam="'archive_recipes_recipe_author_active'"/>
         </BuilderRow>
-        <BuilderRow label.translate="Teaser" preview="false" t-if="!!showTeaserOption()">
-            <BuilderCheckbox id="'teaser_opt'" action="'customizeTemplate'" actionParam="'archive_recipes_recipe_teaser_active'"/>
+            <BuilderRow label.translate="Teaser" preview="false" t-if="!!showTeaserOption()">
+            <BuilderCheckbox id="'teaser_opt'" action="'customizeTemplate'"
+                             actionParam="'archive_recipes_recipe_teaser_active'"/>
         </BuilderRow>
-        <BuilderRow label.translate="Date" preview="false" t-if="!!showDateOption()">
-            <BuilderCheckbox id="'date_opt'" action="'customizeTemplate'" actionParam="'archive_recipes_recipe_date_active'"/>
+            <BuilderRow label.translate="Date" preview="false" t-if="!!showDateOption()">
+            <BuilderCheckbox id="'date_opt'" action="'customizeTemplate'"
+                             actionParam="'archive_recipes_recipe_date_active'"/>
         </BuilderRow>
-        <BuilderRow label.translate="Category" preview="false" t-if="!!showCategoryOption()">
-            <BuilderCheckbox id="'category_opt'" action="'customizeTemplate'" actionParam="'archive_recipes_recipe_category_active'"/>
+            <BuilderRow label.translate="Category" preview="false" t-if="!!showCategoryOption()">
+            <BuilderCheckbox id="'category_opt'" action="'customizeTemplate'"
+                             actionParam="'archive_recipes_recipe_category_active'"/>
         </BuilderRow>
-        <BuilderRow label.translate="New Tag" preview="false" t-if="!!showNewTagOption()">
-            <BuilderCheckbox id="'new_opt'" action="'customizeTemplate'" actionParam="'archive_recipes_recipe_new_active'"/>
+            <BuilderRow label.translate="New Tag" preview="false" t-if="!!showNewTagOption()">
+            <BuilderCheckbox id="'new_opt'" action="'customizeTemplate'"
+                             actionParam="'archive_recipes_recipe_new_active'"/>
         </BuilderRow>
-        <BuilderRow label.translate="Hover Effect" t-if="!!showHoverEffectOption()">
+            <BuilderRow label.translate="Hover Effect" t-if="!!showHoverEffectOption()">
             <BuilderSelect>
                 <BuilderSelectItem classAction="''">None</BuilderSelectItem>
                 <BuilderSelectItem classAction="'s_archive_recipes_effect_marley'">Marley</BuilderSelectItem>

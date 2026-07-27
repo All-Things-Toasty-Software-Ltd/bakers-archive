@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
+# Part of The Baker's Archive. See LICENSE file for full copyright and licensing details.
+
 from odoo import models, _
+
 
 class Website(models.Model):
     _inherit = 'website'

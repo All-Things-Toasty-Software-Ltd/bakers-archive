@@ -1,5 +1,5 @@
-import { patch } from "@web/core/utils/patch";
-import { ContentWidthOption } from "@website/builder/plugins/content_width_option_plugin";
+import {patch} from "@web/core/utils/patch";
+import {ContentWidthOption} from "@website/builder/plugins/content_width_option_plugin";
 
 patch(ContentWidthOption, {
     exclude: `${ContentWidthOption.exclude}, .s_archive_recipe_single_circle`,

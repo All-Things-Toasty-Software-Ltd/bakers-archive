@@ -1,11 +1,8 @@
-import {
-    DYNAMIC_SNIPPET,
-    setDatasetIfUndefined,
-} from "@website/builder/plugins/options/dynamic_snippet_option_plugin";
-import { Plugin } from "@html_editor/plugin";
-import { withSequence } from "@html_editor/utils/resource";
-import { registry } from "@web/core/registry";
-import { DynamicSnippetArchiveRecipesOption } from "./dynamic_snippet_archive_recipes_option";
+import {DYNAMIC_SNIPPET, setDatasetIfUndefined,} from "@website/builder/plugins/options/dynamic_snippet_option_plugin";
+import {Plugin} from "@html_editor/plugin";
+import {withSequence} from "@html_editor/utils/resource";
+import {registry} from "@web/core/registry";
+import {DynamicSnippetArchiveRecipesOption} from "./dynamic_snippet_archive_recipes_option";
 
 
 class DynamicSnippetArchiveRecipesOptionPlugin extends Plugin {
@@ -17,13 +14,16 @@ class DynamicSnippetArchiveRecipesOptionPlugin extends Plugin {
         builder_options: withSequence(DYNAMIC_SNIPPET, DynamicSnippetArchiveRecipesOption),
         on_snippet_dropped_handlers: this.onSnippetDropped.bind(this),
     };
+
     setup() {
         this.archives = undefined;
     }
+
     getModelNameFilter() {
         return this.modelNameFilter;
     }
-    async onSnippetDropped({ snippetEl }) {
+
+    async onSnippetDropped({snippetEl}) {
         if (snippetEl.matches(DynamicSnippetArchiveRecipesOption.selector)) {
             setDatasetIfUndefined(snippetEl, "filterByArchiveId", -1);
             await this.dependencies.dynamicSnippetOption.setOptionsDefaultValues(
@@ -32,12 +32,14 @@ class DynamicSnippetArchiveRecipesOptionPlugin extends Plugin {
             );
         }
     }
+
     async fetchArchives() {
         if (!this.archives) {
             this.archives = this._fetchArchives();
         }
         return this.archives;
     }
+
     async _fetchArchives() {
         const websiteDomain = [
             "|",

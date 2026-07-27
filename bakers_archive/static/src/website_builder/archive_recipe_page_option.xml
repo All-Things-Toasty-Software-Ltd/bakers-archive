@@ -4,7 +4,8 @@
 <t t-name="bakers_archive.archiveRecipePageOption">
     <BuilderContext action="'websiteConfig'">
         <BuilderRow label.translate="Top Banner">
-            <BuilderCheckbox id="'archive_cover_opt'" actionParam="{views: ['bakers_archive.opt_archive_cover_recipe']}"/>
+            <BuilderCheckbox id="'archive_cover_opt'"
+                             actionParam="{views: ['bakers_archive.opt_archive_cover_recipe']}"/>
         </BuilderRow>
         <BuilderRow label.translate="Full-Width" t-if="isActiveItem('archive_cover_opt')" level="1">
             <BuilderCheckbox actionParam="{views: ['bakers_archive.opt_archive_cover_recipe_fullwidth_design']}"/>
@@ -12,7 +13,8 @@
         <BuilderRow label.translate="Layout">
             <BuilderSelect>
                 <BuilderSelectItem actionParam="{views: []}">Grid</BuilderSelectItem>
-                <BuilderSelectItem actionParam="{views: ['bakers_archive.opt_archive_list_view']}">List</BuilderSelectItem>
+                <BuilderSelectItem
+                        actionParam="{views: ['bakers_archive.opt_archive_list_view']}">List</BuilderSelectItem>
             </BuilderSelect>
         </BuilderRow>
         <BuilderRow label.translate="Cards" level="1">
@@ -22,7 +24,8 @@
             <BuilderCheckbox actionParam="{views: ['bakers_archive.opt_archive_readable']}"/>
         </BuilderRow>
         <BuilderRow label.translate="Sidebar">
-            <BuilderCheckbox id="'archive_recipes_sidebar_opt'" actionParam="{views: ['bakers_archive.opt_archive_sidebar_show']}"/>
+            <BuilderCheckbox id="'archive_recipes_sidebar_opt'"
+                             actionParam="{views: ['bakers_archive.opt_archive_sidebar_show']}"/>
         </BuilderRow>
         <t t-if="isActiveItem('archive_recipes_sidebar_opt')">
             <BuilderRow label.translate="Archives" level="1">
@@ -38,7 +41,8 @@
         <BuilderRow label.translate="Recipes List">
             <BuilderSelect>
                 <BuilderSelectItem actionParam="{views: []}">No Cover</BuilderSelectItem>
-                <BuilderSelectItem actionParam="{views: ['bakers_archive.opt_recipes_loop_show_cover']}">Cover</BuilderSelectItem>
+                <BuilderSelectItem
+                        actionParam="{views: ['bakers_archive.opt_recipes_loop_show_cover']}">Cover</BuilderSelectItem>
             </BuilderSelect>
         </BuilderRow>
         <BuilderRow label.translate="Author" level="1">

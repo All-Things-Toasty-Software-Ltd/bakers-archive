@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo><data noupdate="1">
+<odoo>
+    <data noupdate="1">
 
-    <record id="mt_archive_archive_published" model="mail.message.subtype">
-        <field name="name">Published Recipe</field>
-        <field name="res_model">bakers_archive.archive</field>
-        <field name="default" eval="True"/>
-        <field name="description">Published Recipe</field>
-    </record>
+        <record id="mt_archive_archive_published" model="mail.message.subtype">
+            <field name="name">Published Recipe</field>
+            <field name="res_model">bakers_archive.archive</field>
+            <field name="default" eval="True"/>
+            <field name="description">Published Recipe</field>
+        </record>
 
-</data></odoo>
+    </data>
+</odoo>

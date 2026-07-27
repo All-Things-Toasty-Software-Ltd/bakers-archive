@@ -1,6 +1,6 @@
-import { Plugin } from "@html_editor/plugin";
-import { registry } from "@web/core/registry";
-import { ArchiveRecipeTagsOption } from "./archive_recipe_tags_option";
+import {Plugin} from "@html_editor/plugin";
+import {registry} from "@web/core/registry";
+import {ArchiveRecipeTagsOption} from "./archive_recipe_tags_option";
 
 class ArchiveRecipeTagsOptionPlugin extends Plugin {
     static id = "archiveRecipeTagsOption";

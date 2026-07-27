@@ -1,11 +1,11 @@
-import { scrollTo } from "@html_builder/utils/scrolling";
-import { Interaction } from "@web/public/interaction";
-import { registry } from "@web/core/registry";
+import {scrollTo} from "@html_builder/utils/scrolling";
+import {Interaction} from "@web/public/interaction";
+import {registry} from "@web/core/registry";
 
-import { browser } from "@web/core/browser/browser";
-import { _t } from "@web/core/l10n/translation";
-import { verifyHttpsUrl } from "@website/utils/misc";
-import { getActiveHotkey } from "@web/core/hotkeys/hotkey_service";
+import {browser} from "@web/core/browser/browser";
+import {_t} from "@web/core/l10n/translation";
+import {verifyHttpsUrl} from "@website/utils/misc";
+import {getActiveHotkey} from "@web/core/hotkeys/hotkey_service";
 
 export class BakersArchive extends Interaction {
     static selector = ".bakers_archive";
@@ -22,7 +22,7 @@ export class BakersArchive extends Interaction {
                 "t-on-click.prevent.withTarget": this.onShareRecipeClick,
             },
     };
-    
+
     async onNextArchiveClick(ev) {
         const archiveNextContainerEl = ev.currentTarget.closest("#o_barchive_next_container");
         const nextInfo = archiveNextContainerEl.querySelector("#o_barchive_next_recipe_info").dataset;
@@ -34,7 +34,7 @@ export class BakersArchive extends Interaction {
         archiveNextContainerEl
             .querySelectorAll(".o_barchive_toggle")
             .forEach((el) => el.classList.toggle("d-none"));
-   
+
         const placeholder = document.createElement("div");
         placeholder.style.minHeight = "100vh";
         this.insert(placeholder, this.el.querySelector("#o_barchive_next_container"), "beforeend");
@@ -45,7 +45,7 @@ export class BakersArchive extends Interaction {
             () => (browser.location.href = nextUrl)
         );
     }
-  
+
     onNextArchiveKeydown(ev) {
         const hotkey = getActiveHotkey(ev);
         if (hotkey === "enter" || hotkey === "space") {
@@ -64,7 +64,7 @@ export class BakersArchive extends Interaction {
             () => (browser.location.hash = "archive_content")
         );
     }
-    
+
     onShareRecipeClick(ev, currentTargetEl) {
         let url = "";
         const archiveRecipeTitle = document.querySelector(".o_barchive_recipe_name").textContent || "";
@@ -88,7 +88,7 @@ export class BakersArchive extends Interaction {
     }
 
     async forumScrollAction(el, duration, callback) {
-        await this.waitFor(scrollTo(el, { duration }));
+        await this.waitFor(scrollTo(el, {duration}));
         callback();
     }
 }

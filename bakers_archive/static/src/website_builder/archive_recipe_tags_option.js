@@ -1,4 +1,4 @@
-import { BaseOptionComponent, useDomState } from "@html_builder/core/utils";
+import {BaseOptionComponent, useDomState} from "@html_builder/core/utils";
 
 export class ArchiveRecipeTagsOption extends BaseOptionComponent {
     static template = "bakers_archive.ArchiveRecipeTagsOption";

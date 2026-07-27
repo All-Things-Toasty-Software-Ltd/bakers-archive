@@ -4,7 +4,7 @@
         <record id="dynamic_snippet_latest_archive_recipe_filter" model="ir.filters">
             <field name="name">Latest Archive Recipes</field>
             <field name="model_id">bakers_archive.recipe</field>
-            <field name="user_ids" eval="False" />
+            <field name="user_ids" eval="False"/>
             <field name="domain">[('published_date', '&lt;=', 'now')]</field>
             <field name="sort">["published_date desc"]</field>
             <field name="action_id" ref="website.action_website"/>
@@ -12,7 +12,7 @@
         <record id="dynamic_snippet_most_viewed_archive_recipe_filter" model="ir.filters">
             <field name="name">Most Viewed Archive Recipes</field>
             <field name="model_id">bakers_archive.recipe</field>
-            <field name="user_ids" eval="False" />
+            <field name="user_ids" eval="False"/>
             <field name="domain">[('published_date', '&lt;=', 'now'), ('visits', '!=', False)]</field>
             <field name="sort">["visits desc"]</field>
             <field name="action_id" ref="website.action_website"/>

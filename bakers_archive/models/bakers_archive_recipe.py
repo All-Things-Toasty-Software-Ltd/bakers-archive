@@ -1,11 +1,13 @@
-from datetime import datetime
-import random
+# -*- coding: utf-8 -*-
+# Part of The Baker's Archive. See LICENSE file for full copyright and licensing details.
 
+import random
+from datetime import datetime
 from odoo import api, models, fields, _
 from odoo.addons.website.tools import text_from_html
+from odoo.tools import html_escape
 from odoo.tools.json import scriptsafe as json_scriptsafe
 from odoo.tools.translate import html_translate
-from odoo.tools import html_escape
 
 
 class BakersArchiveRecipe(models.Model):
@@ -26,7 +28,8 @@ class BakersArchiveRecipe(models.Model):
         super(BakersArchiveRecipe, self)._compute_website_url()
         for archive_recipe in self:
             if archive_recipe.id:
-                archive_recipe.website_url = "/archive/%s/%s" % (self.env['ir.http']._slug(archive_recipe.archive_id), self.env['ir.http']._slug(archive_recipe))
+                archive_recipe.website_url = "/archive/%s/%s" % (self.env['ir.http']._slug(archive_recipe.archive_id),
+                                                                 self.env['ir.http']._slug(archive_recipe))
 
     # Metadata
 
@@ -42,9 +45,11 @@ class BakersArchiveRecipe(models.Model):
     author_avatar = fields.Binary(related='author_id.image_128', string='Avatar', readonly=False)
     author_name = fields.Char(related='author_id.name', string='Author Name', readonly=False, store=True)
     active = fields.Boolean('Active', default=True)
-    archive_id = fields.Many2one('bakers_archive.archive', 'Archive', required=True, index=True, ondelete='cascade', default=lambda self: self.env['bakers_archive.archive'].search([], limit=1))
+    archive_id = fields.Many2one('bakers_archive.archive', 'Archive', required=True, index=True, ondelete='cascade',
+                                 default=lambda self: self.env['bakers_archive.archive'].search([], limit=1))
     tag_ids = fields.Many2many('bakers_archive.tag', string='Tags')
-    content = fields.Html('Content', default=_default_content, translate=html_translate, sanitize=False) # Content will initially be generated based on the given model data, but then can also be HTML edited where needed.
+    content = fields.Html('Content', default=_default_content, translate=html_translate,
+                          sanitize=False)  # Content will initially be generated based on the given model data, but then can also be HTML edited where needed.
     teaser = fields.Text('Teaser', compute='_compute_teaser', inverse='_set_teaser', translate=True)
     teaser_manual = fields.Text('Teaser Content', translate=True)
 
@@ -62,7 +67,8 @@ class BakersArchiveRecipe(models.Model):
 
     image_1920 = fields.Image(string='Image')
 
-    website_message_ids = fields.One2many(domain=lambda self: [('model', '=', self._name), ('message_type', '=', 'comment')])
+    website_message_ids = fields.One2many(
+        domain=lambda self: [('model', '=', self._name), ('message_type', '=', 'comment')])
 
     # Creation and Update
 
@@ -119,7 +125,8 @@ class BakersArchiveRecipe(models.Model):
         self.ensure_one()
         user = self.env['res.users'].sudo().browse(access_uid) if access_uid else self.env.user
         if not force_website and user.share and not self.sudo().website_published:
-            return super(BakersArchiveRecipe, self)._get_access_action(access_uid=access_uid, force_website=force_website)
+            return super(BakersArchiveRecipe, self)._get_access_action(access_uid=access_uid,
+                                                                       force_website=force_website)
         return {
             'type': 'ir.actions.act_url',
             'url': self.website_url,
@@ -146,7 +153,8 @@ class BakersArchiveRecipe(models.Model):
         msg_vals = msg_vals or {}
         if msg_vals.get('message_type', message.message_type) == 'comment':
             return
-        return super(BakersArchiveRecipe, self)._notify_thread_by_inbox(message, recipients_data, msg_vals=msg_vals, **kwargs)
+        return super(BakersArchiveRecipe, self)._notify_thread_by_inbox(message, recipients_data, msg_vals=msg_vals,
+                                                                        **kwargs)
 
     def _default_website_meta(self):
         res = super(BakersArchiveRecipe, self)._default_website_meta()
@@ -155,7 +163,9 @@ class BakersArchiveRecipe(models.Model):
         res['default_opengraph']['article:published_time'] = self.published_date
         res['default_opengraph']['article:modified_time'] = self.write_date
         res['default_opengraph']['article:tag'] = self.tag_ids.mapped('name')
-        res['default_opengraph']['og:image'] = json_scriptsafe.loads(self.cover_properties).get('background-image','none')[4:-1].strip("\"'")
+        res['default_opengraph']['og:image'] = json_scriptsafe.loads(self.cover_properties).get('background-image',
+                                                                                                'none')[4:-1].strip(
+            "\"'")
         res['default_opengraph']['og:title'] = self.name
         res['default_meta_description'] = self.subtitle
         return res
@@ -241,7 +251,6 @@ class BakersArchiveRecipe(models.Model):
                         f'</a>'
                     )
                 content_parts.append(f'<div class="d-flex flex-wrap gap-1 mb-3">{"".join(ing_badges)}</div>')
-
 
             if recipe.instructions:
                 content_parts.append('<h5 class="fw-bold mt-3 mb-2" style="font-size: 1.05rem;">Recipe</h5>')

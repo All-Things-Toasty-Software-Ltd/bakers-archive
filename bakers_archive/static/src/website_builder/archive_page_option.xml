@@ -15,7 +15,8 @@
         </BuilderRow>
 
         <BuilderRow label.translate="Sidebar">
-            <BuilderCheckbox id="'archive_recipe_sidebar_opt'" actionParam="{views: ['bakers_archive.opt_archive_recipe_sidebar']}"/>
+            <BuilderCheckbox id="'archive_recipe_sidebar_opt'"
+                             actionParam="{views: ['bakers_archive.opt_archive_recipe_sidebar']}"/>
         </BuilderRow>
 
         <t t-if="this.isActiveItem('archive_recipe_sidebar_opt')">
@@ -45,8 +46,10 @@
         </BuilderRow>
 
         <BuilderRow label.translate="Bottom">
-            <BuilderButton label.translate="Next Article" actionParam="{views: ['bakers_archive.opt_archive_recipe_read_next']}"/>
-            <BuilderButton label.translate="Comments" actionParam="{views: ['bakers_archive.opt_archive_recipe_comment']}"/>
+            <BuilderButton label.translate="Next Article"
+                           actionParam="{views: ['bakers_archive.opt_archive_recipe_read_next']}"/>
+            <BuilderButton label.translate="Comments"
+                           actionParam="{views: ['bakers_archive.opt_archive_recipe_comment']}"/>
         </BuilderRow>
     </BuilderContext>
 </t>

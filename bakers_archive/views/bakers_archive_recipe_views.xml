@@ -47,7 +47,8 @@
                                 </div>
                                 <field name="archive_id" class="col-4 text-end fw-bolder"/>
                                 <div class="col-8">
-                                    <i class="fa fa-clock-o me-1" role="img" aria-label="Recipe date" title="Recipe date"/>
+                                    <i class="fa fa-clock-o me-1" role="img" aria-label="Recipe date"
+                                       title="Recipe date"/>
                                     <t t-if="record.published_date.value">
                                         <field name="published_date"/>
                                     </t>
