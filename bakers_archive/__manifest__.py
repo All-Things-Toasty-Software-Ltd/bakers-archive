@@ -2,7 +2,7 @@
 
 {
     'name': "Baker's Archive",
-    'version': '0.3.5',
+    'version': '0.4.0',
     'category': 'Toasty Software',
     'summary': "Archive of all things baking (mostly just recipes though).",
     'currency': 'EUR',
@@ -61,5 +61,5 @@ of recipes and archive data as well as displaying them on an Odoo website.
         ],
     },
     'author': 'All Things Toasty Software Ltd',
-    'license': 'OPL-1',
+    'license': 'LGPL-3',
 }
