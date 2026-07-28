@@ -56,13 +56,16 @@ class BakersArchiveRecipe(models.Model):
     source_id = fields.Many2one('bakers_archive.source', 'Source', index='btree_not_null')
     source_name = fields.Char(related='source_id.name', string='Source Name', readonly=False, store=True)
     license = fields.Many2one('bakers_archive.license', string='License')
-    languages = fields.Many2many('bakers_archive.language', string='Languages')
-    origins = fields.Many2many('bakers_archive.origin', string='Origins')
+    country_id = fields.Many2one('res.country', string='Origin Country', help='The country where this recipe originates from.')
+    state_id = fields.Many2one('res.country.state', domain="[('country_id', '=', country_id)]", help='The specific region or state within the origin country.')
+    original_language_id = fields.Many2many('res.lang', string='Original Language', help='The original language of the recipe.')
     ingredients = fields.One2many('bakers_archive.recipe.ingredient', 'recipe_id', string='Ingredients')
     instructions = fields.One2many('bakers_archive.recipe.instruction', 'recipe_id', string='Instructions')
     notes = fields.Text(string='Notes')
 
-    image_1920 = fields.Image(string='Image')
+    media_ids = fields.One2many('bakers_archive.recipe.media', 'recipe_id', string='Media Gallery', help='Images, videos, and other media related to this recipe.')
+
+    main_image = fields.Image(string='Main Image', max_width=1920, max_height=1920)
 
     website_message_ids = fields.One2many(
         domain=lambda self: [('model', '=', self._name), ('message_type', '=', 'comment')])

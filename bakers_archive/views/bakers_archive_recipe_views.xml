@@ -90,14 +90,16 @@
                     <div class="oe_button_box" name="button_box" invisible="not active">
                         <field name="is_published" widget="website_redirect_button"/>
                     </div>
+                    <field name="main_image" widget="image" class="oe_avatar"/>
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
-                    <group>
+                    <div class="oe_title">
+                        <label for="name"/>
                         <h1>
                             <field name="name" nolabel="1" placeholder="Archive Recipe Title"/>
                         </h1>
-                    </group>
+                    </div>
                     <group>
-                        <group name="archive_details">
+                        <group name="archive_details" string="Archive Options">
                             <field name="archive_id"/>
                             <field name="subtitle" placeholder="Archive Subtitle"/>
                             <field name="teaser" placeholder="Archive Teaser"
@@ -124,22 +126,27 @@
                         </group>
                     </group>
                     <notebook>
-                        <page name="se0" string="SEO" groups="base.group_no_one">
+                        <page name="seo" string="SEO" groups="base.group_no_one">
                             <group name="default_opengraph">
                                 <field name="website_meta_title" string="Meta Title"/>
                                 <field name="website_meta_description" string="Meta Description"/>
                                 <field name="website_meta_keywords" string="Meta Keywords"
-                                       help="Seperate every keyword with a comma"/>
+                                       help="Separate every keyword with a comma"/>
                             </group>
                         </page>
                         <page name="other_stuff" string="Other Stuff">
                             <field name="source_id"/>
                             <field name="license"/>
-                            <field name="languages" widget="many2many_tags"/>
-                            <field name="origins" widget="many2many_tags"/>
+                            <field name="original_language_id"/>
+                            <field name="country_id"/>
+                            <field name="state_id"/>
                             <field name="ingredients"/>
                             <field name="instructions"/>
                             <field name="notes"/>
+                        </page>
+                        <page string="Media">
+                            <field name="media_ids">
+                            </field>
                         </page>
                     </notebook>
                 </sheet>

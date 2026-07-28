@@ -178,7 +178,7 @@
                             <div class="d-flex flex-column flex-md-row align-items-start gap-4">
                                 <!-- Bread Image -->
                                 <div class="flex-shrink-0">
-                                    <span t-field="archive_recipe.image_1920"
+                                    <span t-field="archive_recipe.main_image"
                                           t-options="{'widget': 'image', 'class': 'img img-fluid rounded shadow-sm', 'style': 'max-width: 140px; height: auto;'}"/>
                                 </div>
 
