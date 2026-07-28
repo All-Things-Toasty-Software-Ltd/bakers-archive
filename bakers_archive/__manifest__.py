@@ -2,9 +2,13 @@
 
 {
     'name': "Baker's Archive",
-    'version': '0.4.0',
     'category': 'Toasty Software',
+    'sequence': 200,
+    'website': 'https://www.toastysoftware.co.uk',
     'summary': "Archive of all things baking (mostly just recipes though).",
+    'version': '0.4.0',
+    'depends': ['website_mail', 'website_partner', 'html_builder'],
+
     'currency': 'EUR',
     'price': 0.00,
     'description': """
@@ -14,14 +18,19 @@ Baker's Archive
 The Baker's Archive consists of the data models and class structure to handle the basic creation and managing
 of recipes and archive data as well as displaying them on an Odoo website.
     """,
-    'website': 'https://www.toastysoftware.co.uk',
-    'depends': ['website_mail', 'website_partner', 'html_builder'],
     'data': [
         'data/mail_message_subtype_data.xml',
         'data/mail_templates.xml',
         'data/bakers_archive_data.xml',
         'data/archive_snippet_template_data.xml',
         'data/bakers_archive_tour.xml',
+
+        'views/partner_views.xml',
+        'views/bakers_archive_archive_views.xml',
+        'views/bakers_archive_recipe_views.xml',
+        'views/bakers_archive_tag_category_views.xml',
+        'views/bakers_archive_tag_views.xml',
+        'views/bakers_archive_menu_views.xml',
 
         'views/bakers_archive_components.xml',
         'views/bakers_archive_recipes_loop.xml',
@@ -31,19 +40,15 @@ of recipes and archive data as well as displaying them on an Odoo website.
         'views/snippets/s_archive_recipes.xml',
         'views/snippets/s_dynamic_snippet_archive_recipes_preview_data.xml',
 
-        'views/partner_views.xml',
-        'views/bakers_archive_archive_views.xml',
         'views/bakers_archive_recipe_views.xml',
-        'views/bakers_archive_tag_category_views.xml',
-        'views/bakers_archive_tag_views.xml',
-        'views/bakers_archive_menu_views.xml',
-
         'views/bakers_archive_recipe_add.xml',
 
         'security/bakers_archive_security.xml',
         'security/ir.model.access.csv',
     ],
-    'demo': ['data/bakers_archive_demo.xml'],
+    'demo': [
+        'data/bakers_archive_demo.xml'
+    ],
     'assets': {
         'web.assets_backend': [
             'bakers_archive/static/src/tours/bakers_archive.js',

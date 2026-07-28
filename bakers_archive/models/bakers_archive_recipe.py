@@ -49,11 +49,10 @@ class BakersArchiveRecipe(models.Model):
                                  default=lambda self: self.env['bakers_archive.archive'].search([], limit=1))
     tag_ids = fields.Many2many('bakers_archive.tag', string='Tags')
     content = fields.Html('Content', default=_default_content, translate=html_translate,
-                          sanitize=False)  # Content will initially be generated based on the given model data, but then can also be HTML edited where needed.
+                          sanitize=False)
     teaser = fields.Text('Teaser', compute='_compute_teaser', inverse='_set_teaser', translate=True)
     teaser_manual = fields.Text('Teaser Content', translate=True)
 
-    """ I'm not too sure how I'll handle the content generation from this, likely an external script to format it."""
     source_id = fields.Many2one('bakers_archive.source', 'Source', index='btree_not_null')
     source_name = fields.Char(related='source_id.name', string='Source Name', readonly=False, store=True)
     license = fields.Many2one('bakers_archive.license', string='License')
@@ -62,8 +61,6 @@ class BakersArchiveRecipe(models.Model):
     ingredients = fields.One2many('bakers_archive.recipe.ingredient', 'recipe_id', string='Ingredients')
     instructions = fields.One2many('bakers_archive.recipe.instruction', 'recipe_id', string='Instructions')
     notes = fields.Text(string='Notes')
-
-    # Media
 
     image_1920 = fields.Image(string='Image')
 
