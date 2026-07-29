@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class BakersArchiveRecipeMedia(models.Model):
     _name = 'bakers_archive.recipe.media'
@@ -41,7 +42,7 @@ class BakersArchiveRecipeMedia(models.Model):
     @api.constrains('media_type', 'video_url', 'other_link_url')
     def _check_media_content(self):
         for record in self:
-            if record.media_type == 'video_link' and record.video_url:
-                raise models.ValidationError("Video Link type requires a Video URL.")
-            elif record.media_type == 'other_link' and record.other_link_url:
-                raise models.ValidationError("Other Link type requires a Link URL.")
+            if record.media_type == 'video_link' and not record.video_url:
+                raise ValidationError("Video Link type requires a Video URL.")
+            elif record.media_type == 'other_link' and not record.other_link_url:
+                raise ValidationError("Other Link type requires a Link URL.")

@@ -56,14 +56,19 @@ class BakersArchiveRecipe(models.Model):
     source_id = fields.Many2one('bakers_archive.source', 'Source', index='btree_not_null')
     source_name = fields.Char(related='source_id.name', string='Source Name', readonly=False, store=True)
     license = fields.Many2one('bakers_archive.license', string='License')
-    country_id = fields.Many2one('res.country', string='Origin Country', help='The country where this recipe originates from.')
-    state_id = fields.Many2one('res.country.state', domain="[('country_id', '=', country_id)]", help='The specific region or state within the origin country.')
-    original_language_id = fields.Many2many('res.lang', string='Original Language', help='The original language of the recipe.')
-    ingredients = fields.One2many('bakers_archive.recipe.ingredient', 'recipe_id', string='Ingredients')
-    instructions = fields.One2many('bakers_archive.recipe.instruction', 'recipe_id', string='Instructions')
+    country_id = fields.Many2one('res.country', string='Origin Country',
+                                 help='The country where this recipe originates from.')
+    state_id = fields.Many2one('res.country.state', domain="[('country_id', '=', country_id)]",
+                               help='The specific region or state within the origin country.')
+    original_language_id = fields.Many2many('res.lang', string='Original Language',
+                                            help='The original language of the recipe.')
+    ingredient_ids = fields.One2many('bakers_archive.recipe.ingredient', 'recipe_id', string='Ingredients')
+    category_ids = fields.One2many('bakers_archive.recipe.instruction.category', 'recipe_id', string='Instruction Categories')
+    instruction_ids = fields.One2many('bakers_archive.recipe.instruction', 'recipe_id', string='Instructions')
     notes = fields.Text(string='Notes')
 
-    media_ids = fields.One2many('bakers_archive.recipe.media', 'recipe_id', string='Media Gallery', help='Images, videos, and other media related to this recipe.')
+    media_ids = fields.One2many('bakers_archive.recipe.media', 'recipe_id', string='Media Gallery',
+                                help='Images, videos, and other media related to this recipe.')
 
     main_image = fields.Image(string='Main Image', max_width=1920, max_height=1920)
 
@@ -230,10 +235,10 @@ class BakersArchiveRecipe(models.Model):
         for recipe in self:
             content_parts = []
 
-            if recipe.ingredients:
+            if recipe.ingredient_ids:
                 content_parts.append('<h5 class="fw-bold mt-3 mb-2" style="font-size: 1.05rem;">Ingredients</h5>')
                 ing_badges = []
-                for ing in recipe.ingredients:
+                for ing in recipe.ingredient_ids:
                     qty = f"{ing.quantity:g} " if ing.quantity else ""
                     unit = f"{ing.unit} " if ing.unit else ""
                     ing_name = ing.name.name if (hasattr(ing, 'name') and ing.name) else ""
@@ -252,10 +257,10 @@ class BakersArchiveRecipe(models.Model):
                     )
                 content_parts.append(f'<div class="d-flex flex-wrap gap-1 mb-3">{"".join(ing_badges)}</div>')
 
-            if recipe.instructions:
+            if recipe.instruction_ids:
                 content_parts.append('<h5 class="fw-bold mt-3 mb-2" style="font-size: 1.05rem;">Recipe</h5>')
 
-                sorted_instructions = recipe.instructions.sorted(
+                sorted_instructions = recipe.instruction_ids.sorted(
                     key=lambda i: (i.category_id.sequence or 0, i.sequence or 0)
                 )
 

@@ -7,12 +7,13 @@ from odoo import fields, models
 class BakersArchiveRecipeInstruction(models.Model):
     _name = 'bakers_archive.recipe.instruction'
     _description = 'Bakers Archive Recipe Instruction'
-    _order = 'sequence'
+    _order = 'sequence, id'
 
-    recipe_id = fields.Many2one('bakers_archive.recipe', string='Recipe')
+    name = fields.Char(string='Instruction Step', required=True)
+    sequence = fields.Integer(string='Sequence', default=10)
 
-    sequence = fields.Integer(string='Sequence')
-    name = fields.Text(string='Instruction')
     time = fields.Float(string='Time')
 
-    category_id = fields.Many2one('bakers_archive.recipe.instruction.category', 'Category', index=True)
+    recipe_id = fields.Many2one('bakers_archive.recipe', string='Recipe', ondelete='cascade', required=True)
+    category_id = fields.Many2one('bakers_archive.recipe.instruction.category', string='Category', domain="[('recipe_id', '=', recipe_id)]")
+

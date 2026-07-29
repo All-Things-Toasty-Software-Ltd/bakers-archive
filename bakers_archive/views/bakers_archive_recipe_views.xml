@@ -140,12 +140,70 @@
                             <field name="original_language_id"/>
                             <field name="country_id"/>
                             <field name="state_id"/>
-                            <field name="ingredients"/>
-                            <field name="instructions"/>
                             <field name="notes"/>
+                        </page>
+                        <page string="Ingredients">
+                            <field name="ingredient_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="quantity" class="oe-left"/>
+                                    <field name="unit"/>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Instruction Categories">
+                            <field name="category_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Instructions">
+                            <field name="instruction_ids" context="{'default_recipe_id': id}">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="category_id"
+                                           domain="[('recipe_id', '=', parent.id)]"
+                                           context="{'default_recipe_id': parent.id}"/>
+                                </list>
+                            </field>
                         </page>
                         <page string="Media">
                             <field name="media_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="media_type"/>
+                                    <field name="image" widget="image" nolabel="1"
+                                           attrs="{'invisible': [('media_type', '!=', 'image')]}"/>
+                                    <field name="video_url"
+                                           attrs="{'invisible': [('media_type', '!=', 'video_link')]}"/>
+                                    <field name="other_link_url"
+                                           attrs="{'invisible': [('media_type', '!=', 'other_link')]}"/>
+                                    <field name="display_media" nolabel="1"/>
+                                    <field name="description"/>
+                                </list>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="media_type"/>
+                                            <field name="sequence"/>
+                                        </group>
+                                        <group>
+                                            <field name="image" widget="image"
+                                                   attrs="{'invisible': [('media_type', '!=', 'image')]}"/>
+                                            <field name="video_url"
+                                                   attrs="{'invisible': [('media_type', '!=', 'video_link')]}"/>
+                                            <field name="other_link_url"
+                                                   attrs="{'invisible': [('media_type', '!=', 'other_link')]}"/>
+                                        </group>
+                                        <field name="description"/>
+                                    </sheet>
+                                </form>
                             </field>
                         </page>
                     </notebook>
