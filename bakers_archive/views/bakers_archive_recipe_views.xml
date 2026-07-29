@@ -148,6 +148,7 @@
                                     <field name="quantity"/>
                                     <field name="unit"/>
                                     <field name="name"/>
+                                    <field name="notes"/>
                                 </list>
                             </field>
                         </page>
