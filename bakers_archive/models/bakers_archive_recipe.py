@@ -60,12 +60,14 @@ class BakersArchiveRecipe(models.Model):
                                  help='The country where this recipe originates from.')
     state_id = fields.Many2one('res.country.state', domain="[('country_id', '=', country_id)]",
                                help='The specific region or state within the origin country.')
-    original_language_id = fields.Many2many('res.lang', string='Original Language',
+    original_language_id = fields.Many2one('res.lang', string='Original Language',
                                             help='The original language of the recipe.')
     ingredient_ids = fields.One2many('bakers_archive.recipe.ingredient', 'recipe_id', string='Ingredients')
     category_ids = fields.One2many('bakers_archive.recipe.instruction.category', 'recipe_id', string='Instruction Categories')
     instruction_ids = fields.One2many('bakers_archive.recipe.instruction', 'recipe_id', string='Instructions')
-    notes = fields.Text(string='Notes')
+    notes = fields.Html(string='Notes')
+    description = fields.Html(string='Description', help='An intro, or overview of the recipe.')
+
 
     media_ids = fields.One2many('bakers_archive.recipe.media', 'recipe_id', string='Media Gallery',
                                 help='Images, videos, and other media related to this recipe.')
@@ -256,6 +258,14 @@ class BakersArchiveRecipe(models.Model):
                         f'</a>'
                     )
                 content_parts.append(f'<div class="d-flex flex-wrap gap-1 mb-3">{"".join(ing_badges)}</div>')
+
+            if recipe.description:
+                content_parts.append(
+                    f'<h5 class="fw-bold mt-3 mb-2" style="font-size: 1.05rem;">Description</h5>'
+                    f'<div class="bg-transparent border border-1 p-3 rounded-3 mb-3" style="font-size: 0.85rem;">'
+                    f'  <p class="mb-0 text-secondary" style="line-height: 1.45;">{html_escape(recipe.description)}</p>'
+                    f'</div>'
+                )
 
             if recipe.instruction_ids:
                 content_parts.append('<h5 class="fw-bold mt-3 mb-2" style="font-size: 1.05rem;">Recipe</h5>')

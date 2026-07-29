@@ -103,7 +103,7 @@
                             <field name="archive_id"/>
                             <field name="subtitle" placeholder="Archive Subtitle"/>
                             <field name="teaser" placeholder="Archive Teaser"
-                                   help="Shown as preview on the /bakers-archive page"/>
+                                   help="Shown as preview on the /archive page"/>
                             <field name="tag_ids" widget="many2many_tags"
                                    options="{'color_field': 'colour', 'on_tag_click': 'edit_color'}"/>
                             <field name="website_id" groups="website.group_multi_website"/>
@@ -126,27 +126,26 @@
                         </group>
                     </group>
                     <notebook>
-                        <page name="seo" string="SEO" groups="base.group_no_one">
-                            <group name="default_opengraph">
-                                <field name="website_meta_title" string="Meta Title"/>
-                                <field name="website_meta_description" string="Meta Description"/>
-                                <field name="website_meta_keywords" string="Meta Keywords"
-                                       help="Separate every keyword with a comma"/>
+                        <page string="Description and Notes">
+                            <group>
+                                <field name="description"/>
+                                <field name="notes"/>
                             </group>
                         </page>
-                        <page name="other_stuff" string="Other Stuff">
-                            <field name="source_id"/>
-                            <field name="license"/>
-                            <field name="original_language_id"/>
-                            <field name="country_id"/>
-                            <field name="state_id"/>
-                            <field name="notes"/>
+                        <page name="details" string="Details">
+                            <group>
+                                <field name="original_language_id"/>
+                                <field name="country_id"/>
+                                <field name="state_id"/>
+                                <field name="source_id"/>
+                                <field name="license"/>
+                            </group>
                         </page>
                         <page string="Ingredients">
                             <field name="ingredient_ids">
                                 <list editable="bottom">
                                     <field name="sequence" widget="handle"/>
-                                    <field name="quantity" class="oe-left"/>
+                                    <field name="quantity"/>
                                     <field name="unit"/>
                                     <field name="name"/>
                                 </list>
@@ -205,6 +204,14 @@
                                     </sheet>
                                 </form>
                             </field>
+                        </page>
+                        <page name="seo" string="SEO" groups="base.group_no_one">
+                            <group name="default_opengraph">
+                                <field name="website_meta_title" string="Meta Title"/>
+                                <field name="website_meta_description" string="Meta Description"/>
+                                <field name="website_meta_keywords" string="Meta Keywords"
+                                       help="Separate every keyword with a comma"/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>

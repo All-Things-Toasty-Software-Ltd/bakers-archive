@@ -6,7 +6,7 @@
     'sequence': 200,
     'website': 'https://www.toastysoftware.co.uk',
     'summary': "Archive of all things baking (mostly just recipes though).",
-    'version': '0.4.0',
+    'version': '0.4.8',
     'depends': ['website_mail', 'website_partner', 'html_builder'],
 
     'currency': 'EUR',
