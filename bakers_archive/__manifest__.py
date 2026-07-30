@@ -40,7 +40,6 @@ of recipes and archive data as well as displaying them on an Odoo website.
         'views/snippets/s_archive_recipes.xml',
         'views/snippets/s_dynamic_snippet_archive_recipes_preview_data.xml',
 
-        'views/bakers_archive_recipe_views.xml',
         'views/bakers_archive_recipe_add.xml',
 
         'security/bakers_archive_security.xml',
