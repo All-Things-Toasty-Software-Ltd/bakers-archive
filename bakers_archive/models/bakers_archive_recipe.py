@@ -53,6 +53,10 @@ class BakersArchiveRecipe(models.Model):
     teaser = fields.Text('Teaser', compute='_compute_teaser', inverse='_set_teaser', translate=True)
     teaser_manual = fields.Text('Teaser Content', translate=True)
 
+    original_author_id = fields.Many2one('res.partner', 'Original Author', index='btree_not_null', help='The original author of the recipe.')
+    original_author_avatar = fields.Binary(related='original_author_id.image_128', string='Avatar', readonly=False, store=True)
+    original_author_name = fields.Char(related='original_author_id.name', string='Original Author Name', readonly=False, store=True)
+
     source_id = fields.Many2one('bakers_archive.source', 'Source', index='btree_not_null')
     source_name = fields.Char(related='source_id.name', string='Source Name', readonly=False, store=True)
     license = fields.Many2one('bakers_archive.license', string='License')

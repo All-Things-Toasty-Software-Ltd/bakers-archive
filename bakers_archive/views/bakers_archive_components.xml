@@ -163,6 +163,27 @@
         </div>
     </template>
 
+    <template id="recipe_original_author">
+        <div t-attf-class="align-items-center position-relative #{additionnal_classes or ''}">
+            <div t-if="archive_recipe.original_author_avatar"
+                 t-field="archive_recipe.original_author_avatar"
+                 style="line-height:1"
+                 class="o_not_editable"
+                 t-options='{"widget": "image", "alt": "", "class": "rounded-circle " + "o_barchive_author_avatar me-1" if hide_date else  "o_barchive_author_avatar_date me-2"}'/>
+            <div t-att-class="not hide_date and 'small fw-bold'" style="line-height:1">
+                <span t-if="editable" t-field="archive_recipe.original_author_id"
+                      t-options='{ "widget": "contact", "fields": ["name"]}'/>
+                <span t-else="" class="o_not_editable" t-out="archive_recipe.original_author_name"/>
+                <t t-if="not hide_date">
+                    <small t-if="archive_recipe.published_date" t-field="archive_recipe.published_date"
+                           t-options="{'format': 'long', 'date_only': 'true'}"/>
+                    <small t-elif="archive_recipe.publish_on" t-field="archive_recipe.publish_on"
+                           t-options="{'format': 'long', 'date_only': 'true'}"/>
+                </t>
+            </div>
+        </div>
+    </template>
+
     <template id="recipe_source">
         <div t-attf-class="align-items-center position-relative #{additionnal_classes or ''}">
             <div t-att-class="not hide_date and 'small fw-bold'" style="line-height:1">
@@ -200,12 +221,12 @@
     <template id="archive_recipe_info" name="Archive Recipe Info">
         <div id="o_barchive_recipe_info" class="mb-2">
             <div class="text-secondary small mb-3">
-                <span t-if="archive_recipe.author_id or archive_recipe.author_name">
+                <span t-if="archive_recipe.original_author_id or archive_recipe.original_author_name">
                     <strong>Author:</strong>
-                    <t t-call="bakers_archive.recipe_author" additionnal_classes.f="d-inline-flex ms-1"
+                    <t t-call="bakers_archive.recipe_original_author" additionnal_classes.f="d-inline-flex ms-1"
                        hide_date="True"/>
                 </span>
-                <span t-if="(archive_recipe.author_id or archive_recipe.author_name) and (archive_recipe.source_id or archive_recipe.source_name)"
+                <span t-if="(archive_recipe.original_author_id or archive_recipe.original_author_name) and (archive_recipe.source_id or archive_recipe.source_name)"
                       class="mx-2">|
                 </span>
                 <span t-if="archive_recipe.source_id or archive_recipe.source_name">
