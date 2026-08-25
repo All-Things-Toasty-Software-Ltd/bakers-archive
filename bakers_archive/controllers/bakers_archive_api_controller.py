@@ -152,7 +152,8 @@ class BakersArchiveAPIController(http.Controller):
     def api_archive(
             self,
             archive_id,
-            depth=None,
+            page=None,
+            limit=None,
             **kwargs
     ):
         """
@@ -175,21 +176,106 @@ class BakersArchiveAPIController(http.Controller):
         ):
             return self._not_found('Archive not found.')
 
-        max_depth = self._parse_depth(depth)
+        pagination = self._parse_pagination(
+            page,
+            limit,
+        )
 
-        if isinstance(max_depth, tuple):
+        if isinstance(pagination[0], str):
             return self._bad_request(
-                max_depth[0],
-                max_depth[1],
+                pagination[0],
+                pagination[1],
             )
 
-        serializer = BakersArchiveModelSerializer(
-            max_depth=max_depth,
+        page, limit = pagination
+
+        Recipe = request.env[
+            'bakers_archive.recipe'
+        ].sudo()
+
+        domain = [
+            ('archive_id', '=', archive.id),
+            ('website_published', '=', True),
+        ]
+
+        if 'active' in Recipe._fields:
+            domain.append(
+                ('active', '=', True)
+            )
+
+        if 'website_id' in Recipe._fields:
+            domain.append(
+                '|',
+                ('website_id', '=', False),
+                ('website_id', '=', request.website.id),
+            )
+
+        total = Recipe.search_count(domain)
+
+        offset = (page - 1) * limit
+
+        recipes = Recipe.search(
+            domain,
+            offset=offset,
+            limit=limit,
+            order='id ASC',
         )
+
+        base_url = self._base_url()
 
         return self._json_response({
             'api_version': self.API_VERSION,
-            'data': serializer.serialize(archive),
+    
+            'data': {
+                'id': archive.id,
+                'model': archive._name,
+                'name': archive.name,
+                'subtitle': (
+                    archive.subtitle
+                    if 'subtitle' in archive._fields
+                    else None
+                ),
+            },
+
+            'recipes': {
+                'page': page,
+                'limit': limit,
+                'total': total,
+                'page_count': (
+                        (total + limit - 1) // limit
+                ),
+
+                'items': [
+                    {
+                        'id': recipe.id,
+                        'name': recipe.name,
+
+                        'teaser': (
+                            recipe.teaser
+                            if 'teaser' in recipe._fields
+                               and recipe.teaser
+                            else ''
+                        ),
+
+                        'published_date': (
+                            recipe.published_date
+                            if 'published_date'
+                               in recipe._fields
+                            else None
+                        ),
+
+                        'api_url': (
+                                '%s/archive/api/%s/recipe/%s'
+                                % (
+                                    base_url,
+                                    self.API_VERSION,
+                                    recipe.id,
+                                )
+                        ),
+                    }
+                    for recipe in recipes
+                ],
+            },
         })
 
     @http.route(
@@ -286,3 +372,59 @@ class BakersArchiveAPIController(http.Controller):
             )
 
         return depth
+
+    DEFAULT_PAGE = 1
+    DEFAULT_LIMIT = 20
+    MAX_LIMIT = 50
+
+    def _parse_pagination(self, page, limit):
+        """
+        Parse and validate pagination parameters.
+
+        Returns:
+            (page, limit)
+
+        or an error tuple:
+            (error_code, error_message)
+        """
+
+        try:
+            page = (
+                int(page)
+                if page is not None
+                else self.DEFAULT_PAGE
+            )
+        except (TypeError, ValueError):
+            return (
+                'invalid_page',
+                'Page must be an integer.',
+            )
+
+        try:
+            limit = (
+                int(limit)
+                if limit is not None
+                else self.DEFAULT_LIMIT
+            )
+        except (TypeError, ValueError):
+            return (
+                'invalid_limit',
+                'Limit must be an integer.',
+            )
+
+        if page < 1:
+            return (
+                'invalid_page',
+                'Page must be greater than or equal to one.',
+            )
+
+        if limit < 1:
+            return (
+                'invalid_limit',
+                'Limit must be greater than or equal to one.',
+            )
+
+        if limit > self.MAX_LIMIT:
+            limit = self.MAX_LIMIT
+
+        return page, limit
