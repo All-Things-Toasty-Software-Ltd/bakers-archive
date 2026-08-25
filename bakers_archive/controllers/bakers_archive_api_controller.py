@@ -204,11 +204,11 @@ class BakersArchiveAPIController(http.Controller):
             )
 
         if 'website_id' in Recipe._fields:
-            domain.append(
+            domain.extend([
                 '|',
                 ('website_id', '=', False),
                 ('website_id', '=', request.website.id),
-            )
+            ])
 
         total = Recipe.search_count(domain)
 
@@ -225,7 +225,7 @@ class BakersArchiveAPIController(http.Controller):
 
         return self._json_response({
             'api_version': self.API_VERSION,
-    
+
             'data': {
                 'id': archive.id,
                 'model': archive._name,
