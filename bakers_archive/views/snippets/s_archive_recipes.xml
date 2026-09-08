@@ -70,7 +70,7 @@
         </t>
     </template>
 
-    <template id="dynamic_filter_template_archive_recipe_list" name="List"
+    <template id="dynamic_filter_template_bakers_archive_recipe_list" name="List"
               data-extra-classes="g-4"
               data-column-classes="col-12 col-sm-6 col-lg-4">
         <div t-foreach="records" t-as="data" class="s_archive_recipes_recipe border-0 rounded-3">
@@ -98,7 +98,7 @@
             </a>
         </div>
     </template>
-    <template id="dynamic_filter_template_archive_recipe_big_picture" name="Big picture"
+    <template id="dynamic_filter_template_bakers_archive_recipe_big_picture" name="Big picture"
               data-extra-classes="g-3"
               data-column-classes="col-12 col-sm-6 col-lg-4"
               data-extra-snippet-classes="s_archive_recipes_effect_marley s_archive_recipes_recipe_picture_size_default">
@@ -126,7 +126,7 @@
             </a>
         </div>
     </template>
-    <template id="dynamic_filter_template_archive_recipe_horizontal" name="Horizontal"
+    <template id="dynamic_filter_template_bakers_archive_recipe_horizontal" name="Horizontal"
               data-number-of-elements="1">
         <div t-foreach="records" t-as="data" class="s_archive_recipes_recipe w-100">
             <t t-set="record" t-value="data['_record']"/>
@@ -163,7 +163,7 @@
             </div>
         </div>
     </template>
-    <template id="dynamic_filter_template_archive_recipe_card" name="Card"
+    <template id="dynamic_filter_template_bakers_archive_recipe_card" name="Card"
               data-extra-classes="g-3"
               data-column-classes="col-12 col-sm-6 col-lg-4 col-xxl-3">
         <div t-foreach="records" t-as="data" class="s_archive_recipes_recipe w-100">
@@ -194,7 +194,7 @@
         </div>
     </template>
 
-    <template id="dynamic_filter_template_archive_recipe_single_full" name="Solo Full"
+    <template id="dynamic_filter_template_bakers_archive_recipe_single_full" name="Solo Full"
               data-extra-snippet-classes="o_cc o_cc5"
               data-column-classes="col-lg-12">
         <t t-if="len(records)">
@@ -232,7 +232,7 @@
             </div>
         </t>
     </template>
-    <template id="dynamic_filter_template_archive_recipe_single_aside" name="Solo Aside"
+    <template id="dynamic_filter_template_bakers_archive_recipe_single_aside" name="Solo Aside"
               data-column-classes="col-lg-12">
         <t t-if="len(records)">
             <t t-set="data" t-value="records[0]"/>
@@ -270,7 +270,7 @@
             </div>
         </t>
     </template>
-    <template id="dynamic_filter_template_archive_recipe_single_circle" name="Solo Circle"
+    <template id="dynamic_filter_template_bakers_archive_recipe_single_circle" name="Solo Circle"
               data-extra-snippet-classes="o_cc o_cc2"
               data-column-classes="col-lg-12"
               data-container-classes="o_container_small">
@@ -310,7 +310,7 @@
             </div>
         </t>
     </template>
-    <template id="dynamic_filter_template_archive_recipe_single_badge" name="Solo Badge"
+    <template id="dynamic_filter_template_bakers_archive_recipe_single_badge" name="Solo Badge"
               data-column-classes="col-lg-12 text-center">
         <t t-if="len(records)">
             <t t-set="data" t-value="records[0]"/>

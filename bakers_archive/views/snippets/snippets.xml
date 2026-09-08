@@ -3,25 +3,46 @@
 
     <template id="bakers_archive" inherit_id="website.snippets" name="Snippet Archive">
         <xpath expr="//t[@id='installed_snippets_hook']" position="after">
-            <t snipper-group="archives" t-snippet="website.s_snippet_group" string="Archives"
-               t-thumbnail="/website/static/src/img/snippets_thumbs/s_archive_recipes.svg">
-                <t t-snippet="bakers_archive.s_archive_recipes_big_picture" string="Archive Recipes" group="archives"
-                   label="Archive"/>
-                <t t-snippet="bakers_archive.s_archive_recipes_card" string="Archive Recipes" group="archives"
-                   label="Archive"/>
-                <t t-snippet="bakers_archive.s_archive_recipes_horizontal" string="Archive Recipes" group="archives"
-                   label="Archive"/>
-                <t t-snippet="bakers_archive.s_archive_recipes_list" string="Archive Recipes" group="archives"
-                   label="Archive"/>
-                <t t-snippet="bakers_archive.s_archive_recipes_single_aside" string="Archive Recipe" group="archives"
-                   label="Archive"/>
-                <t t-snippet="bakers_archive.s_archive_recipes_single_full" string="Archive Recipe" group="archives"
-                   label="Archive"/>
-                <t t-snippet="bakers_archive.s_archive_recipes_single_circle" string="Archive Recipe" group="archives"
-                   label="Archive"/>
-                <t t-snippet="bakers_archive.s_archive_recipes_single_badge" string="Archive Recipe" group="archives"
-                   label="Archive"/>
-            </t>
+            <t snippet-group="archives"
+               t-snippet="website.s_snippet_group"
+               string="Archives"
+               t-thumbnail="/website/static/src/img/snippets_thumbs/s_archive_recipes.svg"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+
+            <t t-snippet="bakers_archive.s_archive_recipes_big_picture"
+               string="Archive Recipes"
+               group="archives"/>
+
+            <t t-snippet="bakers_archive.s_archive_recipes_card"
+               string="Archive Recipes"
+               group="archives"/>
+
+            <t t-snippet="bakers_archive.s_archive_recipes_horizontal"
+               string="Archive Recipes"
+               group="archives"/>
+
+            <t t-snippet="bakers_archive.s_archive_recipes_list"
+               string="Archive Recipes"
+               group="archives"/>
+
+            <t t-snippet="bakers_archive.s_archive_recipes_single_aside"
+               string="Archive Recipe"
+               group="archives"/>
+
+            <t t-snippet="bakers_archive.s_archive_recipes_single_full"
+               string="Archive Recipe"
+               group="archives"/>
+
+            <t t-snippet="bakers_archive.s_archive_recipes_single_circle"
+               string="Archive Recipe"
+               group="archives"/>
+
+            <t t-snippet="bakers_archive.s_archive_recipes_single_badge"
+               string="Archive Recipe"
+               group="archives"/>
+
         </xpath>
     </template>
 

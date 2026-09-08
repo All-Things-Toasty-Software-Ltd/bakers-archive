@@ -9,7 +9,10 @@ export class DynamicSnippetArchiveRecipesOption extends BaseOptionComponent {
 
     setup() {
         super.setup();
-        const {fetchArchives, getModelNameFilter} = this.dependencies.dynamicSnippetArchiveRecipesOption;
+
+        const {fetchArchives, getModelNameFilter} =
+            this.dependencies.dynamicSnippetArchiveRecipesOption;
+
         this.modelNameFilter = getModelNameFilter();
         this.dynamicOptionParams = useDynamicSnippetOption(this.modelNameFilter);
         this.archiveState = useState({
@@ -25,60 +28,60 @@ export class DynamicSnippetArchiveRecipesOption extends BaseOptionComponent {
 
     showPictureSizeOption() {
         return [
-            "bakers_archive.dynamic_filter_template_archive_recipe_big_picture",
-            "bakers_archive.dynamic_filter_template_archive_recipe_horizontal",
-            "bakers_archive.dynamic_filter_template_archive_recipe_card",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_big_picture",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_horizontal",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_card",
         ].includes(this.templateKeyState.templateKey);
     }
 
     showTeaserOption() {
         return [
-            "bakers_archive.dynamic_filter_template_archive_recipe_list",
-            "bakers_archive.dynamic_filter_template_archive_recipe_card",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_list",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_card",
         ].includes(this.templateKeyState.templateKey);
     }
 
     showDateOption() {
         return [
-            "bakers_archive.dynamic_filter_template_archive_recipe_list",
-            "bakers_archive.dynamic_filter_template_archive_recipe_horizontal",
-            "bakers_archive.dynamic_filter_template_archive_recipe_card",
-            "bakers_archive.dynamic_filter_template_archive_recipe_single_full",
-            "bakers_archive.dynamic_filter_template_archive_recipe_single_aside",
-            "bakers_archive.dynamic_filter_template_archive_recipe_single_circle",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_list",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_horizontal",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_card",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_single_full",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_single_aside",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_single_circle",
         ].includes(this.templateKeyState.templateKey);
     }
 
     showCategoryOption() {
         return [
-            "bakers_archive.dynamic_filter_template_archive_recipe_list",
-            "bakers_archive.dynamic_filter_template_archive_recipe_horizontal",
-            "bakers_archive.dynamic_filter_template_archive_recipe_card",
-            "bakers_archive.dynamic_filter_template_archive_recipe_single_full",
-            "bakers_archive.dynamic_filter_template_archive_recipe_single_aside",
-            "bakers_archive.dynamic_filter_template_archive_recipe_single_circle",
-            "bakers_archive.dynamic_filter_template_archive_recipe_single_badge",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_list",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_horizontal",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_card",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_single_full",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_single_aside",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_single_circle",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_single_badge",
         ].includes(this.templateKeyState.templateKey);
     }
 
     showNewTagOption() {
         return (
             this.templateKeyState.templateKey ===
-            "bakers_archive.dynamic_filter_template_archive_recipe_single_badge"
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_single_badge"
         );
     }
 
     showHoverEffectOption() {
         return (
             this.templateKeyState.templateKey ===
-            "bakers_archive.dynamic_filter_template_archive_recipe_big_picture"
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_big_picture"
         );
     }
 
     showCoverImageOption() {
         return [
-            "bakers_archive.dynamic_filter_template_archive_recipe_single_aside",
-            "bakers_archive.dynamic_filter_template_archive_recipe_single_circle",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_single_aside",
+            "bakers_archive.dynamic_filter_template_bakers_archive_recipe_single_circle",
         ].includes(this.templateKeyState.templateKey);
     }
 }
