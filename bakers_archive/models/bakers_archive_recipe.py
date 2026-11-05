@@ -234,7 +234,9 @@ class BakersArchiveRecipe(models.Model):
     def _search_render_results(self, fetch_fields, mapping, icon, limit):
         results_data = super()._search_render_results(fetch_fields, mapping, icon, limit)
         for recipe, data in zip(self, results_data):
-            data['tags_ids'] = recipe.tag_ids.read(['name'])
+            # The 'tags' mapping entry reads from 'tag_ids', so the value must be a list of
+            # {'id', 'name'} dicts (like the other fetch fields) rather than a list of ids.
+            data['tag_ids'] = recipe.tag_ids.read(['name'])
         return results_data
 
     def action_generate_content(self):
