@@ -218,13 +218,6 @@ class BakersArchiveController(http.Controller):
 
         date_begin, date_end = opt.get('date_begin'), opt.get('date_end')
 
-        if tag and request.httprequest.method == 'GET':
-            tags = tag.split(',')
-            if len(tags) > 1:
-                url = QueryURL('' if archive else '/archive', ['archive', 'tag'], archive=archive, tag=tags[0],
-                               date_begin=date_begin, date_end=date_end, search=search)()
-                return request.redirect(url, code=302)
-
         values = self._prepare_archive_values(archives=archives, archive=archive, tags=tag, page=page, search=search,
                                               **opt)
 
