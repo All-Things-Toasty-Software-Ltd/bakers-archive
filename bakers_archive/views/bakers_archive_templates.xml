@@ -408,6 +408,43 @@
         </feed>
     </template>
 
+    <template id="archive_ingredient" name="Archive Ingredient">
+        <t t-call="bakers_archive.index">
+
+            <t t-set="opt_archive_cards_design" t-value="is_view_active('bakers_archive.opt_archive_cards_design')"/>
+            <t t-set="opt_archive_list_view" t-value="is_view_active('bakers_archive.opt_archive_list_view')"/>
+            <t t-set="opt_archive_readable" t-value="is_view_active('bakers_archive.opt_archive_readable')"/>
+
+            <div class="container my-4">
+                <nav aria-label="breadcrumb" class="breadcrumb flex-nowrap py-0 px-0 css_editable_mode_hidden mb-3">
+                    <li class="breadcrumb-item d-none d-lg-inline">
+                        <a href="/archive">All Archives</a>
+                    </li>
+                    <li class="breadcrumb-item text-truncate active d-none d-lg-inline">
+                        <span t-field="ingredient.name"/>
+                    </li>
+                </nav>
+
+                <div class="card bg-transparent border p-3 p-md-4 rounded-3 shadow-sm">
+                    <h1 t-field="ingredient.name" class="fw-bold mb-1" placeholder="Ingredient Name"/>
+                    <div t-if="ingredient.description" t-field="ingredient.description"
+                         class="text-secondary mt-2" placeholder="Description"/>
+                    <div t-else="" class="text-secondary mt-2 fst-italic">No description yet.</div>
+                </div>
+
+                <h2 class="fw-bold h4 mt-4 mb-3">
+                    <t t-if="len(recipes) == 1">1 Recipe using</t>
+                    <t t-else=""><t t-out="len(recipes)"/> Recipes using</t>
+                    <t t-out="ingredient.name"/>
+                </h2>
+
+                <t t-call="bakers_archive.recipes_loop"
+                   recipes_list_show_parent_archive="True"
+                   no_results_message="'No recipes use this ingredient yet.'"/>
+            </div>
+        </t>
+    </template>
+
     <template id="robots" inherit_id="website.robots">
         <xpath expr="//t[@id='robots_module_rules']" position="inside">
             <t t-translation="off">

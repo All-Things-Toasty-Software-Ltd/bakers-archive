@@ -101,7 +101,7 @@ class BakersArchiveAPIController(http.Controller):
         ].sudo()
 
         archives = Archives.search(
-            request.website.website_domain(),
+            request.env.website.website_domain(),
             order='sequence, name',
         )
 
@@ -172,7 +172,7 @@ class BakersArchiveAPIController(http.Controller):
         if (
                 'website_id' in archive._fields
                 and archive.website_id
-                and archive.website_id != request.website
+                and archive.website_id != request.env.website
         ):
             return self._not_found('Archive not found.')
 
@@ -207,7 +207,7 @@ class BakersArchiveAPIController(http.Controller):
             domain.extend([
                 '|',
                 ('website_id', '=', False),
-                ('website_id', '=', request.website.id),
+                ('website_id', '=', request.env.website.id),
             ])
 
         total = Recipe.search_count(domain)
@@ -314,7 +314,7 @@ class BakersArchiveAPIController(http.Controller):
         if (
                 'website_id' in recipe._fields
                 and recipe.website_id
-                and recipe.website_id != request.website
+                and recipe.website_id != request.env.website
         ):
             return self._not_found('Recipe not found.')
 

@@ -13,18 +13,4 @@
         <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
     </record>
 
-    <record model="ir.rule" id="bakers_archive_recipe_public">
-        <field name="name">Archive Recipe: public: published only</field>
-        <field name="model_id" ref="model_bakers_archive_recipe"/>
-        <field name="domain_force">[('website_published', '=', True)]</field>
-        <field name="groups" eval="[(4, ref('base.group_public')), (4, ref('base.group_portal'))]"/>
-    </record>
-
-    <record model="ir.rule" id="bakers_archive_public">
-        <field name="name">Archive: active only</field>
-        <field name="model_id" ref="model_bakers_archive_archive"/>
-        <field name="domain_force">[('active', '=', True)]</field>
-        <field name="groups" eval="[(4, ref('base.group_public')), (4, ref('base.group_portal'))]"/>
-    </record>
-
 </odoo>

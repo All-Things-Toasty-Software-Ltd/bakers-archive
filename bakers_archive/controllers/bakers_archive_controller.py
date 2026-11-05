@@ -3,6 +3,7 @@
 import babel.dates
 import werkzeug
 from collections import defaultdict
+from datetime import datetime
 from odoo import http, tools, models
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.fields import Domain
@@ -72,7 +73,7 @@ class BakersArchiveController(http.Controller):
         BakersArchiveRecipe = request.env['bakers_archive.recipe']
         BakersArchiveTag = request.env['bakers_archive.tag']
 
-        domain = request.website.website_domain()
+        domain = request.env.website.website_domain()
 
         if archive:
             domain &= Domain('archive_id', '=', archive.id)
@@ -121,7 +122,8 @@ class BakersArchiveController(http.Controller):
             state=state,
             **recipe
         )
-        total, details, fuzzy_search_term = request.website._search_with_fuzzy('archive_recipes_only', search,
+        total, details, fuzzy_search_term = request.env.website._search_with_fuzzy('archive_recipes_only', search,
+                                                                               offset=0,
                                                                                limit=page * self._archive_recipe_per_page,
                                                                                order='is_published desc, published_date desc, id asc',
                                                                                options=options)
@@ -136,7 +138,7 @@ class BakersArchiveController(http.Controller):
             url_args['date_begin'] = date_begin
             url_args['date_end'] = date_end
 
-        pager = tools.lazy(lambda: request.website.pager(
+        pager = tools.lazy(lambda: request.env.website.pager(
             url=request.httprequest.path.partition('/page/')[0],
             total=total,
             page=page,
@@ -210,7 +212,7 @@ class BakersArchiveController(http.Controller):
     ], type='http', auth='public', website=True, sitemap=sitemap_archive, list_as_website_content=_lt('Archives'))
     def archive(self, archive=None, tag=None, page=1, search=None, **opt):
         BakersArchiveArchive = request.env['bakers_archive.archive']
-        archives = tools.lazy(lambda: BakersArchiveArchive.search(request.website.website_domain(), order='sequence'))
+        archives = tools.lazy(lambda: BakersArchiveArchive.search(request.env.website.website_domain(), order='sequence'))
 
         if not archive and len(archives) == 1:
             url = QueryURL('/archive/%s' % request.env['ir.http']._slug(archives[0]), search=search, **opt)()
@@ -231,7 +233,52 @@ class BakersArchiveController(http.Controller):
 
         return request.render('bakers_archive.archive_recipe_short', values)
 
-    @http.route(['''/archive/<model("bakers_archive.archive"):archive>/feed'''], type='http', auth='public',
+    def sitemap_ingredient(env, rule, qs):
+        BakersArchiveIngredient = env['bakers_archive.ingredient']
+        ingredients = BakersArchiveIngredient.search([])
+        slug = env['ir.http']._slug
+
+        def match(loc):
+            return not qs or qs.lower() in loc.lower()
+
+        for ingredient in ingredients:
+            if not ingredient.recipe_ingredient_id:
+                # Don't list ingredient pages that have no recipes attached to them.
+                continue
+            loc = f'/archive/ingredient/{slug(ingredient)}'
+            if match(loc):
+                yield {
+                    'loc': loc,
+                    'lastmod': (ingredient.write_date or ingredient.create_date).date(),
+                }
+
+    @http.route([
+        '''/archive/ingredient/<model("bakers_archive.ingredient"):ingredient>''',
+    ], type='http', auth='public', website=True, sitemap=sitemap_ingredient,
+        list_as_website_content=_lt('Ingredients'))
+    def archive_ingredient(self, ingredient, **opt):
+        BakersArchiveRecipe = request.env['bakers_archive.recipe']
+
+        recipe_ids = ingredient.recipe_ingredient_id.mapped('recipe_id').ids
+        domain = request.env.website.website_domain() & Domain('id', 'in', recipe_ids)
+        if not request.env.user.has_group('bakers_archive.group_bakers_archive_manager'):
+            domain &= Domain('website_published', '=', True)
+        recipes = BakersArchiveRecipe.search(domain)
+        recipes = recipes.sorted(key=lambda recipe: recipe.published_date or datetime.min, reverse=True)
+
+        values = {
+            'ingredient': ingredient,
+            'recipes': recipes.with_prefetch(),
+            'main_object': ingredient,
+            'archive_url': QueryURL('/archive', ['archive', 'tag'], tag=False, archive=False,
+                                    date_begin=False, date_end=False, search=False),
+            'tags_list': self.tags_list,
+            'active_tag_ids': [],
+        }
+        return request.render('bakers_archive.archive_ingredient', values)
+
+    @http.route([
+        '''/archive/<model("bakers_archive.archive"):archive>/feed'''], type='http', auth='public',
                 website=True, sitemap=True)
     def archive_feed(self, archive, limit='15', **kwargs):
         v = {}
@@ -275,7 +322,7 @@ class BakersArchiveController(http.Controller):
         BakersArchiveRecipe = request.env['bakers_archive.recipe']
         date_begin, date_end = recipe.get('date_begin'), recipe.get('date_end')
 
-        domain = request.website.website_domain()
+        domain = request.env.website.website_domain()
         archives = archive.search(domain, order='sequence')
 
         tag = None

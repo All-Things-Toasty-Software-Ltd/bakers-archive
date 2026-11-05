@@ -6,7 +6,7 @@
     'sequence': 200,
     'website': 'https://www.toastysoftware.co.uk',
     'summary': "Archive of all things baking (mostly just recipes though).",
-    'version': '0.4.9',
+    'version': '0.5.0',
     'depends': ['website_mail', 'website_partner', 'html_builder'],
 
     'currency': 'EUR',
@@ -43,7 +43,7 @@ of recipes and archive data as well as displaying them on an Odoo website.
         'views/bakers_archive_recipe_add.xml',
 
         'security/bakers_archive_security.xml',
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
     ],
     'demo': [
         'data/bakers_archive_demo.xml'

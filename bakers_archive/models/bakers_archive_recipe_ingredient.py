@@ -16,4 +16,4 @@ class BakersArchiveRecipeIngredient(models.Model):
     name = fields.Many2one('bakers_archive.ingredient', string='Ingredient')
     notes = fields.Text(string='Notes')
 
-    recipe_id = fields.Many2one('bakers_archive.recipe', String="Recipe ID", ondelete='cascade')
+    recipe_id = fields.Many2one('bakers_archive.recipe', string="Recipe ID", ondelete='cascade')

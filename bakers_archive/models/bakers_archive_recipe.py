@@ -79,6 +79,7 @@ class BakersArchiveRecipe(models.Model):
     main_image = fields.Image(string='Main Image', max_width=1920, max_height=1920)
 
     website_message_ids = fields.One2many(
+        'mail.message', 'res_id', string='Website Messages',
         domain=lambda self: [('model', '=', self._name), ('message_type', '=', 'comment')])
 
     # Creation and Update
@@ -255,8 +256,16 @@ class BakersArchiveRecipe(models.Model):
                     if ing.notes:
                         full_ing_str += f" ({ing.notes})"
 
-                    ing_id = ing.name.id if (hasattr(ing, 'name') and ing.name) else ing.id
-                    ing_url = f"/archive/ingredient/{ing_id}"
+                    if ing.name:
+                        try:
+                            from odoo.http import request as _request
+                            ing_url = "/archive/ingredient/%s" % _request.env['ir.http']._slug(ing.name)
+                        except Exception:
+                            # No request context (e.g. scripts), fall back to the plain id,
+                            # which the route accepts as well.
+                            ing_url = f"/archive/ingredient/{ing.name.id}"
+                    else:
+                        ing_url = "/archive/ingredient/%s" % ing.id
 
                     ing_badges.append(
                         f'<a href="{ing_url}" class="badge border border-warning text-warning-emphasis fw-normal rounded-pill px-2.5 py-1 text-decoration-none me-1 mb-1" style="font-size: 0.8rem; background-color: rgba(255,193,7,0.08);">'
