@@ -192,14 +192,30 @@
            t-attf-class="text-decoration-none d-block #{classes or 'mb-2'}"
            t-att-style="not archive_recipe.website_published and 'opacity:0.6;'">
 
-            <t t-call="website.record_cover"
-               _record="archive_recipe"
-               additionnal_classes="'o_list_cover ' + (not opt_archive_cards_design and ' rounded overflow-hidden shadow mb-3' or '')">
+            <t t-if="archive_recipe.main_image">
+                <t t-set="main_image_url"
+                   t-value="'/web/image/bakers_archive.recipe/%s/main_image?unique=%s' % (archive_recipe.id, archive_recipe.write_date.timestamp() if archive_recipe.write_date else 0)"/>
+                <div t-attf-class="o_record_cover_container o_colored_level o_cc o_cc3 d-flex flex-column h-100 o_list_cover #{not opt_archive_cards_design and 'rounded overflow-hidden shadow mb-3' or ''}"
+                     t-att-data-res-model="'bakers_archive.recipe'"
+                     t-att-data-res-id="archive_recipe.id">
+                    <div class="o_record_cover_component o_record_cover_image"
+                         t-att-style="'background-image: url(\'%s\');' % main_image_url"/>
+                    <t t-if="is_view_active('bakers_archive.opt_recipes_loop_show_source')"
+                       t-call="bakers_archive.recipe_source"
+                       additionnal_classes="'o_barchive_recipe_list_author o_list_cover d-flex text-white w-100 ' + ('p-3 h5 m-0' if opt_archive_list_view else 'px-2 pb-2 pt-3') "
+                       hide_date="True"/>
+                </div>
+            </t>
+            <t t-else="">
+                <t t-call="website.record_cover"
+                   _record="archive_recipe"
+                   additionnal_classes="'o_list_cover ' + (not opt_archive_cards_design and ' rounded overflow-hidden shadow mb-3' or '')">
 
-                <t t-if="is_view_active('bakers_archive.opt_recipes_loop_show_source')"
-                   t-call="bakers_archive.recipe_source"
-                   additionnal_classes="'o_barchive_recipe_list_author o_list_cover d-flex text-white w-100 ' + ('p-3 h5 m-0' if opt_archive_list_view else 'px-2 pb-2 pt-3') "
-                   hide_date="True"/>
+                    <t t-if="is_view_active('bakers_archive.opt_recipes_loop_show_source')"
+                       t-call="bakers_archive.recipe_source"
+                       additionnal_classes="'o_barchive_recipe_list_author o_list_cover d-flex text-white w-100 ' + ('p-3 h5 m-0' if opt_archive_list_view else 'px-2 pb-2 pt-3') "
+                       hide_date="True"/>
+                </t>
             </t>
         </a>
     </template>
