@@ -428,7 +428,7 @@
                 <div class="card bg-transparent border p-3 p-md-4 rounded-3 shadow-sm">
                     <h1 t-field="ingredient.name" class="fw-bold mb-1" placeholder="Ingredient Name"/>
                     <div t-if="ingredient.description" t-field="ingredient.description"
-                         class="text-secondary mt-2" placeholder="Description"/>
+                         t-options-widget="'html'" class="text-secondary mt-2" placeholder="Description"/>
                     <div t-else="" class="text-secondary mt-2 fst-italic">No description yet.</div>
                 </div>
 
