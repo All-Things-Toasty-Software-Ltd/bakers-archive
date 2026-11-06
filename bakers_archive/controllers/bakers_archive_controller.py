@@ -123,7 +123,6 @@ class BakersArchiveController(http.Controller):
             **recipe
         )
         total, details, fuzzy_search_term = request.website._search_with_fuzzy('archive_recipes_only', search,
-                                                                               offset=0,
                                                                                limit=page * self._archive_recipe_per_page,
                                                                                order='is_published desc, published_date desc, id asc',
                                                                                options=options)
