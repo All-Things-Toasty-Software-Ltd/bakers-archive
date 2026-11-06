@@ -43,7 +43,6 @@ of recipes and archive data as well as displaying them on an Odoo website.
         'views/bakers_archive_recipe_add.xml',
 
         'security/bakers_archive_security.xml',
-        'security/ir.model.access.csv',
     ],
     'demo': [
         'data/bakers_archive_demo.xml'
