@@ -73,7 +73,7 @@ class BakersArchiveController(http.Controller):
         BakersArchiveRecipe = request.env['bakers_archive.recipe']
         BakersArchiveTag = request.env['bakers_archive.tag']
 
-        domain = request.env.website.website_domain()
+        domain = request.website.website_domain()
 
         if archive:
             domain &= Domain('archive_id', '=', archive.id)
@@ -122,7 +122,7 @@ class BakersArchiveController(http.Controller):
             state=state,
             **recipe
         )
-        total, details, fuzzy_search_term = request.env.website._search_with_fuzzy('archive_recipes_only', search,
+        total, details, fuzzy_search_term = request.website._search_with_fuzzy('archive_recipes_only', search,
                                                                                offset=0,
                                                                                limit=page * self._archive_recipe_per_page,
                                                                                order='is_published desc, published_date desc, id asc',
@@ -138,7 +138,7 @@ class BakersArchiveController(http.Controller):
             url_args['date_begin'] = date_begin
             url_args['date_end'] = date_end
 
-        pager = tools.lazy(lambda: request.env.website.pager(
+        pager = tools.lazy(lambda: request.website.pager(
             url=request.httprequest.path.partition('/page/')[0],
             total=total,
             page=page,
@@ -212,7 +212,7 @@ class BakersArchiveController(http.Controller):
     ], type='http', auth='public', website=True, sitemap=sitemap_archive, list_as_website_content=_lt('Archives'))
     def archive(self, archive=None, tag=None, page=1, search=None, **opt):
         BakersArchiveArchive = request.env['bakers_archive.archive']
-        archives = tools.lazy(lambda: BakersArchiveArchive.search(request.env.website.website_domain(), order='sequence'))
+        archives = tools.lazy(lambda: BakersArchiveArchive.search(request.website.website_domain(), order='sequence'))
 
         if not archive and len(archives) == 1:
             url = QueryURL('/archive/%s' % request.env['ir.http']._slug(archives[0]), search=search, **opt)()
@@ -260,7 +260,7 @@ class BakersArchiveController(http.Controller):
         BakersArchiveRecipe = request.env['bakers_archive.recipe']
 
         recipe_ids = ingredient.recipe_ingredient_id.mapped('recipe_id').ids
-        domain = request.env.website.website_domain() & Domain('id', 'in', recipe_ids)
+        domain = request.website.website_domain() & Domain('id', 'in', recipe_ids)
         if not request.env.user.has_group('bakers_archive.group_bakers_archive_manager'):
             domain &= Domain('website_published', '=', True)
         recipes = BakersArchiveRecipe.search(domain)
@@ -322,7 +322,7 @@ class BakersArchiveController(http.Controller):
         BakersArchiveRecipe = request.env['bakers_archive.recipe']
         date_begin, date_end = recipe.get('date_begin'), recipe.get('date_end')
 
-        domain = request.env.website.website_domain()
+        domain = request.website.website_domain()
         archives = archive.search(domain, order='sequence')
 
         tag = None
