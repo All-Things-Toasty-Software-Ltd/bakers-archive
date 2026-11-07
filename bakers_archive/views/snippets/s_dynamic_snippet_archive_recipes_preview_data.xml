@@ -8,7 +8,7 @@
                        href="#">
                         <div class="o_record_cover_container d-flex flex-column h-100 o_colored_level o_cc w-100 bg-600 position-absolute">
                             <div class="o_record_cover_component o_record_cover_image "
-                                 class="o_record_cover_image""/>
+                            />
                             <div class="s_archive_recipe_big_picture_infos position-absolute top-0 start-0 w-100 h-100">
                                 <div class="s_archive_recipes_recipe_cover_header d-flex flex-column justify-content-end w-100">
                                     <h3 class="s_archive_recipe_big_picture_title m-0 px-4 text-white">Brioche Buns</h3>
@@ -24,7 +24,7 @@
                        href="#">
                         <div class="o_record_cover_container d-flex flex-column h-100 o_colored_level o_cc w-100 bg-600 position-absolute">
                             <div class="o_record_cover_component o_record_cover_image "
-                                 class="o_record_cover_image""/>
+                            />
                             <div class="o_record_cover_component o_record_cover_filter oe_black" style="opacity: 0.4;"/>
                             <div class="s_archive_recipe_big_picture_infos position-absolute top-0 start-0 w-100 h-100">
                                 <div class="s_archive_recipes_recipe_cover_header d-flex flex-column justify-content-end w-100">
@@ -43,7 +43,7 @@
                        href="#">
                         <div class="o_record_cover_container d-flex flex-column h-100 o_colored_level o_cc w-100 bg-600 position-absolute">
                             <div class="o_record_cover_component o_record_cover_image "
-                                 class="o_record_cover_image""/>
+                            />
                             <div class="o_record_cover_component o_record_cover_filter oe_black" style="opacity: 0.4;"/>
                             <div class="s_archive_recipe_big_picture_infos position-absolute top-0 start-0 w-100 h-100">
                                 <div class="s_archive_recipes_recipe_cover_header d-flex flex-column justify-content-end w-100">
@@ -351,7 +351,7 @@
             <div class="col-lg-5">
                 <div class="ratio ratio-16x9">
                     <div class="rounded"
-                         class="o_record_cover_image" background-size: cover;"></div>
+                    ></div>
                 </div>
             </div>
         </div>
@@ -360,7 +360,7 @@
         <div class="s_dialog_preview row my-4">
             <div class="col-4">
                 <div class="rounded-circle overflow-hidden ratio ratio-1x1"
-                     class="o_record_cover_image" background-size: cover;"/>
+                />
             </div>
             <div class="col-8">
                 <h2>Chocolate Chip Cookies</h2>
