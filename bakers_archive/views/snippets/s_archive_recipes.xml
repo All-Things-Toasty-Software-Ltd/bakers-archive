@@ -106,22 +106,45 @@
             <t t-set="record" t-value="data['_record']"/>
             <a class="s_archive_recipes_recipe_cover position-relative d-block h-100 rounded shadow-sm overflow-hidden text-decoration-none text-reset ratio ratio-1x1"
                t-att-title="'Read ' + data['name']" t-att-href="data['call_to_action_url']">
-                <t t-call="website.record_cover"
-                   _record="record"
-                   use_filters="True"
-                   additionnal_classes.f="h-100 w-100 bg-600 position-absolute o_snippet_not_selectable">
-
-                    <div class="s_archive_recipe_big_picture_infos position-absolute top-0 start-0 w-100 h-100 text-white">
-                        <div class="s_archive_recipes_recipe_cover_header d-flex flex-column justify-content-end w-100">
-                            <div t-if="is_sample" class="h5 o_ribbon_right bg-primary text-uppercase">Sample</div>
-                            <h3 class="s_archive_recipe_big_picture_title m-0 px-4 text-white" t-field="record.name"/>
-                        </div>
-                        <div class="s_archive_recipes_recipe_cover_hidden h-auto py-2 px-4">
-                            <t t-call="bakers_archive.s_dynamic_snippet_template_author"/>
-                            <p class="s_archive_recipes_recipe_subtitle o_line_clamp w-100 mt-2 m-0 lead"
-                               t-field="record.subtitle"/>
+                <t t-if="record.main_image">
+                    <t t-set="main_image_url"
+                       t-value="'/web/image/bakers_archive.recipe/%s/main_image?unique=%s' % (record.id, record.write_date.timestamp() if record.write_date else 0)"/>
+                    <div t-attf-class="o_record_cover_container h-100 w-100 bg-600 position-absolute o_snippet_not_selectable"
+                         t-att-data-res-model="'bakers_archive.recipe'"
+                         t-att-data-res-id="record.id">
+                        <div class="o_record_cover_component o_record_cover_image"
+                             t-att-style="'background-image: url(\'%s\');' % main_image_url"/>
+                        <div class="s_archive_recipe_big_picture_infos position-absolute top-0 start-0 w-100 h-100 text-white">
+                            <div class="s_archive_recipes_recipe_cover_header d-flex flex-column justify-content-end w-100">
+                                <div t-if="is_sample" class="h5 o_ribbon_right bg-primary text-uppercase">Sample</div>
+                                <h3 class="s_archive_recipe_big_picture_title m-0 px-4 text-white" t-field="record.name"/>
+                            </div>
+                            <div class="s_archive_recipes_recipe_cover_hidden h-auto py-2 px-4">
+                                <t t-call="bakers_archive.s_dynamic_snippet_template_author"/>
+                                <p class="s_archive_recipes_recipe_subtitle o_line_clamp w-100 mt-2 m-0 lead"
+                                   t-field="record.subtitle"/>
+                            </div>
                         </div>
                     </div>
+                </t>
+                <t t-else="">
+                    <t t-call="website.record_cover"
+                       _record="record"
+                       use_filters="True"
+                       additionnal_classes.f="h-100 w-100 bg-600 position-absolute o_snippet_not_selectable">
+
+                        <div class="s_archive_recipe_big_picture_infos position-absolute top-0 start-0 w-100 h-100 text-white">
+                            <div class="s_archive_recipes_recipe_cover_header d-flex flex-column justify-content-end w-100">
+                                <div t-if="is_sample" class="h5 o_ribbon_right bg-primary text-uppercase">Sample</div>
+                                <h3 class="s_archive_recipe_big_picture_title m-0 px-4 text-white" t-field="record.name"/>
+                            </div>
+                            <div class="s_archive_recipes_recipe_cover_hidden h-auto py-2 px-4">
+                                <t t-call="bakers_archive.s_dynamic_snippet_template_author"/>
+                                <p class="s_archive_recipes_recipe_subtitle o_line_clamp w-100 mt-2 m-0 lead"
+                                   t-field="record.subtitle"/>
+                            </div>
+                        </div>
+                    </t>
                 </t>
             </a>
         </div>
@@ -136,9 +159,21 @@
                         <a class="d-block h-100 text-decoration-none" t-att-href="data['call_to_action_url']"
                            t-att-title="'Read ' + data['name']">
                             <div class="s_archive_recipes_recipe_cover h-100">
-                                <t t-call="website.record_cover"
-                                   _record="record"
-                                   additionnal_classes.f="h-100 rounded-3 overflow-hidden o_snippet_not_selectable"/>
+                                <t t-if="record.main_image">
+                                    <t t-set="main_image_url"
+                                       t-value="'/web/image/bakers_archive.recipe/%s/main_image?unique=%s' % (record.id, record.write_date.timestamp() if record.write_date else 0)"/>
+                                    <div t-attf-class="o_record_cover_container h-100 rounded-3 overflow-hidden o_snippet_not_selectable"
+                                         t-att-data-res-model="'bakers_archive.recipe'"
+                                         t-att-data-res-id="record.id">
+                                        <div class="o_record_cover_component o_record_cover_image"
+                                             t-att-style="'background-image: url(\'%s\');' % main_image_url"/>
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <t t-call="website.record_cover"
+                                       _record="record"
+                                       additionnal_classes.f="h-100 rounded-3 overflow-hidden o_snippet_not_selectable"/>
+                                </t>
                             </div>
                         </a>
                     </div>
@@ -172,9 +207,21 @@
                 <a class="text-decoration-none text-reset" t-att-href="data['call_to_action_url']"
                    t-att-title="'Read ' + data['name']">
                     <div class="s_archive_recipes_recipe_cover card-img-top ratio ratio-16x9">
-                        <t t-call="website.record_cover"
-                           _record="record"
-                           additionnal_classes.f="position-absolute w-100 h-100 bg-600 o_snippet_not_selectable"/>
+                        <t t-if="record.main_image">
+                            <t t-set="main_image_url"
+                               t-value="'/web/image/bakers_archive.recipe/%s/main_image?unique=%s' % (record.id, record.write_date.timestamp() if record.write_date else 0)"/>
+                            <div t-attf-class="o_record_cover_container position-absolute w-100 h-100 bg-600 o_snippet_not_selectable"
+                                 t-att-data-res-model="'bakers_archive.recipe'"
+                                 t-att-data-res-id="record.id">
+                                <div class="o_record_cover_component o_record_cover_image"
+                                     t-att-style="'background-image: url(\'%s\');' % main_image_url"/>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <t t-call="website.record_cover"
+                               _record="record"
+                               additionnal_classes.f="position-absolute w-100 h-100 bg-600 o_snippet_not_selectable"/>
+                        </t>
                     </div>
                     <div class="card-body">
                         <div t-if="is_sample" class="h5 o_ribbon_right bg-primary text-uppercase">Sample</div>
@@ -263,9 +310,21 @@
                     </a>
                 </div>
                 <div class="col-lg-5 order-1 order-lg-2 h-auto mb-4 mb-lg-0">
-                    <t t-call="website.record_cover"
-                       _record="record"
-                       additionnal_classes.f="ratio ratio-16x9 rounded overflow-hidden"/>
+                    <t t-if="record.main_image">
+                        <t t-set="main_image_url"
+                           t-value="'/web/image/bakers_archive.recipe/%s/main_image?unique=%s' % (record.id, record.write_date.timestamp() if record.write_date else 0)"/>
+                        <div t-attf-class="o_record_cover_container ratio ratio-16x9 rounded overflow-hidden"
+                             t-att-data-res-model="'bakers_archive.recipe'"
+                             t-att-data-res-id="record.id">
+                            <div class="o_record_cover_component o_record_cover_image"
+                                 t-att-style="'background-image: url(\'%s\');' % main_image_url"/>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <t t-call="website.record_cover"
+                           _record="record"
+                           additionnal_classes.f="ratio ratio-16x9 rounded overflow-hidden"/>
+                    </t>
                 </div>
             </div>
         </t>
@@ -303,9 +362,21 @@
                     </a>
                 </div>
                 <div class="col-12 col-sm-4 mb-3 mb-lg-0">
-                    <t t-call="website.record_cover"
-                       _record="record"
-                       additionnal_classes.f="h-auto mx-auto me-sm-0 rounded-circle overflow-hidden ratio ratio-1x1"/>
+                    <t t-if="record.main_image">
+                        <t t-set="main_image_url"
+                           t-value="'/web/image/bakers_archive.recipe/%s/main_image?unique=%s' % (record.id, record.write_date.timestamp() if record.write_date else 0)"/>
+                        <div t-attf-class="o_record_cover_container h-auto mx-auto me-sm-0 rounded-circle overflow-hidden ratio ratio-1x1"
+                             t-att-data-res-model="'bakers_archive.recipe'"
+                             t-att-data-res-id="record.id">
+                            <div class="o_record_cover_component o_record_cover_image"
+                                 t-att-style="'background-image: url(\'%s\');' % main_image_url"/>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <t t-call="website.record_cover"
+                           _record="record"
+                           additionnal_classes.f="h-auto mx-auto me-sm-0 rounded-circle overflow-hidden ratio ratio-1x1"/>
+                    </t>
                 </div>
             </div>
         </t>
